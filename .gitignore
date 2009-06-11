@@ -1,0 +1,9 @@
+.DS_Store
+*.tmproj
+src/config/environment.as
+generated_tests
+DrawingDemoContainer.swf
+src/HemlockTestRunner.swf
+src/manifestCore.xml
+src/manifestLoaders.xml
+*~

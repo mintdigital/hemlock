@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>Hemlock</title>
+	<style type="text/css">
+	html,body{
+	  height:100%;
+	  margin:0;
+	  padding:0;
+	  overflow:hidden;
+	}
+	</style>
+</head>
+<body>
+
+<!--
+  Use this template to test your Hemlock apps. Replace
+  "HEMLOCK_CONTAINER_FILENAME" with the filename of your actual
+  HemlockContainer subclass.
+  
+  Hemlock requires at least Flash 9.0.28. It's recommended that you use a
+  utility like SWFObject to detect the user's Flash version:
+  http://code.google.com/p/swfobject/
+-->
+
+<object width="100%" height="100%" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+  codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0">
+  <param name="movie" value="HEMLOCK_CONTAINER_FILENAME.swf" />
+  <param name="quality" value="high" />
+  <param name="flashvars" value="file=HEMLOCK_CONTAINER_FILENAME.swf" />
+  <param name="wmode" value="transparent" />
+  <!--[if !IE]> <-->
+    <object data="HEMLOCK_CONTAINER_FILENAME.swf" width="100%" height="100%" type="application/x-shockwave-flash">
+      <param name="quality" value="high" />
+      <param name="pluginurl" value="http://www.macromedia.com/go/getflashplayer" />
+      <param name="flashvars" value="file=HEMLOCK_CONTAINER_FILENAME.swf" />
+      <a href="http://www.macromedia.com/go/getflashplayer">Get the latest Flash Player</a> to see this.
+    </object>
+  <!--> <![endif]-->
+</object>
+
+</body>
+</html>

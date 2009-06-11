@@ -1,0 +1,2732 @@
+<?xml version="1.0" encoding ="utf-8"?>
+<swc xmlns="http://www.adobe.com/flash/swccatalog/9">
+  <versions>
+    <swc version="1.2" />
+    <flex version="3.1.0" build="2710" />
+  </versions>
+  <features>
+    <feature-script-deps />
+    <feature-files />
+  </features>
+  <libraries>
+    <library path="library.swf">
+      <script name="mx/core/mx_internal" mod="1228301651000" signatureChecksum="695674854" >
+        <def id="mx.core:mx_internal" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="mx/managers/IFocusManagerComponent" mod="1228301652000" signatureChecksum="2067895894" >
+        <def id="mx.managers:IFocusManagerComponent" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="mx/states/IOverride" mod="1228301652000" signatureChecksum="696669610" >
+        <def id="mx.states:IOverride" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.core:UIComponent" type="s" /> 
+      </script>
+      <script name="mx/resources/ResourceManager" mod="1228301652000" signatureChecksum="3156480705" >
+        <def id="mx.resources:ResourceManager" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.resources:IResourceManager" type="s" /> 
+        <dep id="Error" type="s" /> 
+        <dep id="mx.resources:ResourceManagerImpl" type="s" /> 
+        <dep id="mx.resources:IResourceManager" type="e" /> 
+        <dep id="Error" type="e" /> 
+        <dep id="mx.core:Singleton" type="e" /> 
+        <dep id="mx.resources:ResourceManagerImpl" type="e" /> 
+      </script>
+      <script name="mx/events/FlexEvent" mod="1228301651000" signatureChecksum="2127367969" >
+        <def id="mx.events:FlexEvent" /> 
+        <dep id="flash.events:Event" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="mx/core/Singleton" mod="1228301651000" signatureChecksum="4270487012" >
+        <def id="mx.core:Singleton" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="Error" type="e" /> 
+      </script>
+      <script name="mx/modules/IModuleInfo" mod="1228301652000" signatureChecksum="3564142706" >
+        <def id="mx.modules:IModuleInfo" /> 
+        <dep id="flash.events:IEventDispatcher" type="i" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.core:IFlexModuleFactory" type="s" /> 
+        <dep id="flash.system:ApplicationDomain" type="s" /> 
+        <dep id="flash.system:SecurityDomain" type="s" /> 
+        <dep id="mx.events:ModuleEvent" type="e" /> 
+      </script>
+      <script name="mx/modules/ModuleManager" mod="1228301652000" signatureChecksum="3951522996" >
+        <def id="mx.modules:ModuleManager" /> 
+        <dep id="flash.events:EventDispatcher" type="i" /> 
+        <dep id="mx.modules:IModuleInfo" type="i" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.utils:Dictionary" type="s" /> 
+        <dep id="mx.core:IFlexModuleFactory" type="s" /> 
+        <dep id="mx.events:ModuleEvent" type="s" /> 
+        <dep id="flash.events:ProgressEvent" type="s" /> 
+        <dep id="flash.system:LoaderContext" type="s" /> 
+        <dep id="Error" type="s" /> 
+        <dep id="flash.system:ApplicationDomain" type="s" /> 
+        <dep id="flash.events:Event" type="s" /> 
+        <dep id="flash.system:SecurityDomain" type="s" /> 
+        <dep id="flash.net:URLRequest" type="s" /> 
+        <dep id="flash.events:ErrorEvent" type="s" /> 
+        <dep id="flash.display:Loader" type="s" /> 
+        <dep id="flash.utils:Dictionary" type="e" /> 
+        <dep id="flash.system:LoaderContext" type="e" /> 
+        <dep id="flash.events:Event" type="e" /> 
+        <dep id="flash.net:URLRequest" type="e" /> 
+        <dep id="flash.display:Loader" type="e" /> 
+        <dep id="flash.events:IOErrorEvent" type="e" /> 
+        <dep id="flash.events:SecurityErrorEvent" type="e" /> 
+        <dep id="mx.core:IFlexModuleFactory" type="e" /> 
+        <dep id="mx.modules:ModuleManagerGlobals" type="e" /> 
+        <dep id="mx.events:ModuleEvent" type="e" /> 
+        <dep id="flash.system:Security" type="e" /> 
+        <dep id="flash.events:ProgressEvent" type="e" /> 
+        <dep id="Error" type="e" /> 
+        <dep id="flash.system:ApplicationDomain" type="e" /> 
+        <dep id="flash.system:SecurityDomain" type="e" /> 
+        <dep id="flash.utils:getQualifiedClassName" type="e" /> 
+      </script>
+      <script name="mx/resources/IResourceModule" mod="1228301652000" signatureChecksum="1684485799" >
+        <def id="mx.resources:IResourceModule" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="mx/resources/IResourceManager" mod="1228301652000" signatureChecksum="1227010192" >
+        <def id="mx.resources:IResourceManager" /> 
+        <dep id="flash.events:IEventDispatcher" type="i" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.resources:IResourceBundle" type="s" /> 
+        <dep id="flash.system:ApplicationDomain" type="s" /> 
+        <dep id="flash.system:SecurityDomain" type="s" /> 
+      </script>
+      <script name="mx/resources/ResourceManagerImpl" mod="1228301652000" signatureChecksum="3525163727" >
+        <def id="mx.resources:ResourceManagerImpl" /> 
+        <dep id="mx.resources:IResourceManager" type="i" /> 
+        <dep id="flash.events:EventDispatcher" type="i" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.events:ResourceEvent" type="s" /> 
+        <dep id="mx.events:ModuleEvent" type="s" /> 
+        <dep id="flash.events:TimerEvent" type="s" /> 
+        <dep id="mx.resources:ResourceBundle" type="s" /> 
+        <dep id="mx.resources:IResourceModule" type="s" /> 
+        <dep id="mx.resources:IResourceBundle" type="s" /> 
+        <dep id="flash.system:ApplicationDomain" type="s" /> 
+        <dep id="flash.utils:Timer" type="s" /> 
+        <dep id="flash.events:IEventDispatcher" type="s" /> 
+        <dep id="flash.system:SecurityDomain" type="s" /> 
+        <dep id="mx.modules:IModuleInfo" type="s" /> 
+        <dep id="mx.events:ResourceEvent" type="e" /> 
+        <dep id="flash.events:TimerEvent" type="e" /> 
+        <dep id="flash.utils:Timer" type="e" /> 
+        <dep id="flash.events:Event" type="e" /> 
+        <dep id="mx.modules:ModuleManager" type="e" /> 
+        <dep id="mx.utils:StringUtil" type="e" /> 
+        <dep id="mx.events:ModuleEvent" type="e" /> 
+        <dep id="mx.resources:LocaleSorter" type="e" /> 
+        <dep id="mx.resources:ResourceBundle" type="e" /> 
+        <dep id="Error" type="e" /> 
+        <dep id="flash.system:Capabilities" type="e" /> 
+        <dep id="flash.system:ApplicationDomain" type="e" /> 
+        <dep id="trace" type="e" /> 
+      </script>
+      <script name="mx/effects/IAbstractEffect" mod="1228301651000" signatureChecksum="4286595002" >
+        <def id="mx.effects:IAbstractEffect" /> 
+        <dep id="flash.events:IEventDispatcher" type="i" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="mx/effects/IEffect" mod="1228301651000" signatureChecksum="4291091417" >
+        <def id="mx.effects:IEffect" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="mx.effects:IAbstractEffect" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.effects:IEffectInstance" type="s" /> 
+        <dep id="mx.effects:IEffectTargetHost" type="s" /> 
+        <dep id="mx.effects:EffectTargetFilter" type="s" /> 
+        <dep id="flash.events:Event" type="s" /> 
+      </script>
+      <script name="mx/effects/Effect" mod="1228301651000" signatureChecksum="1021415572" >
+        <def id="mx.effects:Effect" /> 
+        <dep id="mx.effects:IEffect" type="i" /> 
+        <dep id="flash.events:EventDispatcher" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.effects:IEffectInstance" type="s" /> 
+        <dep id="mx.events:EffectEvent" type="s" /> 
+        <dep id="mx.effects:IEffectTargetHost" type="s" /> 
+        <dep id="Error" type="s" /> 
+        <dep id="mx.effects:EffectTargetFilter" type="s" /> 
+        <dep id="flash.events:Event" type="s" /> 
+        <dep id="mx.effects.effectClasses:PropertyChanges" type="s" /> 
+        <dep id="mx.effects:IEffectInstance" type="e" /> 
+        <dep id="mx.events:EffectEvent" type="e" /> 
+        <dep id="mx.effects.effectClasses:HideShowEffectTargetFilter" type="e" /> 
+        <dep id="mx.managers:LayoutManager" type="e" /> 
+        <dep id="mx.core:IFlexDisplayObject" type="e" /> 
+        <dep id="mx.effects.effectClasses:AddRemoveEffectTargetFilter" type="e" /> 
+        <dep id="Error" type="e" /> 
+        <dep id="mx.effects:EffectTargetFilter" type="e" /> 
+        <dep id="flash.utils:getQualifiedClassName" type="e" /> 
+        <dep id="mx.effects.effectClasses:PropertyChanges" type="e" /> 
+      </script>
+      <script name="mx/effects/TweenEffect" mod="1228301651000" signatureChecksum="2094199215" >
+        <def id="mx.effects:TweenEffect" /> 
+        <dep id="mx.effects:Effect" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.effects:IEffectInstance" type="s" /> 
+        <dep id="mx.events:TweenEvent" type="s" /> 
+        <dep id="mx.effects.effectClasses:TweenEffectInstance" type="e" /> 
+        <dep id="mx.events:TweenEvent" type="e" /> 
+        <dep id="flash.events:EventDispatcher" type="e" /> 
+      </script>
+      <script name="mx/effects/Zoom" mod="1228301651000" signatureChecksum="1088519136" >
+        <def id="mx.effects:Zoom" /> 
+        <dep id="mx.effects:TweenEffect" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.effects:IEffectInstance" type="s" /> 
+        <dep id="mx.effects.effectClasses:ZoomInstance" type="s" /> 
+        <dep id="mx.effects.effectClasses:ZoomInstance" type="e" /> 
+      </script>
+      <script name="mx/core/IInvalidating" mod="1228301651000" signatureChecksum="1870815158" >
+        <def id="mx.core:IInvalidating" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="mx/core/IChildList" mod="1228301651000" signatureChecksum="1716917882" >
+        <def id="mx.core:IChildList" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.display:DisplayObject" type="s" /> 
+        <dep id="flash.geom:Point" type="s" /> 
+      </script>
+      <script name="mx/states/State" mod="1228301652000" signatureChecksum="641282911" >
+        <def id="mx.states:State" /> 
+        <dep id="flash.events:EventDispatcher" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.states:IOverride" type="e" /> 
+        <dep id="mx.events:FlexEvent" type="e" /> 
+      </script>
+      <script name="mx/states/Transition" mod="1228301652000" signatureChecksum="359895480" >
+        <def id="mx.states:Transition" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.effects:IEffect" type="s" /> 
+      </script>
+      <script name="mx/core/IFlexDisplayObject" mod="1228301651000" signatureChecksum="3915606924" >
+        <def id="mx.core:IFlexDisplayObject" /> 
+        <dep id="flash.events:IEventDispatcher" type="i" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="flash.display:IBitmapDrawable" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.display:LoaderInfo" type="s" /> 
+        <dep id="flash.geom:Rectangle" type="s" /> 
+        <dep id="flash.accessibility:AccessibilityProperties" type="s" /> 
+        <dep id="flash.display:DisplayObject" type="s" /> 
+        <dep id="flash.display:DisplayObjectContainer" type="s" /> 
+        <dep id="flash.geom:Point" type="s" /> 
+        <dep id="flash.display:Stage" type="s" /> 
+        <dep id="flash.geom:Transform" type="s" /> 
+      </script>
+      <script name="mx/core/IUIComponent" mod="1228301651000" signatureChecksum="3204026392" >
+        <def id="mx.core:IUIComponent" /> 
+        <dep id="mx.core:IFlexDisplayObject" type="i" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.managers:ISystemManager" type="s" /> 
+        <dep id="flash.display:DisplayObject" type="s" /> 
+        <dep id="flash.display:DisplayObjectContainer" type="s" /> 
+        <dep id="flash.display:Sprite" type="s" /> 
+      </script>
+      <script name="mx/core/IToolTip" mod="1228301651000" signatureChecksum="2316130904" >
+        <def id="mx.core:IToolTip" /> 
+        <dep id="mx.core:IUIComponent" type="i" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.geom:Rectangle" type="s" /> 
+      </script>
+      <script name="mx/managers/ILayoutManagerClient" mod="1228301652000" signatureChecksum="715006658" >
+        <def id="mx.managers:ILayoutManagerClient" /> 
+        <dep id="flash.events:IEventDispatcher" type="i" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="mx/styles/ISimpleStyleClient" mod="1228301652000" signatureChecksum="531845578" >
+        <def id="mx.styles:ISimpleStyleClient" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="mx/styles/IStyleClient" mod="1228301652000" signatureChecksum="1654087062" >
+        <def id="mx.styles:IStyleClient" /> 
+        <dep id="mx.styles:ISimpleStyleClient" type="i" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.styles:CSSStyleDeclaration" type="s" /> 
+      </script>
+      <script name="mx/managers/IToolTipManagerClient" mod="1228301652000" signatureChecksum="441931785" >
+        <def id="mx.managers:IToolTipManagerClient" /> 
+        <dep id="mx.core:IFlexDisplayObject" type="i" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="mx/core/IUID" mod="1228301651000" signatureChecksum="2507748507" >
+        <def id="mx.core:IUID" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="mx/core/IPropertyChangeNotifier" mod="1228301651000" signatureChecksum="2261334302" >
+        <def id="mx.core:IPropertyChangeNotifier" /> 
+        <dep id="mx.core:IUID" type="i" /> 
+        <dep id="flash.events:IEventDispatcher" type="i" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="mx/automation/IAutomationObject" mod="1228301651000" signatureChecksum="2607247071" >
+        <def id="mx.automation:IAutomationObject" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.events:Event" type="s" /> 
+      </script>
+      <script name="mx/core/IFlexModule" mod="1228301651000" signatureChecksum="1396263204" >
+        <def id="mx.core:IFlexModule" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.core:IFlexModuleFactory" type="s" /> 
+      </script>
+      <script name="mx/core/IStateClient" mod="1228301651000" signatureChecksum="1338785693" >
+        <def id="mx.core:IStateClient" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="mx/core/IDeferredInstantiationUIComponent" mod="1228301651000" signatureChecksum="3387948355" >
+        <def id="mx.core:IDeferredInstantiationUIComponent" /> 
+        <dep id="mx.core:IUIComponent" type="i" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.core:IFlexDisplayObject" type="s" /> 
+        <dep id="mx.core:UIComponentDescriptor" type="s" /> 
+      </script>
+      <script name="mx/core/IRepeaterClient" mod="1228301651000" signatureChecksum="3230839801" >
+        <def id="mx.core:IRepeaterClient" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="mx/validators/IValidatorListener" mod="1228301652000" signatureChecksum="4019165414" >
+        <def id="mx.validators:IValidatorListener" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.events:ValidationResultEvent" type="s" /> 
+      </script>
+      <script name="mx/core/IConstraintClient" mod="1228301651000" signatureChecksum="272909405" >
+        <def id="mx.core:IConstraintClient" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="mx/core/FlexSprite" mod="1228301651000" signatureChecksum="3991628696" >
+        <def id="mx.core:FlexSprite" /> 
+        <dep id="flash.display:Sprite" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="Error" type="s" /> 
+        <dep id="mx.utils:NameUtil" type="e" /> 
+        <dep id="Error" type="e" /> 
+      </script>
+      <script name="mx/core/UIComponent" mod="1228301651000" signatureChecksum="2084113875" >
+        <def id="mx.core:UIComponent" /> 
+        <dep id="mx.managers:ILayoutManagerClient" type="i" /> 
+        <dep id="mx.styles:IStyleClient" type="i" /> 
+        <dep id="mx.styles:ISimpleStyleClient" type="i" /> 
+        <dep id="mx.core:IUIComponent" type="i" /> 
+        <dep id="mx.managers:IToolTipManagerClient" type="i" /> 
+        <dep id="mx.core:IPropertyChangeNotifier" type="i" /> 
+        <dep id="mx.core:IInvalidating" type="i" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="mx.automation:IAutomationObject" type="i" /> 
+        <dep id="mx.core:IFlexModule" type="i" /> 
+        <dep id="mx.core:IStateClient" type="i" /> 
+        <dep id="mx.core:IDeferredInstantiationUIComponent" type="i" /> 
+        <dep id="mx.core:IFlexDisplayObject" type="i" /> 
+        <dep id="mx.core:IRepeaterClient" type="i" /> 
+        <dep id="mx.validators:IValidatorListener" type="i" /> 
+        <dep id="mx.core:IConstraintClient" type="i" /> 
+        <dep id="mx.core:IChildList" type="i" /> 
+        <dep id="mx.core:FlexSprite" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.validators:ValidationResult" type="s" /> 
+        <dep id="mx.graphics:RoundedRectangle" type="s" /> 
+        <dep id="mx.states:Transition" type="s" /> 
+        <dep id="mx.events:EffectEvent" type="s" /> 
+        <dep id="mx.core:UITextFormat" type="s" /> 
+        <dep id="mx.resources:IResourceManager" type="s" /> 
+        <dep id="flash.geom:Matrix" type="s" /> 
+        <dep id="mx.effects:IEffect" type="s" /> 
+        <dep id="mx.core:EmbeddedFont" type="s" /> 
+        <dep id="mx.managers:ISystemManager" type="s" /> 
+        <dep id="flash.events:FocusEvent" type="s" /> 
+        <dep id="mx.core:UIComponentDescriptor" type="s" /> 
+        <dep id="flash.geom:Point" type="s" /> 
+        <dep id="flash.events:Event" type="s" /> 
+        <dep id="mx.events:FlexEvent" type="s" /> 
+        <dep id="mx.events:StateChangeEvent" type="s" /> 
+        <dep id="mx.managers:ICursorManager" type="s" /> 
+        <dep id="flash.geom:Rectangle" type="s" /> 
+        <dep id="mx.core:IFlexModuleFactory" type="s" /> 
+        <dep id="mx.events:DynamicEvent" type="s" /> 
+        <dep id="flash.display:DisplayObjectContainer" type="s" /> 
+        <dep id="flash.display:Sprite" type="s" /> 
+        <dep id="flash.system:ApplicationDomain" type="s" /> 
+        <dep id="flash.display:InteractiveObject" type="s" /> 
+        <dep id="flash.display:Graphics" type="s" /> 
+        <dep id="mx.events:ValidationResultEvent" type="s" /> 
+        <dep id="mx.styles:CSSStyleDeclaration" type="s" /> 
+        <dep id="flash.events:IEventDispatcher" type="s" /> 
+        <dep id="QName" type="s" /> 
+        <dep id="mx.core:IRepeater" type="s" /> 
+        <dep id="mx.managers:IFocusManager" type="s" /> 
+        <dep id="mx.effects:IEffectInstance" type="s" /> 
+        <dep id="mx.events:ResizeEvent" type="s" /> 
+        <dep id="mx.controls:IFlexContextMenu" type="s" /> 
+        <dep id="mx.core:IEmbeddedFontRegistry" type="s" /> 
+        <dep id="ReferenceError" type="s" /> 
+        <dep id="flash.display:DisplayObject" type="s" /> 
+        <dep id="flash.events:KeyboardEvent" type="s" /> 
+        <dep id="Error" type="s" /> 
+        <dep id="mx.core:IUITextField" type="s" /> 
+        <dep id="mx.events:MoveEvent" type="s" /> 
+        <dep id="flash.text:TextLineMetrics" type="s" /> 
+        <dep id="mx.events:PropertyChangeEvent" type="s" /> 
+        <dep id="mx.states:State" type="s" /> 
+        <dep id="mx.core:UITextFormat" type="e" /> 
+        <dep id="mx.core:EmbeddedFont" type="e" /> 
+        <dep id="Class" type="e" /> 
+        <dep id="mx.events:ChildExistenceChangedEvent" type="e" /> 
+        <dep id="mx.managers:IFocusManagerComponent" type="e" /> 
+        <dep id="flash.geom:Point" type="e" /> 
+        <dep id="mx.styles:StyleProtoChain" type="e" /> 
+        <dep id="uint" type="e" /> 
+        <dep id="mx.resources:ResourceManager" type="e" /> 
+        <dep id="mx.utils:ColorUtil" type="e" /> 
+        <dep id="mx.events:FlexEvent" type="e" /> 
+        <dep id="mx.core:Singleton" type="e" /> 
+        <dep id="mx.events:StateChangeEvent" type="e" /> 
+        <dep id="mx.modules:ModuleManager" type="e" /> 
+        <dep id="mx.core:EmbeddedFontRegistry" type="e" /> 
+        <dep id="mx.events:DynamicEvent" type="e" /> 
+        <dep id="flash.events:EventPhase" type="e" /> 
+        <dep id="mx.core:EventPriority" type="e" /> 
+        <dep id="flash.display:InteractiveObject" type="e" /> 
+        <dep id="mx.events:ValidationResultEvent" type="e" /> 
+        <dep id="mx.styles:CSSStyleDeclaration" type="e" /> 
+        <dep id="flash.utils:getQualifiedSuperclassName" type="e" /> 
+        <dep id="mx.core:UIComponentCachePolicy" type="e" /> 
+        <dep id="mx.managers:SystemManagerGlobals" type="e" /> 
+        <dep id="flash.display:DisplayObject" type="e" /> 
+        <dep id="mx.utils:GraphicsUtil" type="e" /> 
+        <dep id="flash.events:KeyboardEvent" type="e" /> 
+        <dep id="Error" type="e" /> 
+        <dep id="mx.core:IUITextField" type="e" /> 
+        <dep id="mx.events:MoveEvent" type="e" /> 
+        <dep id="flash.display:GradientType" type="e" /> 
+        <dep id="mx.core:ApplicationGlobals" type="e" /> 
+        <dep id="mx.managers:ToolTipManager" type="e" /> 
+        <dep id="mx.events:PropertyChangeEvent" type="e" /> 
+        <dep id="mx.states:State" type="e" /> 
+        <dep id="mx.graphics:RoundedRectangle" type="e" /> 
+        <dep id="mx.states:Transition" type="e" /> 
+        <dep id="mx.events:EffectEvent" type="e" /> 
+        <dep id="flash.geom:Matrix" type="e" /> 
+        <dep id="mx.managers:ISystemManager" type="e" /> 
+        <dep id="flash.events:FocusEvent" type="e" /> 
+        <dep id="mx.core:IProgrammaticSkin" type="e" /> 
+        <dep id="mx.core:IFontContextComponent" type="e" /> 
+        <dep id="flash.events:Event" type="e" /> 
+        <dep id="mx.utils:StringUtil" type="e" /> 
+        <dep id="flash.display:Loader" type="e" /> 
+        <dep id="mx.effects:EffectManager" type="e" /> 
+        <dep id="mx.managers:SystemManager" type="e" /> 
+        <dep id="flash.system:ApplicationDomain" type="e" /> 
+        <dep id="mx.styles:StyleManager" type="e" /> 
+        <dep id="mx.managers:IFocusManagerContainer" type="e" /> 
+        <dep id="mx.managers:CursorManager" type="e" /> 
+        <dep id="mx.core:UIComponentGlobals" type="e" /> 
+        <dep id="String" type="e" /> 
+        <dep id="mx.core:IContainer" type="e" /> 
+        <dep id="mx.core:FlexVersion" type="e" /> 
+        <dep id="mx.events:FlexMouseEvent" type="e" /> 
+        <dep id="flash.events:IEventDispatcher" type="e" /> 
+        <dep id="QName" type="e" /> 
+        <dep id="ArgumentError" type="e" /> 
+        <dep id="Math" type="e" /> 
+        <dep id="mx.events:ResizeEvent" type="e" /> 
+        <dep id="mx.events:ToolTipEvent" type="e" /> 
+        <dep id="mx.core:ContainerGlobals" type="e" /> 
+        <dep id="mx.core:IEmbeddedFontRegistry" type="e" /> 
+        <dep id="ReferenceError" type="e" /> 
+        <dep id="mx.events:DragEvent" type="e" /> 
+        <dep id="Number" type="e" /> 
+        <dep id="flash.display:Stage" type="e" /> 
+        <dep id="mx.core:IRawChildrenContainer" type="e" /> 
+        <dep id="flash.utils:getQualifiedClassName" type="e" /> 
+        <dep id="mx.binding:BindingManager" type="e" /> 
+      </script>
+      <script name="mx/core/IFontContextComponent" mod="1228301651000" signatureChecksum="2040679386" >
+        <def id="mx.core:IFontContextComponent" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.core:IFlexModuleFactory" type="s" /> 
+      </script>
+      <script name="mx/controls/ToolTip" mod="1228301651000" signatureChecksum="4111301310" >
+        <def id="mx.controls:ToolTip" /> 
+        <dep id="mx.core:IToolTip" type="i" /> 
+        <dep id="mx.core:UIComponent" type="i" /> 
+        <dep id="mx.core:IFontContextComponent" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.core:EdgeMetrics" type="s" /> 
+        <dep id="mx.core:IFlexModuleFactory" type="s" /> 
+        <dep id="mx.core:IFlexDisplayObject" type="s" /> 
+        <dep id="mx.core:IUITextField" type="s" /> 
+        <dep id="flash.text:TextFormat" type="s" /> 
+        <dep id="String" type="e" /> 
+        <dep id="mx.core:EdgeMetrics" type="e" /> 
+        <dep id="mx.styles:ISimpleStyleClient" type="e" /> 
+        <dep id="flash.text:TextFieldAutoSize" type="e" /> 
+        <dep id="Class" type="e" /> 
+        <dep id="mx.core:UITextField" type="e" /> 
+        <dep id="uint" type="e" /> 
+        <dep id="Object" type="e" /> 
+        <dep id="mx.core:IRectangularBorder" type="e" /> 
+        <dep id="Boolean" type="e" /> 
+        <dep id="flash.display:DisplayObject" type="e" /> 
+        <dep id="Number" type="e" /> 
+        <dep id="mx.core:IUITextField" type="e" /> 
+      </script>
+      <script name="com/mintdigital/hemlock/display/HemlockSprite" mod="1228301650000" signatureChecksum="874514385" >
+        <def id="com.mintdigital.hemlock.display:HemlockSprite" /> 
+        <dep id="flash.display:Sprite" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.geom:Matrix" type="s" /> 
+        <dep id="com.mintdigital.hemlock:Logger" type="s" /> 
+        <dep id="flash.geom:Matrix" type="e" /> 
+        <dep id="com.mintdigital.hemlock.display:HemlockSpriteEffects" type="e" /> 
+        <dep id="com.mintdigital.hemlock.utils:HashUtils" type="e" /> 
+        <dep id="com.mintdigital.hemlock:Logger" type="e" /> 
+        <dep id="Math" type="e" /> 
+      </script>
+      <script name="mx/styles/StyleManager" mod="1228301652000" signatureChecksum="194071840" >
+        <def id="mx.styles:StyleManager" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.system:ApplicationDomain" type="s" /> 
+        <dep id="flash.events:IEventDispatcher" type="s" /> 
+        <dep id="flash.system:SecurityDomain" type="s" /> 
+        <dep id="mx.styles:StyleManagerImpl" type="s" /> 
+        <dep id="mx.styles:IStyleManager2" type="s" /> 
+        <dep id="mx.styles:CSSStyleDeclaration" type="s" /> 
+        <dep id="mx.core:Singleton" type="e" /> 
+        <dep id="mx.styles:IStyleManager2" type="e" /> 
+      </script>
+      <script name="com/adobe/serialization/json/JSONParseError" mod="1228301650000" signatureChecksum="2358204530" >
+        <def id="com.adobe.serialization.json:JSONParseError" /> 
+        <dep id="Error" type="i" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="mx/effects/IEffectInstance" mod="1228301651000" signatureChecksum="879984495" >
+        <def id="mx.effects:IEffectInstance" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.effects:IEffect" type="s" /> 
+        <dep id="mx.effects:IEffectTargetHost" type="s" /> 
+        <dep id="flash.events:Event" type="s" /> 
+        <dep id="mx.effects.effectClasses:PropertyChanges" type="s" /> 
+      </script>
+      <script name="mx/effects/EffectInstance" mod="1228301651000" signatureChecksum="2905989496" >
+        <def id="mx.effects:EffectInstance" /> 
+        <dep id="mx.effects:IEffectInstance" type="i" /> 
+        <dep id="flash.events:EventDispatcher" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.effects:IEffect" type="s" /> 
+        <dep id="mx.effects:IEffectTargetHost" type="s" /> 
+        <dep id="flash.events:TimerEvent" type="s" /> 
+        <dep id="flash.utils:Timer" type="s" /> 
+        <dep id="flash.events:Event" type="s" /> 
+        <dep id="mx.effects.effectClasses:PropertyChanges" type="s" /> 
+        <dep id="mx.events:EffectEvent" type="e" /> 
+        <dep id="flash.utils:getTimer" type="e" /> 
+        <dep id="flash.events:TimerEvent" type="e" /> 
+        <dep id="mx.effects:EffectManager" type="e" /> 
+        <dep id="mx.core:UIComponent" type="e" /> 
+        <dep id="flash.utils:Timer" type="e" /> 
+        <dep id="mx.events:FlexEvent" type="e" /> 
+        <dep id="Math" type="e" /> 
+        <dep id="flash.utils:getQualifiedClassName" type="e" /> 
+      </script>
+      <script name="org/jivesoftware/xiff/data/IExtendable" mod="1228301652000" signatureChecksum="2090834324" >
+        <def id="org.jivesoftware.xiff.data:IExtendable" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="org.jivesoftware.xiff.data:IExtension" type="s" /> 
+      </script>
+      <script name="org/jivesoftware/xiff/data/ExtensionContainer" mod="1228301652000" signatureChecksum="1121115388" >
+        <def id="org.jivesoftware.xiff.data:ExtensionContainer" /> 
+        <dep id="org.jivesoftware.xiff.data:IExtendable" type="i" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="org.jivesoftware.xiff.data:Extension" type="s" /> 
+        <dep id="org.jivesoftware.xiff.data:IExtension" type="s" /> 
+      </script>
+      <script name="org/jivesoftware/xiff/data/INodeProxy" mod="1228301652000" signatureChecksum="3969599908" >
+        <def id="org.jivesoftware.xiff.data:INodeProxy" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.xml:XMLNode" type="s" /> 
+      </script>
+      <script name="org/jivesoftware/xiff/data/XMLStanza" mod="1228301652000" signatureChecksum="2110515870" >
+        <def id="org.jivesoftware.xiff.data:XMLStanza" /> 
+        <dep id="org.jivesoftware.xiff.data:ExtensionContainer" type="i" /> 
+        <dep id="org.jivesoftware.xiff.data:IExtendable" type="i" /> 
+        <dep id="org.jivesoftware.xiff.data:INodeProxy" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.xml:XMLNode" type="s" /> 
+        <dep id="flash.xml:XMLDocument" type="s" /> 
+        <dep id="flash.xml:XMLDocument" type="e" /> 
+      </script>
+      <script name="org/jivesoftware/xiff/data/Extension" mod="1228301652000" signatureChecksum="3758389934" >
+        <def id="org.jivesoftware.xiff.data:Extension" /> 
+        <dep id="org.jivesoftware.xiff.data:XMLStanza" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.xml:XMLNode" type="s" /> 
+        <dep id="org.jivesoftware.xiff.data:IExtension" type="e" /> 
+      </script>
+      <script name="com/mintdigital/hemlock/events/HemlockEvent" mod="1228301650000" signatureChecksum="198636945" >
+        <def id="com.mintdigital.hemlock.events:HemlockEvent" /> 
+        <dep id="flash.events:Event" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="Date" type="s" /> 
+        <dep id="Date" type="e" /> 
+      </script>
+      <script name="com/mintdigital/hemlock/events/PresenceEvent" mod="1228301650000" signatureChecksum="1924012891" >
+        <def id="com.mintdigital.hemlock.events:PresenceEvent" /> 
+        <dep id="com.mintdigital.hemlock.events:HemlockEvent" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.events:Event" type="s" /> 
+        <dep id="org.jivesoftware.xiff.data:Presence" type="s" /> 
+        <dep id="org.jivesoftware.xiff.data:Presence" type="e" /> 
+      </script>
+      <script name="org/jivesoftware/xiff/data/ISerializable" mod="1228301652000" signatureChecksum="863522900" >
+        <def id="org.jivesoftware.xiff.data:ISerializable" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.xml:XMLNode" type="s" /> 
+      </script>
+      <script name="org/jivesoftware/xiff/data/IExtension" mod="1228301652000" signatureChecksum="4066000726" >
+        <def id="org.jivesoftware.xiff.data:IExtension" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="org/jivesoftware/xiff/data/bind/BindExtension" mod="1228301652000" signatureChecksum="2408596011" >
+        <def id="org.jivesoftware.xiff.data.bind:BindExtension" /> 
+        <dep id="org.jivesoftware.xiff.data:ISerializable" type="i" /> 
+        <dep id="org.jivesoftware.xiff.data:Extension" type="i" /> 
+        <dep id="org.jivesoftware.xiff.data:IExtension" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.xml:XMLNode" type="s" /> 
+        <dep id="flash.xml:XMLNode" type="e" /> 
+        <dep id="org.jivesoftware.xiff.data:ExtensionClassRegistry" type="e" /> 
+        <dep id="org.jivesoftware.xiff.data:XMLStanza" type="e" /> 
+      </script>
+      <script name="mx/effects/effectClasses/TweenEffectInstance" mod="1228301651000" signatureChecksum="1498192891" >
+        <def id="mx.effects.effectClasses:TweenEffectInstance" /> 
+        <dep id="mx.effects:EffectInstance" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.effects:Tween" type="s" /> 
+        <dep id="mx.events:TweenEvent" type="s" /> 
+        <dep id="mx.effects:Tween" type="e" /> 
+        <dep id="mx.core:UIComponentGlobals" type="e" /> 
+        <dep id="mx.events:TweenEvent" type="e" /> 
+      </script>
+      <script name="mx/core/FlexTextField" mod="1228301651000" signatureChecksum="3789450927" >
+        <def id="mx.core:FlexTextField" /> 
+        <dep id="flash.text:TextField" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="Error" type="s" /> 
+        <dep id="mx.utils:NameUtil" type="e" /> 
+        <dep id="Error" type="e" /> 
+      </script>
+      <script name="mx/managers/SystemRawChildrenList" mod="1228301652000" signatureChecksum="1898145170" >
+        <def id="mx.managers:SystemRawChildrenList" /> 
+        <dep id="mx.core:IChildList" type="i" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.display:DisplayObject" type="s" /> 
+        <dep id="mx.managers:SystemManager" type="s" /> 
+        <dep id="flash.geom:Point" type="s" /> 
+      </script>
+      <script name="mx/events/DragEvent" mod="1228301651000" signatureChecksum="3742511830" >
+        <def id="mx.events:DragEvent" /> 
+        <dep id="flash.events:MouseEvent" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.core:IUIComponent" type="s" /> 
+        <dep id="mx.core:DragSource" type="s" /> 
+        <dep id="flash.events:Event" type="s" /> 
+      </script>
+      <script name="mx/styles/IStyleModule" mod="1228301652000" signatureChecksum="3257084120" >
+        <def id="mx.styles:IStyleModule" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="mx/events/ChildExistenceChangedEvent" mod="1228301651000" signatureChecksum="3632777391" >
+        <def id="mx.events:ChildExistenceChangedEvent" /> 
+        <dep id="flash.events:Event" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.display:DisplayObject" type="s" /> 
+      </script>
+      <script name="mx/core/IButton" mod="1228301651000" signatureChecksum="2093242530" >
+        <def id="mx.core:IButton" /> 
+        <dep id="mx.core:IUIComponent" type="i" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="com/adobe/serialization/json/JSONDecoder" mod="1228301650000" signatureChecksum="4044110317" >
+        <def id="com.adobe.serialization.json:JSONDecoder" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="com.adobe.serialization.json:JSONToken" type="s" /> 
+        <dep id="com.adobe.serialization.json:JSONTokenizer" type="s" /> 
+        <dep id="com.adobe.serialization.json:JSONTokenizer" type="e" /> 
+        <dep id="com.adobe.serialization.json:JSONTokenType" type="e" /> 
+      </script>
+      <script name="mx/events/StateChangeEvent" mod="1228301651000" signatureChecksum="363049014" >
+        <def id="mx.events:StateChangeEvent" /> 
+        <dep id="flash.events:Event" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="mx/effects/EffectTargetFilter" mod="1228301651000" signatureChecksum="2925914623" >
+        <def id="mx.effects:EffectTargetFilter" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.effects:IEffectTargetHost" type="s" /> 
+        <dep id="mx.effects.effectClasses:PropertyChanges" type="s" /> 
+      </script>
+      <script name="mx/effects/effectClasses/HideShowEffectTargetFilter" mod="1228301651000" signatureChecksum="3801584328" >
+        <def id="mx.effects.effectClasses:HideShowEffectTargetFilter" /> 
+        <dep id="mx.effects:EffectTargetFilter" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.effects.effectClasses:PropertyChanges" type="s" /> 
+      </script>
+      <script name="com/mintdigital/hemlock/Roster" mod="1228301650000" signatureChecksum="1817090806" >
+        <def id="com.mintdigital.hemlock:Roster" /> 
+        <dep id="Array" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="com.mintdigital.hemlock:User" type="s" /> 
+      </script>
+      <script name="org/jivesoftware/xiff/events/DisconnectionEvent" mod="1228301652000" signatureChecksum="3004125417" >
+        <def id="org.jivesoftware.xiff.events:DisconnectionEvent" /> 
+        <dep id="flash.events:Event" type="i" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="com/mintdigital/hemlock/events/StreamStartEvent" mod="1228301650000" signatureChecksum="785100682" >
+        <def id="com.mintdigital.hemlock.events:StreamStartEvent" /> 
+        <dep id="com.mintdigital.hemlock.events:HemlockEvent" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="com.mintdigital.hemlock.conn:XMPPConnection" type="s" /> 
+        <dep id="flash.events:Event" type="s" /> 
+      </script>
+      <script name="org/jivesoftware/xiff/data/XMPPStanza" mod="1228301652000" signatureChecksum="1793644425" >
+        <def id="org.jivesoftware.xiff.data:XMPPStanza" /> 
+        <dep id="org.jivesoftware.xiff.data:ISerializable" type="i" /> 
+        <dep id="org.jivesoftware.xiff.data:IExtendable" type="i" /> 
+        <dep id="org.jivesoftware.xiff.data:XMLStanza" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.xml:XMLNode" type="s" /> 
+        <dep id="org.jivesoftware.xiff.core:JID" type="s" /> 
+        <dep id="org.jivesoftware.xiff.data.id:IIDGenerator" type="s" /> 
+        <dep id="org.jivesoftware.xiff.data:IExtension" type="s" /> 
+        <dep id="org.jivesoftware.xiff.data:ExtensionContainer" type="e" /> 
+        <dep id="org.jivesoftware.xiff.data.id:IncrementalGenerator" type="e" /> 
+        <dep id="org.jivesoftware.xiff.core:JID" type="e" /> 
+        <dep id="org.jivesoftware.xiff.data:ExtensionClassRegistry" type="e" /> 
+      </script>
+      <script name="org/jivesoftware/xiff/data/Presence" mod="1228301652000" signatureChecksum="677515381" >
+        <def id="org.jivesoftware.xiff.data:Presence" /> 
+        <dep id="org.jivesoftware.xiff.data:ISerializable" type="i" /> 
+        <dep id="org.jivesoftware.xiff.data:XMPPStanza" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.xml:XMLNode" type="s" /> 
+        <dep id="org.jivesoftware.xiff.core:JID" type="s" /> 
+        <dep id="Error" type="e" /> 
+      </script>
+      <script name="com/mintdigital/hemlock/auth/Registration" mod="1228301650000" signatureChecksum="2262931139" >
+        <def id="com.mintdigital.hemlock.auth:Registration" /> 
+        <dep id="flash.events:EventDispatcher" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="com.mintdigital.hemlock.conn:XMPPConnection" type="s" /> 
+        <dep id="com.mintdigital.hemlock:Logger" type="s" /> 
+        <dep id="org.jivesoftware.xiff.data.register:RegisterExtension" type="s" /> 
+        <dep id="com.mintdigital.hemlock.events:RegistrationEvent" type="s" /> 
+        <dep id="org.jivesoftware.xiff.data:IQ" type="s" /> 
+        <dep id="org.jivesoftware.xiff.data:ExtensionClassRegistry" type="e" /> 
+        <dep id="com.mintdigital.hemlock:Logger" type="e" /> 
+        <dep id="org.jivesoftware.xiff.data.register:RegisterExtension" type="e" /> 
+        <dep id="com.mintdigital.hemlock.events:RegistrationEvent" type="e" /> 
+        <dep id="org.jivesoftware.xiff.data:IQ" type="e" /> 
+      </script>
+      <script name="mx/rpc/IResponder" mod="1228301652000" signatureChecksum="1620457444" >
+        <def id="mx.rpc:IResponder" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="mx/effects/effectClasses/FadeInstance" mod="1228301651000" signatureChecksum="897307582" >
+        <def id="mx.effects.effectClasses:FadeInstance" /> 
+        <dep id="mx.effects.effectClasses:TweenEffectInstance" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.events:Event" type="s" /> 
+        <dep id="mx.effects.effectClasses:PropertyChanges" type="s" /> 
+        <dep id="flash.events:Event" type="e" /> 
+        <dep id="mx.events:FlexEvent" type="e" /> 
+      </script>
+      <script name="mx/resources/IResourceBundle" mod="1228301652000" signatureChecksum="2331462912" >
+        <def id="mx.resources:IResourceBundle" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="mx/core/IBorder" mod="1228301651000" signatureChecksum="1696279696" >
+        <def id="mx.core:IBorder" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.core:EdgeMetrics" type="s" /> 
+      </script>
+      <script name="mx/core/IRectangularBorder" mod="1228301651000" signatureChecksum="17728147" >
+        <def id="mx.core:IRectangularBorder" /> 
+        <dep id="mx.core:IBorder" type="i" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.geom:Rectangle" type="s" /> 
+      </script>
+      <script name="mx/core/IFlexModuleFactory" mod="1228301651000" signatureChecksum="237451246" >
+        <def id="mx.core:IFlexModuleFactory" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="mx/managers/ISystemManager" mod="1228301652000" signatureChecksum="868240213" >
+        <def id="mx.managers:ISystemManager" /> 
+        <dep id="mx.core:IFlexModuleFactory" type="i" /> 
+        <dep id="flash.events:IEventDispatcher" type="i" /> 
+        <dep id="mx.core:IChildList" type="i" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.display:LoaderInfo" type="s" /> 
+        <dep id="flash.geom:Rectangle" type="s" /> 
+        <dep id="flash.display:Sprite" type="s" /> 
+        <dep id="mx.managers:IFocusManagerContainer" type="s" /> 
+        <dep id="flash.display:Stage" type="s" /> 
+        <dep id="flash.text:TextFormat" type="s" /> 
+      </script>
+      <script name="org/jivesoftware/xiff/exception/SerializationException" mod="1228301652000" signatureChecksum="1912487231" >
+        <def id="org.jivesoftware.xiff.exception:SerializationException" /> 
+        <dep id="Error" type="i" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="com/mintdigital/hemlock/events/ChatroomEvent" mod="1228301650000" signatureChecksum="695039553" >
+        <def id="com.mintdigital.hemlock.events:ChatroomEvent" /> 
+        <dep id="com.mintdigital.hemlock.events:HemlockEvent" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.events:Event" type="s" /> 
+      </script>
+      <script name="com/adobe/serialization/json/JSON" mod="1228301650000" signatureChecksum="563363636" >
+        <def id="com.adobe.serialization.json:JSON" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="com.adobe.serialization.json:JSONDecoder" type="s" /> 
+        <dep id="com.adobe.serialization.json:JSONEncoder" type="s" /> 
+        <dep id="com.adobe.serialization.json:JSONDecoder" type="e" /> 
+        <dep id="com.adobe.serialization.json:JSONEncoder" type="e" /> 
+      </script>
+      <script name="com/mintdigital/hemlock/events/ConfigurationEvent" mod="1228301650000" signatureChecksum="1558884714" >
+        <def id="com.mintdigital.hemlock.events:ConfigurationEvent" /> 
+        <dep id="com.mintdigital.hemlock.events:HemlockEvent" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.events:Event" type="s" /> 
+      </script>
+      <script name="mx/styles/IStyleManager" mod="1228301652000" signatureChecksum="2183763740" >
+        <def id="mx.styles:IStyleManager" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.events:IEventDispatcher" type="s" /> 
+        <dep id="mx.styles:CSSStyleDeclaration" type="s" /> 
+      </script>
+      <script name="mx/styles/IStyleManager2" mod="1228301652000" signatureChecksum="2881721083" >
+        <def id="mx.styles:IStyleManager2" /> 
+        <dep id="mx.styles:IStyleManager" type="i" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.system:ApplicationDomain" type="s" /> 
+        <dep id="flash.events:IEventDispatcher" type="s" /> 
+        <dep id="flash.system:SecurityDomain" type="s" /> 
+      </script>
+      <script name="mx/styles/StyleManagerImpl" mod="1228301652000" signatureChecksum="2279989360" >
+        <def id="mx.styles:StyleManagerImpl" /> 
+        <dep id="flash.events:EventDispatcher" type="i" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="mx.styles:IStyleManager2" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.resources:IResourceManager" type="s" /> 
+        <dep id="mx.events:ModuleEvent" type="s" /> 
+        <dep id="flash.events:TimerEvent" type="s" /> 
+        <dep id="mx.styles:IStyleModule" type="s" /> 
+        <dep id="flash.system:ApplicationDomain" type="s" /> 
+        <dep id="flash.utils:Timer" type="s" /> 
+        <dep id="flash.events:IEventDispatcher" type="s" /> 
+        <dep id="flash.system:SecurityDomain" type="s" /> 
+        <dep id="mx.modules:IModuleInfo" type="s" /> 
+        <dep id="mx.events:StyleEvent" type="s" /> 
+        <dep id="mx.styles:CSSStyleDeclaration" type="s" /> 
+        <dep id="mx.managers:SystemManagerGlobals" type="e" /> 
+        <dep id="mx.events:ModuleEvent" type="e" /> 
+        <dep id="flash.events:TimerEvent" type="e" /> 
+        <dep id="mx.styles:IStyleModule" type="e" /> 
+        <dep id="mx.core:FlexVersion" type="e" /> 
+        <dep id="Error" type="e" /> 
+        <dep id="mx.styles:StyleManager" type="e" /> 
+        <dep id="flash.utils:Timer" type="e" /> 
+        <dep id="mx.resources:ResourceManager" type="e" /> 
+        <dep id="mx.events:StyleEvent" type="e" /> 
+        <dep id="mx.modules:ModuleManager" type="e" /> 
+      </script>
+      <script name="mx/events/PropertyChangeEventKind" mod="1228301651000" signatureChecksum="859068476" >
+        <def id="mx.events:PropertyChangeEventKind" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="mx/managers/IFocusManager" mod="1228301652000" signatureChecksum="2476055962" >
+        <def id="mx.managers:IFocusManager" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.core:IButton" type="s" /> 
+        <dep id="mx.managers:IFocusManagerComponent" type="s" /> 
+        <dep id="flash.display:Sprite" type="s" /> 
+        <dep id="flash.display:InteractiveObject" type="s" /> 
+      </script>
+      <script name="mx/controls/IFlexContextMenu" mod="1228301651000" signatureChecksum="2518506772" >
+        <def id="mx.controls:IFlexContextMenu" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.display:InteractiveObject" type="s" /> 
+      </script>
+      <script name="mx/events/ResizeEvent" mod="1228301651000" signatureChecksum="3430520249" >
+        <def id="mx.events:ResizeEvent" /> 
+        <dep id="flash.events:Event" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="mx/events/ToolTipEvent" mod="1228301651000" signatureChecksum="3308185054" >
+        <def id="mx.events:ToolTipEvent" /> 
+        <dep id="flash.events:Event" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.core:IToolTip" type="s" /> 
+      </script>
+      <script name="mx/validators/ValidationResult" mod="1228301652000" signatureChecksum="3489301212" >
+        <def id="mx.validators:ValidationResult" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="mx/core/EmbeddedFont" mod="1228301651000" signatureChecksum="3274012910" >
+        <def id="mx.core:EmbeddedFont" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.core:EmbeddedFontRegistry" type="e" /> 
+      </script>
+      <script name="com/mintdigital/hemlock/events/LogEvent" mod="1228301650000" signatureChecksum="365995812" >
+        <def id="com.mintdigital.hemlock.events:LogEvent" /> 
+        <dep id="com.mintdigital.hemlock.events:HemlockEvent" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.events:Event" type="s" /> 
+      </script>
+      <script name="org/jivesoftware/xiff/data/muc/MUCItem" mod="1228301652000" signatureChecksum="2286900797" >
+        <def id="org.jivesoftware.xiff.data.muc:MUCItem" /> 
+        <dep id="org.jivesoftware.xiff.data:ISerializable" type="i" /> 
+        <dep id="org.jivesoftware.xiff.data:XMLStanza" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.xml:XMLNode" type="s" /> 
+        <dep id="org.jivesoftware.xiff.core:JID" type="s" /> 
+        <dep id="org.jivesoftware.xiff.core:JID" type="e" /> 
+      </script>
+      <script name="mx/managers/ICursorManager" mod="1228301651000" signatureChecksum="177229243" >
+        <def id="mx.managers:ICursorManager" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="mx/events/ValidationResultEvent" mod="1228301651000" signatureChecksum="1262794651" >
+        <def id="mx.events:ValidationResultEvent" /> 
+        <dep id="flash.events:Event" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="mx/core/IFlexAsset" mod="1228301651000" signatureChecksum="2976979496" >
+        <def id="mx.core:IFlexAsset" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="mx/core/FontAsset" mod="1228301651000" signatureChecksum="1615549758" >
+        <def id="mx.core:FontAsset" /> 
+        <dep id="mx.core:IFlexAsset" type="i" /> 
+        <dep id="flash.text:Font" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="com/mintdigital/hemlock/skins/HemlockSkin_FontGillSans" mod="1228306220000" signatureChecksum="1096541623" >
+        <def id="com.mintdigital.hemlock.skins:HemlockSkin_FontGillSans" /> 
+        <dep id="mx.core:FontAsset" type="i" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="mx/events/TweenEvent" mod="1228301651000" signatureChecksum="2420090088" >
+        <def id="mx.events:TweenEvent" /> 
+        <dep id="flash.events:Event" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="mx/core/RSLItem" mod="1228301651000" signatureChecksum="2272516623" >
+        <def id="mx.core:RSLItem" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.events:ProgressEvent" type="s" /> 
+        <dep id="flash.system:LoaderContext" type="s" /> 
+        <dep id="flash.events:Event" type="s" /> 
+        <dep id="flash.net:URLRequest" type="s" /> 
+        <dep id="flash.events:ErrorEvent" type="s" /> 
+        <dep id="flash.display:Loader" type="s" /> 
+        <dep id="flash.events:SecurityErrorEvent" type="e" /> 
+        <dep id="flash.events:ProgressEvent" type="e" /> 
+        <dep id="flash.system:LoaderContext" type="e" /> 
+        <dep id="flash.system:ApplicationDomain" type="e" /> 
+        <dep id="flash.events:Event" type="e" /> 
+        <dep id="mx.events:RSLEvent" type="e" /> 
+        <dep id="trace" type="e" /> 
+        <dep id="flash.net:URLRequest" type="e" /> 
+        <dep id="flash.events:IOErrorEvent" type="e" /> 
+        <dep id="flash.display:Loader" type="e" /> 
+      </script>
+      <script name="mx/core/ResourceModuleRSLItem" mod="1228301651000" signatureChecksum="3102009786" >
+        <def id="mx.core:ResourceModuleRSLItem" /> 
+        <dep id="mx.core:RSLItem" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.resources:IResourceManager" type="s" /> 
+        <dep id="mx.events:ResourceEvent" type="s" /> 
+        <dep id="flash.events:IEventDispatcher" type="s" /> 
+        <dep id="flash.events:IOErrorEvent" type="s" /> 
+        <dep id="mx.events:ResourceEvent" type="e" /> 
+        <dep id="mx.resources:ResourceManager" type="e" /> 
+        <dep id="flash.events:IOErrorEvent" type="e" /> 
+      </script>
+      <script name="mx/utils/GraphicsUtil" mod="1228301652000" signatureChecksum="3312610963" >
+        <def id="mx.utils:GraphicsUtil" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.display:Graphics" type="s" /> 
+      </script>
+      <script name="mx/core/IIMESupport" mod="1228301651000" signatureChecksum="1273313933" >
+        <def id="mx.core:IIMESupport" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="mx/core/IUITextField" mod="1228301651000" signatureChecksum="3459066970" >
+        <def id="mx.core:IUITextField" /> 
+        <dep id="mx.core:IFlexModule" type="i" /> 
+        <dep id="mx.core:IUIComponent" type="i" /> 
+        <dep id="mx.styles:ISimpleStyleClient" type="i" /> 
+        <dep id="mx.core:IIMESupport" type="i" /> 
+        <dep id="mx.managers:IToolTipManagerClient" type="i" /> 
+        <dep id="mx.core:IInvalidating" type="i" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.text:StyleSheet" type="s" /> 
+        <dep id="mx.core:UITextFormat" type="s" /> 
+        <dep id="flash.geom:Rectangle" type="s" /> 
+        <dep id="flash.display:DisplayObject" type="s" /> 
+        <dep id="flash.text:TextFormat" type="s" /> 
+        <dep id="flash.text:TextLineMetrics" type="s" /> 
+      </script>
+      <script name="mx/core/ApplicationGlobals" mod="1228301651000" signatureChecksum="3823644878" >
+        <def id="mx.core:ApplicationGlobals" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="mx/events/StyleEvent" mod="1228301651000" signatureChecksum="3317479958" >
+        <def id="mx.events:StyleEvent" /> 
+        <dep id="flash.events:ProgressEvent" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.events:Event" type="s" /> 
+      </script>
+      <script name="mx/events/EffectEvent" mod="1228301651000" signatureChecksum="3470175673" >
+        <def id="mx.events:EffectEvent" /> 
+        <dep id="flash.events:Event" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.effects:IEffectInstance" type="s" /> 
+      </script>
+      <script name="mx/managers/ILayoutManager" mod="1228301652000" signatureChecksum="3564459122" >
+        <def id="mx.managers:ILayoutManager" /> 
+        <dep id="flash.events:IEventDispatcher" type="i" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.managers:ILayoutManagerClient" type="s" /> 
+      </script>
+      <script name="mx/managers/LayoutManager" mod="1228301652000" signatureChecksum="3822552564" >
+        <def id="mx.managers:LayoutManager" /> 
+        <dep id="mx.managers:ILayoutManager" type="i" /> 
+        <dep id="flash.events:EventDispatcher" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.managers:ILayoutManagerClient" type="s" /> 
+        <dep id="mx.core:UIComponent" type="s" /> 
+        <dep id="flash.display:Stage" type="s" /> 
+        <dep id="mx.managers.layoutClasses:PriorityQueue" type="s" /> 
+        <dep id="mx.managers:SystemManagerGlobals" type="e" /> 
+        <dep id="mx.managers:ILayoutManagerClient" type="e" /> 
+        <dep id="mx.core:UIComponent" type="e" /> 
+        <dep id="flash.events:Event" type="e" /> 
+        <dep id="mx.events:FlexEvent" type="e" /> 
+        <dep id="mx.core:ApplicationGlobals" type="e" /> 
+        <dep id="mx.managers.layoutClasses:PriorityQueue" type="e" /> 
+      </script>
+      <script name="mx/utils/Base64Encoder" mod="1228301652000" signatureChecksum="2694175444" >
+        <def id="mx.utils:Base64Encoder" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.utils:ByteArray" type="s" /> 
+        <dep id="flash.utils:ByteArray" type="e" /> 
+      </script>
+      <script name="org/jivesoftware/xiff/events/ConnectionSuccessEvent" mod="1228301652000" signatureChecksum="777409971" >
+        <def id="org.jivesoftware.xiff.events:ConnectionSuccessEvent" /> 
+        <dep id="flash.events:Event" type="i" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="com/mintdigital/hemlock/vcard/VCard" mod="1228301650000" signatureChecksum="627503420" >
+        <def id="com.mintdigital.hemlock.vcard:VCard" /> 
+        <dep id="flash.events:IEventDispatcher" type="i" /> 
+        <dep id="flash.events:EventDispatcher" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.xml:XMLNode" type="s" /> 
+        <dep id="com.mintdigital.hemlock:IClient" type="s" /> 
+        <dep id="flash.events:TimerEvent" type="s" /> 
+        <dep id="org.jivesoftware.xiff.core:JID" type="s" /> 
+        <dep id="mx.utils:Base64Encoder" type="s" /> 
+        <dep id="flash.utils:Timer" type="s" /> 
+        <dep id="flash.utils:ByteArray" type="s" /> 
+        <dep id="org.jivesoftware.xiff.data.vcard:VCardExtension" type="s" /> 
+        <dep id="org.jivesoftware.xiff.data.im:RosterItemVO" type="s" /> 
+        <dep id="org.jivesoftware.xiff.data:IQ" type="s" /> 
+        <dep id="flash.display:Loader" type="s" /> 
+        <dep id="com.mintdigital.hemlock.conn:XMPPConnection" type="s" /> 
+        <dep id="flash.display:DisplayObject" type="s" /> 
+        <dep id="Error" type="s" /> 
+        <dep id="mx.utils:Base64Decoder" type="s" /> 
+        <dep id="XML" type="s" /> 
+        <dep id="flash.xml:XMLNode" type="e" /> 
+        <dep id="com.mintdigital.hemlock.events:VCardEvent" type="e" /> 
+        <dep id="flash.events:TimerEvent" type="e" /> 
+        <dep id="mx.utils:Base64Encoder" type="e" /> 
+        <dep id="flash.utils:Timer" type="e" /> 
+        <dep id="org.jivesoftware.xiff.data.vcard:VCardExtension" type="e" /> 
+        <dep id="org.jivesoftware.xiff.data:IQ" type="e" /> 
+        <dep id="flash.display:Loader" type="e" /> 
+        <dep id="org.jivesoftware.xiff.data:XMPPStanza" type="e" /> 
+        <dep id="Error" type="e" /> 
+        <dep id="mx.utils:Base64Decoder" type="e" /> 
+        <dep id="XML" type="e" /> 
+        <dep id="trace" type="e" /> 
+        <dep id="mx.events:PropertyChangeEvent" type="e" /> 
+      </script>
+      <script name="com/mintdigital/hemlock/events/SessionEvent" mod="1228301650000" signatureChecksum="488099479" >
+        <def id="com.mintdigital.hemlock.events:SessionEvent" /> 
+        <dep id="com.mintdigital.hemlock.events:HemlockEvent" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.events:Event" type="s" /> 
+      </script>
+      <script name="mx/effects/EffectManager" mod="1228301651000" signatureChecksum="4121237525" >
+        <def id="mx.effects:EffectManager" /> 
+        <dep id="flash.events:EventDispatcher" type="i" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.effects:IEffectInstance" type="s" /> 
+        <dep id="mx.resources:IResourceManager" type="s" /> 
+        <dep id="flash.utils:Dictionary" type="s" /> 
+        <dep id="mx.events:EffectEvent" type="s" /> 
+        <dep id="mx.core:IUIComponent" type="s" /> 
+        <dep id="flash.events:FocusEvent" type="s" /> 
+        <dep id="flash.display:DisplayObject" type="s" /> 
+        <dep id="mx.effects:EffectInstance" type="s" /> 
+        <dep id="Error" type="s" /> 
+        <dep id="flash.display:DisplayObjectContainer" type="s" /> 
+        <dep id="flash.events:Event" type="s" /> 
+        <dep id="mx.effects:Effect" type="s" /> 
+        <dep id="mx.events:EffectEvent" type="e" /> 
+        <dep id="flash.utils:Dictionary" type="e" /> 
+        <dep id="mx.core:IUIComponent" type="e" /> 
+        <dep id="mx.effects:Zoom" type="e" /> 
+        <dep id="flash.events:FocusEvent" type="e" /> 
+        <dep id="mx.core:UIComponentCachePolicy" type="e" /> 
+        <dep id="mx.core:UIComponent" type="e" /> 
+        <dep id="mx.resources:ResourceManager" type="e" /> 
+        <dep id="flash.events:Event" type="e" /> 
+        <dep id="mx.events:FlexEvent" type="e" /> 
+        <dep id="mx.events:ResizeEvent" type="e" /> 
+        <dep id="mx.core:IDeferredInstantiationUIComponent" type="e" /> 
+        <dep id="flash.display:DisplayObject" type="e" /> 
+        <dep id="mx.core:IFlexDisplayObject" type="e" /> 
+        <dep id="Error" type="e" /> 
+        <dep id="flash.display:DisplayObjectContainer" type="e" /> 
+        <dep id="mx.core:EventPriority" type="e" /> 
+        <dep id="mx.events:MoveEvent" type="e" /> 
+        <dep id="mx.core:ApplicationGlobals" type="e" /> 
+        <dep id="mx.effects:Effect" type="e" /> 
+      </script>
+      <script name="org/jivesoftware/xiff/data/muc/MUCBaseExtension" mod="1228301652000" signatureChecksum="3799457749" >
+        <def id="org.jivesoftware.xiff.data.muc:MUCBaseExtension" /> 
+        <dep id="org.jivesoftware.xiff.data:ISerializable" type="i" /> 
+        <dep id="org.jivesoftware.xiff.data:IExtendable" type="i" /> 
+        <dep id="org.jivesoftware.xiff.data:Extension" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.xml:XMLNode" type="s" /> 
+        <dep id="org.jivesoftware.xiff.core:JID" type="s" /> 
+        <dep id="org.jivesoftware.xiff.data.muc:MUCItem" type="s" /> 
+        <dep id="org.jivesoftware.xiff.data:IExtension" type="s" /> 
+        <dep id="org.jivesoftware.xiff.data:ExtensionClassRegistry" type="e" /> 
+        <dep id="org.jivesoftware.xiff.data.muc:MUCItem" type="e" /> 
+      </script>
+      <script name="mx/core/FlexVersion" mod="1228301651000" signatureChecksum="2064539990" >
+        <def id="mx.core:FlexVersion" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="Error" type="e" /> 
+        <dep id="mx.resources:ResourceManager" type="e" /> 
+      </script>
+      <script name="mx/core/IEmbeddedFontRegistry" mod="1228301651000" signatureChecksum="830967808" >
+        <def id="mx.core:IEmbeddedFontRegistry" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.core:EmbeddedFont" type="s" /> 
+        <dep id="mx.core:IFlexModuleFactory" type="s" /> 
+      </script>
+      <script name="mx/managers/IToolTipManager2" mod="1228301652000" signatureChecksum="2378178458" >
+        <def id="mx.managers:IToolTipManager2" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.core:IUIComponent" type="s" /> 
+        <dep id="mx.core:IToolTip" type="s" /> 
+        <dep id="flash.display:DisplayObject" type="s" /> 
+        <dep id="mx.effects:IAbstractEffect" type="s" /> 
+      </script>
+      <script name="mx/managers/ToolTipManagerImpl" mod="1228301652000" signatureChecksum="1111506927" >
+        <def id="mx.managers:ToolTipManagerImpl" /> 
+        <dep id="mx.managers:IToolTipManager2" type="i" /> 
+        <dep id="flash.events:EventDispatcher" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.events:EffectEvent" type="s" /> 
+        <dep id="flash.events:MouseEvent" type="s" /> 
+        <dep id="mx.core:IToolTip" type="s" /> 
+        <dep id="mx.managers:ISystemManager" type="s" /> 
+        <dep id="mx.core:IUIComponent" type="s" /> 
+        <dep id="flash.events:TimerEvent" type="s" /> 
+        <dep id="mx.controls:ToolTip" type="s" /> 
+        <dep id="flash.geom:Point" type="s" /> 
+        <dep id="flash.utils:Timer" type="s" /> 
+        <dep id="flash.events:Event" type="s" /> 
+        <dep id="flash.geom:Rectangle" type="s" /> 
+        <dep id="mx.events:ToolTipEvent" type="s" /> 
+        <dep id="flash.display:DisplayObject" type="s" /> 
+        <dep id="mx.effects:IAbstractEffect" type="s" /> 
+        <dep id="mx.events:EffectEvent" type="e" /> 
+        <dep id="flash.events:MouseEvent" type="e" /> 
+        <dep id="mx.styles:IStyleClient" type="e" /> 
+        <dep id="mx.core:IUIComponent" type="e" /> 
+        <dep id="mx.core:IToolTip" type="e" /> 
+        <dep id="flash.events:TimerEvent" type="e" /> 
+        <dep id="mx.managers:IToolTipManagerClient" type="e" /> 
+        <dep id="mx.controls:ToolTip" type="e" /> 
+        <dep id="flash.geom:Point" type="e" /> 
+        <dep id="flash.utils:Timer" type="e" /> 
+        <dep id="mx.core:IInvalidating" type="e" /> 
+        <dep id="flash.geom:Rectangle" type="e" /> 
+        <dep id="mx.events:ToolTipEvent" type="e" /> 
+        <dep id="flash.display:DisplayObject" type="e" /> 
+        <dep id="mx.effects:EffectManager" type="e" /> 
+        <dep id="Error" type="e" /> 
+        <dep id="mx.validators:IValidatorListener" type="e" /> 
+        <dep id="mx.core:ApplicationGlobals" type="e" /> 
+        <dep id="mx.managers:ToolTipManager" type="e" /> 
+        <dep id="mx.effects:IAbstractEffect" type="e" /> 
+      </script>
+      <script name="mx/managers/CursorManagerPriority" mod="1228301651000" signatureChecksum="3660669254" >
+        <def id="mx.managers:CursorManagerPriority" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="com/mintdigital/hemlock/display/SystemNotificationManager" mod="1228301650000" signatureChecksum="8614293" >
+        <def id="com.mintdigital.hemlock.display:SystemNotificationManager" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.display:Sprite" type="s" /> 
+        <dep id="flash.display:Stage" type="s" /> 
+        <dep id="com.mintdigital.hemlock.display:SystemNotification" type="s" /> 
+        <dep id="com.mintdigital.hemlock.display:SystemNotification" type="e" /> 
+      </script>
+      <script name="org/jivesoftware/xiff/data/im/RosterItem" mod="1228301652000" signatureChecksum="2918155167" >
+        <def id="org.jivesoftware.xiff.data.im:RosterItem" /> 
+        <dep id="org.jivesoftware.xiff.data:ISerializable" type="i" /> 
+        <dep id="org.jivesoftware.xiff.data:XMLStanza" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.xml:XMLNode" type="s" /> 
+        <dep id="org.jivesoftware.xiff.core:JID" type="s" /> 
+        <dep id="org.jivesoftware.xiff.data.im:RosterExtension" type="e" /> 
+        <dep id="org.jivesoftware.xiff.core:JID" type="e" /> 
+        <dep id="trace" type="e" /> 
+      </script>
+      <script name="mx/core/EmbeddedFontRegistry" mod="1228301651000" signatureChecksum="1625693814" >
+        <def id="mx.core:EmbeddedFontRegistry" /> 
+        <dep id="mx.core:IEmbeddedFontRegistry" type="i" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.utils:Dictionary" type="s" /> 
+        <dep id="mx.core:IFlexModuleFactory" type="s" /> 
+        <dep id="mx.core:EmbeddedFont" type="s" /> 
+        <dep id="flash.utils:Dictionary" type="e" /> 
+        <dep id="mx.core:EmbeddedFont" type="e" /> 
+        <dep id="mx.core:IFlexModuleFactory" type="e" /> 
+        <dep id="mx.core:Singleton" type="e" /> 
+        <dep id="flash.text:FontStyle" type="e" /> 
+      </script>
+      <script name="com/mintdigital/hemlock/skins/HemlockSkin" mod="1228305893000" signatureChecksum="3966818111" >
+        <def id="com.mintdigital.hemlock.skins:HemlockSkin" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="com.mintdigital.hemlock.skins:HemlockSkin_FontGillSans" type="e" /> 
+        <dep id="com.mintdigital.hemlock.skins:HemlockSkin_FontGillSansBold" type="e" /> 
+      </script>
+      <script name="com/mintdigital/hemlock/utils/StringUtils" mod="1228301650000" signatureChecksum="4081604691" >
+        <def id="com.mintdigital.hemlock.utils:StringUtils" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="mx/core/DragSource" mod="1228301651000" signatureChecksum="1970574493" >
+        <def id="mx.core:DragSource" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="org/jivesoftware/xiff/data/muc/MUCOwnerExtension" mod="1228301652000" signatureChecksum="2493964135" >
+        <def id="org.jivesoftware.xiff.data.muc:MUCOwnerExtension" /> 
+        <dep id="org.jivesoftware.xiff.data.muc:MUCBaseExtension" type="i" /> 
+        <dep id="org.jivesoftware.xiff.data:IExtension" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.xml:XMLNode" type="s" /> 
+        <dep id="org.jivesoftware.xiff.core:JID" type="s" /> 
+      </script>
+      <script name="mx/preloaders/Preloader" mod="1228301652000" signatureChecksum="2138888002" >
+        <def id="mx.preloaders:Preloader" /> 
+        <dep id="flash.display:Sprite" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.events:TimerEvent" type="s" /> 
+        <dep id="flash.utils:Timer" type="s" /> 
+        <dep id="flash.events:IEventDispatcher" type="s" /> 
+        <dep id="mx.core:ResourceModuleRSLItem" type="s" /> 
+        <dep id="flash.events:Event" type="s" /> 
+        <dep id="mx.events:FlexEvent" type="s" /> 
+        <dep id="flash.events:IOErrorEvent" type="s" /> 
+        <dep id="flash.display:LoaderInfo" type="s" /> 
+        <dep id="mx.core:RSLItem" type="s" /> 
+        <dep id="mx.core:RSLListLoader" type="s" /> 
+        <dep id="flash.events:ProgressEvent" type="s" /> 
+        <dep id="mx.events:RSLEvent" type="s" /> 
+        <dep id="mx.preloaders:IPreloaderDisplay" type="s" /> 
+        <dep id="flash.events:ErrorEvent" type="s" /> 
+        <dep id="flash.events:TimerEvent" type="e" /> 
+        <dep id="flash.display:MovieClip" type="e" /> 
+        <dep id="flash.utils:Timer" type="e" /> 
+        <dep id="mx.core:ResourceModuleRSLItem" type="e" /> 
+        <dep id="flash.events:Event" type="e" /> 
+        <dep id="mx.events:FlexEvent" type="e" /> 
+        <dep id="flash.events:IOErrorEvent" type="e" /> 
+        <dep id="mx.core:RSLItem" type="e" /> 
+        <dep id="mx.core:RSLListLoader" type="e" /> 
+        <dep id="flash.events:ProgressEvent" type="e" /> 
+        <dep id="flash.display:DisplayObject" type="e" /> 
+        <dep id="Error" type="e" /> 
+        <dep id="mx.events:RSLEvent" type="e" /> 
+      </script>
+      <script name="com/mintdigital/hemlock/utils/UrlParamUtils" mod="1228301650000" signatureChecksum="711800805" >
+        <def id="com.mintdigital.hemlock.utils:UrlParamUtils" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="mx/managers/SystemManagerGlobals" mod="1228301652000" signatureChecksum="3870247735" >
+        <def id="mx.managers:SystemManagerGlobals" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="com/mintdigital/hemlock/events/RoomEvent" mod="1228301650000" signatureChecksum="1634804044" >
+        <def id="com.mintdigital.hemlock.events:RoomEvent" /> 
+        <dep id="com.mintdigital.hemlock.events:HemlockEvent" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="org.jivesoftware.xiff.core:JID" type="s" /> 
+        <dep id="com.mintdigital.hemlock.data:Message" type="s" /> 
+        <dep id="flash.events:Event" type="s" /> 
+        <dep id="org.jivesoftware.xiff.data:Presence" type="s" /> 
+        <dep id="org.jivesoftware.xiff.core:JID" type="e" /> 
+      </script>
+      <script name="mx/resources/ResourceBundle" mod="1228301652000" signatureChecksum="2505262170" >
+        <def id="mx.resources:ResourceBundle" /> 
+        <dep id="mx.resources:IResourceBundle" type="i" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.system:ApplicationDomain" type="s" /> 
+        <dep id="Error" type="e" /> 
+        <dep id="flash.system:ApplicationDomain" type="e" /> 
+        <dep id="mx.utils:StringUtil" type="e" /> 
+      </script>
+      <script name="mx/managers/ToolTipManager" mod="1228301652000" signatureChecksum="3855847161" >
+        <def id="mx.managers:ToolTipManager" /> 
+        <dep id="flash.events:EventDispatcher" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.managers:IToolTipManager2" type="s" /> 
+        <dep id="mx.core:IUIComponent" type="s" /> 
+        <dep id="mx.core:IToolTip" type="s" /> 
+        <dep id="flash.display:DisplayObject" type="s" /> 
+        <dep id="mx.managers:ToolTipManagerImpl" type="s" /> 
+        <dep id="mx.effects:IAbstractEffect" type="s" /> 
+        <dep id="mx.managers:IToolTipManager2" type="e" /> 
+        <dep id="mx.core:Singleton" type="e" /> 
+      </script>
+      <script name="mx/events/PropertyChangeEvent" mod="1228301651000" signatureChecksum="1205533408" >
+        <def id="mx.events:PropertyChangeEvent" /> 
+        <dep id="flash.events:Event" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.events:PropertyChangeEventKind" type="e" /> 
+      </script>
+      <script name="mx/preloaders/IPreloaderDisplay" mod="1228301652000" signatureChecksum="649216440" >
+        <def id="mx.preloaders:IPreloaderDisplay" /> 
+        <dep id="flash.events:IEventDispatcher" type="i" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.display:Sprite" type="s" /> 
+      </script>
+      <script name="mx/preloaders/DownloadProgressBar" mod="1228301652000" signatureChecksum="2208103007" >
+        <def id="mx.preloaders:DownloadProgressBar" /> 
+        <dep id="flash.display:Sprite" type="i" /> 
+        <dep id="mx.preloaders:IPreloaderDisplay" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.graphics:RoundedRectangle" type="s" /> 
+        <dep id="flash.geom:Matrix" type="s" /> 
+        <dep id="flash.text:TextField" type="s" /> 
+        <dep id="mx.graphics:RectangularDropShadow" type="s" /> 
+        <dep id="flash.system:LoaderContext" type="s" /> 
+        <dep id="flash.utils:Timer" type="s" /> 
+        <dep id="flash.events:Event" type="s" /> 
+        <dep id="flash.events:IOErrorEvent" type="s" /> 
+        <dep id="flash.display:Loader" type="s" /> 
+        <dep id="flash.geom:Rectangle" type="s" /> 
+        <dep id="flash.display:DisplayObject" type="s" /> 
+        <dep id="flash.events:ProgressEvent" type="s" /> 
+        <dep id="Error" type="s" /> 
+        <dep id="flash.display:DisplayObjectContainer" type="s" /> 
+        <dep id="flash.display:Stage" type="s" /> 
+        <dep id="mx.events:RSLEvent" type="s" /> 
+        <dep id="flash.display:Graphics" type="s" /> 
+        <dep id="flash.text:TextFormat" type="s" /> 
+        <dep id="mx.graphics:RoundedRectangle" type="e" /> 
+        <dep id="flash.geom:Matrix" type="e" /> 
+        <dep id="flash.text:TextFieldAutoSize" type="e" /> 
+        <dep id="flash.system:LoaderContext" type="e" /> 
+        <dep id="flash.utils:Timer" type="e" /> 
+        <dep id="flash.events:Event" type="e" /> 
+        <dep id="mx.events:FlexEvent" type="e" /> 
+        <dep id="flash.net:URLRequest" type="e" /> 
+        <dep id="flash.display:Loader" type="e" /> 
+        <dep id="flash.geom:Rectangle" type="e" /> 
+        <dep id="flash.events:ProgressEvent" type="e" /> 
+        <dep id="flash.system:Capabilities" type="e" /> 
+        <dep id="flash.system:ApplicationDomain" type="e" /> 
+        <dep id="mx.events:RSLEvent" type="e" /> 
+        <dep id="flash.text:TextFormat" type="e" /> 
+        <dep id="flash.utils:getDefinitionByName" type="e" /> 
+        <dep id="flash.text:TextField" type="e" /> 
+        <dep id="flash.events:TimerEvent" type="e" /> 
+        <dep id="mx.graphics:RectangularDropShadow" type="e" /> 
+        <dep id="Math" type="e" /> 
+        <dep id="flash.events:IOErrorEvent" type="e" /> 
+        <dep id="flash.display:LoaderInfo" type="e" /> 
+        <dep id="flash.display:DisplayObject" type="e" /> 
+        <dep id="flash.utils:getTimer" type="e" /> 
+        <dep id="Error" type="e" /> 
+        <dep id="flash.display:GradientType" type="e" /> 
+      </script>
+      <script name="org/jivesoftware/xiff/data/session/SessionExtension" mod="1228301652000" signatureChecksum="427763376" >
+        <def id="org.jivesoftware.xiff.data.session:SessionExtension" /> 
+        <dep id="org.jivesoftware.xiff.data:ISerializable" type="i" /> 
+        <dep id="org.jivesoftware.xiff.data:Extension" type="i" /> 
+        <dep id="org.jivesoftware.xiff.data:IExtension" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.xml:XMLNode" type="s" /> 
+        <dep id="org.jivesoftware.xiff.data:ExtensionClassRegistry" type="e" /> 
+      </script>
+      <script name="org/jivesoftware/xiff/data/muc/MUCExtension" mod="1228301652000" signatureChecksum="3808667962" >
+        <def id="org.jivesoftware.xiff.data.muc:MUCExtension" /> 
+        <dep id="org.jivesoftware.xiff.data:ISerializable" type="i" /> 
+        <dep id="org.jivesoftware.xiff.data:Extension" type="i" /> 
+        <dep id="org.jivesoftware.xiff.data:IExtension" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.xml:XMLNode" type="s" /> 
+      </script>
+      <script name="mx/effects/effectClasses/ZoomInstance" mod="1228301651000" signatureChecksum="3434102882" >
+        <def id="mx.effects.effectClasses:ZoomInstance" /> 
+        <dep id="mx.effects.effectClasses:TweenEffectInstance" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.events:MouseEvent" type="s" /> 
+        <dep id="flash.events:Event" type="s" /> 
+        <dep id="mx.effects.effectClasses:PropertyChanges" type="s" /> 
+        <dep id="flash.events:MouseEvent" type="e" /> 
+        <dep id="mx.effects:EffectManager" type="e" /> 
+        <dep id="flash.events:Event" type="e" /> 
+        <dep id="mx.events:FlexEvent" type="e" /> 
+        <dep id="Math" type="e" /> 
+      </script>
+      <script name="com/mintdigital/hemlock/events/FeaturesEvent" mod="1228301650000" signatureChecksum="3304052954" >
+        <def id="com.mintdigital.hemlock.events:FeaturesEvent" /> 
+        <dep id="flash.events:Event" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.xml:XMLNode" type="s" /> 
+        <dep id="com.mintdigital.hemlock.conn:XMPPConnection" type="s" /> 
+      </script>
+      <script name="org/jivesoftware/xiff/data/im/Contact" mod="1228301652000" signatureChecksum="1196214173" >
+        <def id="org.jivesoftware.xiff.data.im:Contact" /> 
+        <dep id="mx.core:IPropertyChangeNotifier" type="i" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="org.jivesoftware.xiff.core:JID" type="s" /> 
+      </script>
+      <script name="mx/core/IContainer" mod="1228301651000" signatureChecksum="2066905437" >
+        <def id="mx.core:IContainer" /> 
+        <dep id="mx.core:IUIComponent" type="i" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.geom:Rectangle" type="s" /> 
+        <dep id="mx.core:EdgeMetrics" type="s" /> 
+        <dep id="mx.core:IFlexDisplayObject" type="s" /> 
+        <dep id="flash.display:DisplayObject" type="s" /> 
+        <dep id="flash.geom:Point" type="s" /> 
+        <dep id="flash.display:Sprite" type="s" /> 
+        <dep id="flash.text:TextSnapshot" type="s" /> 
+        <dep id="flash.display:Graphics" type="s" /> 
+        <dep id="mx.managers:IFocusManager" type="s" /> 
+        <dep id="flash.media:SoundTransform" type="s" /> 
+      </script>
+      <script name="com/mintdigital/hemlock/utils/HashUtils" mod="1228301650000" signatureChecksum="937721269" >
+        <def id="com.mintdigital.hemlock.utils:HashUtils" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="com/mintdigital/hemlock/events/SystemNotificationEvent" mod="1228301650000" signatureChecksum="2103169591" >
+        <def id="com.mintdigital.hemlock.events:SystemNotificationEvent" /> 
+        <dep id="com.mintdigital.hemlock.events:HemlockEvent" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.events:Event" type="s" /> 
+        <dep id="com.mintdigital.hemlock.utils:StringUtils" type="e" /> 
+        <dep id="com.mintdigital.hemlock.display:SystemNotification" type="e" /> 
+      </script>
+      <script name="mx/events/FlexMouseEvent" mod="1228301651000" signatureChecksum="3479293659" >
+        <def id="mx.events:FlexMouseEvent" /> 
+        <dep id="flash.events:MouseEvent" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.events:Event" type="s" /> 
+        <dep id="flash.display:InteractiveObject" type="s" /> 
+      </script>
+      <script name="mx/binding/IBindingClient" mod="1228301651000" signatureChecksum="57615079" >
+        <def id="mx.binding:IBindingClient" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="mx/core/IRepeater" mod="1228301651000" signatureChecksum="2155479735" >
+        <def id="mx.core:IRepeater" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.core:IContainer" type="s" /> 
+      </script>
+      <script name="com/mintdigital/hemlock/User" mod="1228301650000" signatureChecksum="2337051872" >
+        <def id="com.mintdigital.hemlock:User" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="org.jivesoftware.xiff.core:JID" type="s" /> 
+        <dep id="org.jivesoftware.xiff.core:JID" type="e" /> 
+      </script>
+      <script name="_HemlockCore_mx_core_FlexModuleFactory" mod="1228307087434" signatureChecksum="1449645510" >
+        <def id="_HemlockCore_mx_core_FlexModuleFactory" /> 
+        <dep id="mx.core:IFlexModuleFactory" type="i" /> 
+        <dep id="flash.display:Sprite" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.events:Event" type="s" /> 
+        <dep id="mx.core:EmbeddedFontRegistry" type="e" /> 
+        <dep id="mx.core:IFlexModule" type="e" /> 
+        <dep id="flash.system:ApplicationDomain" type="e" /> 
+        <dep id="flash.events:Event" type="e" /> 
+        <dep id="flash.utils:getDefinitionByName" type="e" /> 
+      </script>
+      <script name="mx/utils/Base64Decoder" mod="1228301652000" signatureChecksum="1837079684" >
+        <def id="mx.utils:Base64Decoder" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.resources:IResourceManager" type="s" /> 
+        <dep id="flash.utils:ByteArray" type="s" /> 
+        <dep id="Error" type="e" /> 
+        <dep id="mx.resources:ResourceManager" type="e" /> 
+        <dep id="flash.utils:ByteArray" type="e" /> 
+      </script>
+      <script name="mx/effects/Fade" mod="1228301651000" signatureChecksum="4043097730" >
+        <def id="mx.effects:Fade" /> 
+        <dep id="mx.effects:TweenEffect" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.effects:IEffectInstance" type="s" /> 
+        <dep id="mx.effects.effectClasses:FadeInstance" type="s" /> 
+        <dep id="mx.effects.effectClasses:FadeInstance" type="e" /> 
+      </script>
+      <script name="mx/utils/ColorUtil" mod="1228301652000" signatureChecksum="4287657907" >
+        <def id="mx.utils:ColorUtil" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="Math" type="e" /> 
+      </script>
+      <script name="mx/effects/Tween" mod="1228301651000" signatureChecksum="1739524636" >
+        <def id="mx.effects:Tween" /> 
+        <dep id="flash.events:EventDispatcher" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.events:TweenEvent" type="s" /> 
+        <dep id="flash.events:TimerEvent" type="s" /> 
+        <dep id="flash.utils:Timer" type="s" /> 
+        <dep id="mx.core:UIComponentGlobals" type="e" /> 
+        <dep id="mx.events:TweenEvent" type="e" /> 
+        <dep id="flash.utils:getTimer" type="e" /> 
+        <dep id="flash.events:TimerEvent" type="e" /> 
+        <dep id="flash.utils:Timer" type="e" /> 
+        <dep id="Math" type="e" /> 
+      </script>
+      <script name="com/mintdigital/hemlock/display/HemlockSpriteEffects" mod="1228301650000" signatureChecksum="2246302296" >
+        <def id="com.mintdigital.hemlock.display:HemlockSpriteEffects" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.events:EffectEvent" type="s" /> 
+        <dep id="flash.events:TimerEvent" type="s" /> 
+        <dep id="mx.effects:Fade" type="s" /> 
+        <dep id="com.mintdigital.hemlock.display:HemlockSprite" type="s" /> 
+        <dep id="flash.utils:Timer" type="s" /> 
+        <dep id="mx.events:EffectEvent" type="e" /> 
+        <dep id="com.mintdigital.hemlock.utils:HashUtils" type="e" /> 
+        <dep id="flash.events:TimerEvent" type="e" /> 
+        <dep id="mx.effects:Fade" type="e" /> 
+        <dep id="flash.utils:Timer" type="e" /> 
+        <dep id="Math" type="e" /> 
+        <dep id="flash.filters:BlurFilter" type="e" /> 
+      </script>
+      <script name="com/mintdigital/hemlock/strategies/IEventStrategy" mod="1228301650000" signatureChecksum="2374991439" >
+        <def id="com.mintdigital.hemlock.strategies:IEventStrategy" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.events:EventDispatcher" type="s" /> 
+        <dep id="com.mintdigital.hemlock.events:HemlockEvent" type="s" /> 
+      </script>
+      <script name="org/jivesoftware/xiff/data/register/RegisterExtension" mod="1228301652000" signatureChecksum="933329212" >
+        <def id="org.jivesoftware.xiff.data.register:RegisterExtension" /> 
+        <dep id="org.jivesoftware.xiff.data:ISerializable" type="i" /> 
+        <dep id="org.jivesoftware.xiff.data:Extension" type="i" /> 
+        <dep id="org.jivesoftware.xiff.data:IExtension" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.xml:XMLNode" type="s" /> 
+        <dep id="org.jivesoftware.xiff.data:ExtensionClassRegistry" type="e" /> 
+      </script>
+      <script name="mx/styles/CSSStyleDeclaration" mod="1228301652000" signatureChecksum="3088289541" >
+        <def id="mx.styles:CSSStyleDeclaration" /> 
+        <dep id="flash.events:EventDispatcher" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.utils:Dictionary" type="s" /> 
+        <dep id="flash.display:DisplayObject" type="s" /> 
+        <dep id="mx.styles:IStyleManager2" type="s" /> 
+        <dep id="mx.managers:SystemManagerGlobals" type="e" /> 
+        <dep id="flash.utils:Dictionary" type="e" /> 
+        <dep id="mx.core:Singleton" type="e" /> 
+        <dep id="mx.styles:IStyleManager2" type="e" /> 
+      </script>
+      <script name="org/jivesoftware/xiff/data/xhtml/XHTMLExtension" mod="1228301652000" signatureChecksum="4086231373" >
+        <def id="org.jivesoftware.xiff.data.xhtml:XHTMLExtension" /> 
+        <dep id="org.jivesoftware.xiff.data:Extension" type="i" /> 
+        <dep id="org.jivesoftware.xiff.data:IExtension" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.xml:XMLNode" type="s" /> 
+        <dep id="flash.xml:XMLDocument" type="e" /> 
+        <dep id="org.jivesoftware.xiff.data:ExtensionClassRegistry" type="e" /> 
+      </script>
+      <script name="mx/binding/EvalBindingResponder" mod="1228301651000" signatureChecksum="2344321753" >
+        <def id="mx.binding:EvalBindingResponder" /> 
+        <dep id="mx.rpc:IResponder" type="i" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.binding:Binding" type="s" /> 
+      </script>
+      <script name="mx/collections/errors/ItemPendingError" mod="1228301651000" signatureChecksum="2889121148" >
+        <def id="mx.collections.errors:ItemPendingError" /> 
+        <dep id="Error" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.rpc:IResponder" type="s" /> 
+      </script>
+      <script name="com/mintdigital/hemlock/strategies/MessageEventStrategy" mod="1228301650000" signatureChecksum="3361520719" >
+        <def id="com.mintdigital.hemlock.strategies:MessageEventStrategy" /> 
+        <dep id="com.mintdigital.hemlock.strategies:IEventStrategy" type="i" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.events:EventDispatcher" type="s" /> 
+        <dep id="com.mintdigital.hemlock.events:HemlockEvent" type="s" /> 
+        <dep id="com.mintdigital.hemlock.events:MessageEvent" type="s" /> 
+        <dep id="com.mintdigital.hemlock.data:Message" type="e" /> 
+        <dep id="trace" type="e" /> 
+        <dep id="com.mintdigital.hemlock.events:MessageEvent" type="e" /> 
+      </script>
+      <script name="org/jivesoftware/xiff/data/forms/FormField" mod="1228301652000" signatureChecksum="3848882928" >
+        <def id="org.jivesoftware.xiff.data.forms:FormField" /> 
+        <dep id="org.jivesoftware.xiff.data:ISerializable" type="i" /> 
+        <dep id="org.jivesoftware.xiff.data:XMLStanza" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.xml:XMLNode" type="s" /> 
+        <dep id="Error" type="s" /> 
+        <dep id="Error" type="e" /> 
+        <dep id="trace" type="e" /> 
+      </script>
+      <script name="mx/core/ITextFieldFactory" mod="1228301651000" signatureChecksum="42485549" >
+        <def id="mx.core:ITextFieldFactory" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.core:IFlexModuleFactory" type="s" /> 
+        <dep id="flash.text:TextField" type="s" /> 
+      </script>
+      <script name="com/mintdigital/hemlock/auth/SaslMd5Auth" mod="1228301650000" signatureChecksum="1152784047" >
+        <def id="com.mintdigital.hemlock.auth:SaslMd5Auth" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="com.mintdigital.hemlock.conn:XMPPConnection" type="s" /> 
+        <dep id="com.mintdigital.hemlock.events:ChallengeEvent" type="s" /> 
+        <dep id="com.mintdigital.hemlock.events:ChallengeEvent" type="e" /> 
+        <dep id="com.gsolo.encryption:MD5" type="e" /> 
+        <dep id="Date" type="e" /> 
+        <dep id="com.dynamicflash.util:Base64" type="e" /> 
+        <dep id="trace" type="e" /> 
+      </script>
+      <script name="mx/managers/IFocusManagerContainer" mod="1228301652000" signatureChecksum="483177207" >
+        <def id="mx.managers:IFocusManagerContainer" /> 
+        <dep id="flash.events:IEventDispatcher" type="i" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.managers:ISystemManager" type="s" /> 
+        <dep id="flash.display:DisplayObject" type="s" /> 
+        <dep id="mx.managers:IFocusManager" type="s" /> 
+      </script>
+      <script name="mx/managers/CursorManager" mod="1228301651000" signatureChecksum="991939145" >
+        <def id="mx.managers:CursorManager" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.managers:ICursorManager" type="s" /> 
+        <dep id="mx.managers:CursorManagerImpl" type="s" /> 
+        <dep id="mx.managers:ICursorManager" type="e" /> 
+        <dep id="Class" type="e" /> 
+        <dep id="mx.core:Singleton" type="e" /> 
+      </script>
+      <script name="mx/graphics/RectangularDropShadow" mod="1228301651000" signatureChecksum="4209372544" >
+        <def id="mx.graphics:RectangularDropShadow" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.geom:Rectangle" type="s" /> 
+        <dep id="flash.geom:Matrix" type="s" /> 
+        <dep id="flash.filters:DropShadowFilter" type="s" /> 
+        <dep id="flash.display:BitmapData" type="s" /> 
+        <dep id="flash.geom:Point" type="s" /> 
+        <dep id="flash.display:Graphics" type="s" /> 
+        <dep id="flash.display:Shape" type="s" /> 
+        <dep id="flash.geom:Rectangle" type="e" /> 
+        <dep id="flash.geom:Matrix" type="e" /> 
+        <dep id="flash.filters:DropShadowFilter" type="e" /> 
+        <dep id="mx.utils:GraphicsUtil" type="e" /> 
+        <dep id="flash.display:BitmapData" type="e" /> 
+        <dep id="flash.geom:Point" type="e" /> 
+        <dep id="mx.core:FlexShape" type="e" /> 
+        <dep id="Math" type="e" /> 
+      </script>
+      <script name="com/mintdigital/hemlock/events/RegistrationEvent" mod="1228301650000" signatureChecksum="1230894889" >
+        <def id="com.mintdigital.hemlock.events:RegistrationEvent" /> 
+        <dep id="com.mintdigital.hemlock.events:HemlockEvent" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.events:Event" type="s" /> 
+        <dep id="org.jivesoftware.xiff.data:IQ" type="s" /> 
+      </script>
+      <script name="com/adobe/serialization/json/JSONEncoder" mod="1228301650000" signatureChecksum="668878654" >
+        <def id="com.adobe.serialization.json:JSONEncoder" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="XML" type="s" /> 
+        <dep id="flash.utils:describeType" type="e" /> 
+      </script>
+      <script name="mx/core/IRawChildrenContainer" mod="1228301651000" signatureChecksum="3194499267" >
+        <def id="mx.core:IRawChildrenContainer" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.core:IChildList" type="s" /> 
+      </script>
+      <script name="mx/core/EdgeMetrics" mod="1228301651000" signatureChecksum="2394001961" >
+        <def id="mx.core:EdgeMetrics" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="mx/styles/StyleProtoChain" mod="1228301652000" signatureChecksum="462733835" >
+        <def id="mx.styles:StyleProtoChain" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.styles:IStyleClient" type="s" /> 
+        <dep id="flash.display:DisplayObject" type="s" /> 
+        <dep id="mx.core:IUITextField" type="s" /> 
+        <dep id="mx.styles:CSSStyleDeclaration" type="s" /> 
+        <dep id="mx.styles:IStyleClient" type="e" /> 
+        <dep id="flash.display:DisplayObject" type="e" /> 
+        <dep id="mx.core:UIComponent" type="e" /> 
+        <dep id="mx.styles:StyleManager" type="e" /> 
+        <dep id="mx.styles:StyleProxy" type="e" /> 
+        <dep id="mx.styles:CSSStyleDeclaration" type="e" /> 
+      </script>
+      <script name="mx/events/DynamicEvent" mod="1228301651000" signatureChecksum="1408790089" >
+        <def id="mx.events:DynamicEvent" /> 
+        <dep id="flash.events:Event" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="mx/messaging/config/LoaderConfig" mod="1228301652000" signatureChecksum="2235015942" >
+        <def id="mx.messaging.config:LoaderConfig" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="com/mintdigital/hemlock/events/DiscoveryEvent" mod="1228301650000" signatureChecksum="3790640488" >
+        <def id="com.mintdigital.hemlock.events:DiscoveryEvent" /> 
+        <dep id="com.mintdigital.hemlock.events:HemlockEvent" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.events:Event" type="s" /> 
+      </script>
+      <script name="mx/binding/Binding" mod="1228301651000" signatureChecksum="1544124932" >
+        <def id="mx.binding:Binding" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.utils:Dictionary" type="s" /> 
+        <dep id="RangeError" type="s" /> 
+        <dep id="Error" type="s" /> 
+        <dep id="XMLList" type="s" /> 
+        <dep id="mx.collections.errors:ItemPendingError" type="s" /> 
+        <dep id="mx.binding:EvalBindingResponder" type="e" /> 
+        <dep id="flash.utils:Dictionary" type="e" /> 
+        <dep id="RangeError" type="e" /> 
+        <dep id="Error" type="e" /> 
+        <dep id="XML" type="e" /> 
+        <dep id="XMLList" type="e" /> 
+        <dep id="trace" type="e" /> 
+        <dep id="mx.collections.errors:ItemPendingError" type="e" /> 
+        <dep id="mx.binding:BindingManager" type="e" /> 
+      </script>
+      <script name="mx/events/MoveEvent" mod="1228301651000" signatureChecksum="1725730752" >
+        <def id="mx.events:MoveEvent" /> 
+        <dep id="flash.events:Event" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="mx/managers/layoutClasses/PriorityQueue" mod="1228301652000" signatureChecksum="4259910883" >
+        <def id="mx.managers.layoutClasses:PriorityQueue" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.managers:ILayoutManagerClient" type="s" /> 
+        <dep id="flash.display:DisplayObject" type="s" /> 
+        <dep id="mx.core:IChildList" type="s" /> 
+        <dep id="flash.display:DisplayObject" type="e" /> 
+        <dep id="flash.display:DisplayObjectContainer" type="e" /> 
+        <dep id="mx.core:IRawChildrenContainer" type="e" /> 
+      </script>
+      <script name="org/jivesoftware/xiff/data/forms/FormExtension" mod="1228301652000" signatureChecksum="965199528" >
+        <def id="org.jivesoftware.xiff.data.forms:FormExtension" /> 
+        <dep id="org.jivesoftware.xiff.data:ISerializable" type="i" /> 
+        <dep id="org.jivesoftware.xiff.data:Extension" type="i" /> 
+        <dep id="org.jivesoftware.xiff.data:IExtension" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.xml:XMLNode" type="s" /> 
+        <dep id="org.jivesoftware.xiff.data.forms:FormField" type="s" /> 
+        <dep id="org.jivesoftware.xiff.data.forms:FormField" type="e" /> 
+        <dep id="org.jivesoftware.xiff.data:ExtensionClassRegistry" type="e" /> 
+      </script>
+      <script name="mx/events/ResourceEvent" mod="1228301651000" signatureChecksum="3666918532" >
+        <def id="mx.events:ResourceEvent" /> 
+        <dep id="flash.events:ProgressEvent" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.events:Event" type="s" /> 
+      </script>
+      <script name="org/jivesoftware/xiff/core/JID" mod="1228301652000" signatureChecksum="296338529" >
+        <def id="org.jivesoftware.xiff.core:JID" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="RegExp" type="s" /> 
+        <dep id="trace" type="e" /> 
+      </script>
+      <script name="com/mintdigital/hemlock/IClient" mod="1228301650000" signatureChecksum="394555978" >
+        <def id="com.mintdigital.hemlock:IClient" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="org.jivesoftware.xiff.core:JID" type="s" /> 
+        <dep id="com.mintdigital.hemlock:Logger" type="s" /> 
+        <dep id="flash.events:Event" type="s" /> 
+        <dep id="flash.utils:ByteArray" type="s" /> 
+        <dep id="org.jivesoftware.xiff.data:IQ" type="s" /> 
+      </script>
+      <script name="com/mintdigital/hemlock/XMPPClient" mod="1228301650000" signatureChecksum="2133488786" >
+        <def id="com.mintdigital.hemlock:XMPPClient" /> 
+        <dep id="com.mintdigital.hemlock:IClient" type="i" /> 
+        <dep id="flash.events:EventDispatcher" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="org.jivesoftware.xiff.data.forms:FormExtension" type="s" /> 
+        <dep id="org.jivesoftware.xiff.core:JID" type="s" /> 
+        <dep id="Date" type="s" /> 
+        <dep id="flash.utils:Timer" type="s" /> 
+        <dep id="flash.events:Event" type="s" /> 
+        <dep id="com.mintdigital.hemlock.vcard:VCard" type="s" /> 
+        <dep id="flash.utils:ByteArray" type="s" /> 
+        <dep id="com.mintdigital.hemlock.events:LogEvent" type="s" /> 
+        <dep id="com.mintdigital.hemlock.data:DataMessage" type="s" /> 
+        <dep id="com.mintdigital.hemlock.conn:XMPPConnection" type="s" /> 
+        <dep id="com.mintdigital.hemlock.events:SessionEvent" type="s" /> 
+        <dep id="org.jivesoftware.xiff.data.disco:ItemDiscoExtension" type="s" /> 
+        <dep id="com.mintdigital.hemlock.auth:SaslMd5Auth" type="s" /> 
+        <dep id="com.mintdigital.hemlock.events:StreamStartEvent" type="s" /> 
+        <dep id="com.mintdigital.hemlock.data:PrivacyListExtension" type="s" /> 
+        <dep id="org.jivesoftware.xiff.data:Presence" type="s" /> 
+        <dep id="com.mintdigital.hemlock.events:FeaturesEvent" type="s" /> 
+        <dep id="com.mintdigital.hemlock.events:MessageEvent" type="s" /> 
+        <dep id="com.mintdigital.hemlock.auth:Registration" type="s" /> 
+        <dep id="com.mintdigital.hemlock.events:VCardEvent" type="s" /> 
+        <dep id="org.jivesoftware.xiff.data.muc:MUCOwnerExtension" type="s" /> 
+        <dep id="com.mintdigital.hemlock.events:PresenceEvent" type="s" /> 
+        <dep id="com.mintdigital.hemlock.events:RegistrationEvent" type="s" /> 
+        <dep id="org.jivesoftware.xiff.data:IQ" type="s" /> 
+        <dep id="org.jivesoftware.xiff.data.bind:BindExtension" type="s" /> 
+        <dep id="com.mintdigital.hemlock.events:RoomEvent" type="s" /> 
+        <dep id="com.mintdigital.hemlock.data:Message" type="s" /> 
+        <dep id="com.mintdigital.hemlock:Logger" type="s" /> 
+        <dep id="org.jivesoftware.xiff.data.forms:FormExtension" type="e" /> 
+        <dep id="org.jivesoftware.xiff.data.session:SessionExtension" type="e" /> 
+        <dep id="org.jivesoftware.xiff.data.muc:MUCExtension" type="e" /> 
+        <dep id="org.jivesoftware.xiff.core:JID" type="e" /> 
+        <dep id="Date" type="e" /> 
+        <dep id="flash.utils:Timer" type="e" /> 
+        <dep id="flash.events:Event" type="e" /> 
+        <dep id="com.mintdigital.hemlock.vcard:VCard" type="e" /> 
+        <dep id="com.mintdigital.hemlock.events:LogEvent" type="e" /> 
+        <dep id="com.mintdigital.hemlock.data:DataMessage" type="e" /> 
+        <dep id="com.mintdigital.hemlock.conn:XMPPConnection" type="e" /> 
+        <dep id="com.mintdigital.hemlock.events:SessionEvent" type="e" /> 
+        <dep id="com.mintdigital.hemlock:HemlockEnvironment" type="e" /> 
+        <dep id="org.jivesoftware.xiff.data.disco:ItemDiscoExtension" type="e" /> 
+        <dep id="com.mintdigital.hemlock.auth:SaslMd5Auth" type="e" /> 
+        <dep id="com.mintdigital.hemlock.events:StreamStartEvent" type="e" /> 
+        <dep id="com.mintdigital.hemlock.events:ConfigurationEvent" type="e" /> 
+        <dep id="org.jivesoftware.xiff.data:ExtensionClassRegistry" type="e" /> 
+        <dep id="org.jivesoftware.xiff.data.register:RegisterExtension" type="e" /> 
+        <dep id="com.mintdigital.hemlock.data:PrivacyListExtension" type="e" /> 
+        <dep id="org.jivesoftware.xiff.data:Presence" type="e" /> 
+        <dep id="com.mintdigital.hemlock.events:MessageEvent" type="e" /> 
+        <dep id="com.mintdigital.hemlock.events:FeaturesEvent" type="e" /> 
+        <dep id="com.mintdigital.hemlock.auth:Registration" type="e" /> 
+        <dep id="com.mintdigital.hemlock.events:VCardEvent" type="e" /> 
+        <dep id="org.jivesoftware.xiff.data.muc:MUCOwnerExtension" type="e" /> 
+        <dep id="com.mintdigital.hemlock.utils:HashUtils" type="e" /> 
+        <dep id="flash.events:TimerEvent" type="e" /> 
+        <dep id="com.mintdigital.hemlock.events:DiscoveryEvent" type="e" /> 
+        <dep id="org.jivesoftware.xiff.data.muc:MUCUserExtension" type="e" /> 
+        <dep id="com.mintdigital.hemlock.events:PresenceEvent" type="e" /> 
+        <dep id="org.jivesoftware.xiff.data.vcard:VCardExtension" type="e" /> 
+        <dep id="com.mintdigital.hemlock.events:RegistrationEvent" type="e" /> 
+        <dep id="org.jivesoftware.xiff.data:IQ" type="e" /> 
+        <dep id="flash.events:IOErrorEvent" type="e" /> 
+        <dep id="org.jivesoftware.xiff.data.bind:BindExtension" type="e" /> 
+        <dep id="com.mintdigital.hemlock.events:RoomEvent" type="e" /> 
+        <dep id="org.jivesoftware.xiff.data.disco:DiscoExtension" type="e" /> 
+        <dep id="com.mintdigital.hemlock:Logger" type="e" /> 
+        <dep id="com.mintdigital.hemlock.data:Message" type="e" /> 
+      </script>
+      <script name="mx/styles/StyleProxy" mod="1228301652000" signatureChecksum="3009082131" >
+        <def id="mx.styles:StyleProxy" /> 
+        <dep id="mx.styles:IStyleClient" type="i" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.styles:CSSStyleDeclaration" type="s" /> 
+        <dep id="mx.core:FlexVersion" type="e" /> 
+      </script>
+      <script name="org/jivesoftware/xiff/data/disco/DiscoExtension" mod="1228301652000" signatureChecksum="2446079380" >
+        <def id="org.jivesoftware.xiff.data.disco:DiscoExtension" /> 
+        <dep id="org.jivesoftware.xiff.data:ISerializable" type="i" /> 
+        <dep id="org.jivesoftware.xiff.data:Extension" type="i" /> 
+        <dep id="org.jivesoftware.xiff.data:IExtension" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.xml:XMLNode" type="s" /> 
+        <dep id="org.jivesoftware.xiff.core:JID" type="s" /> 
+        <dep id="org.jivesoftware.xiff.core:JID" type="e" /> 
+      </script>
+      <script name="org/jivesoftware/xiff/data/disco/ItemDiscoExtension" mod="1228301652000" signatureChecksum="3509836573" >
+        <def id="org.jivesoftware.xiff.data.disco:ItemDiscoExtension" /> 
+        <dep id="org.jivesoftware.xiff.data.disco:DiscoExtension" type="i" /> 
+        <dep id="org.jivesoftware.xiff.data:IExtension" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.xml:XMLNode" type="s" /> 
+        <dep id="org.jivesoftware.xiff.data:ExtensionClassRegistry" type="e" /> 
+      </script>
+      <script name="com/mintdigital/hemlock/events/MessageEvent" mod="1228301650000" signatureChecksum="3088160878" >
+        <def id="com.mintdigital.hemlock.events:MessageEvent" /> 
+        <dep id="com.mintdigital.hemlock.events:HemlockEvent" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="com.mintdigital.hemlock.data:Message" type="s" /> 
+        <dep id="flash.events:Event" type="s" /> 
+      </script>
+      <script name="mx/effects/effectClasses/PropertyChanges" mod="1228301651000" signatureChecksum="338654780" >
+        <def id="mx.effects.effectClasses:PropertyChanges" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="mx/managers/SystemChildrenList" mod="1228301652000" signatureChecksum="3841877882" >
+        <def id="mx.managers:SystemChildrenList" /> 
+        <dep id="mx.core:IChildList" type="i" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.display:DisplayObject" type="s" /> 
+        <dep id="mx.managers:SystemManager" type="s" /> 
+        <dep id="flash.geom:Point" type="s" /> 
+        <dep id="QName" type="s" /> 
+      </script>
+      <script name="mx/utils/NameUtil" mod="1228301652000" signatureChecksum="1160482361" >
+        <def id="mx.utils:NameUtil" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.display:DisplayObject" type="s" /> 
+        <dep id="mx.core:IRepeaterClient" type="e" /> 
+        <dep id="flash.utils:getQualifiedClassName" type="e" /> 
+      </script>
+      <script name="org/jivesoftware/xiff/data/muc/MUCUserExtension" mod="1228301652000" signatureChecksum="3094000814" >
+        <def id="org.jivesoftware.xiff.data.muc:MUCUserExtension" /> 
+        <dep id="org.jivesoftware.xiff.data.muc:MUCBaseExtension" type="i" /> 
+        <dep id="org.jivesoftware.xiff.data:IExtension" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.xml:XMLNode" type="s" /> 
+        <dep id="org.jivesoftware.xiff.data.muc:MUCStatus" type="s" /> 
+        <dep id="org.jivesoftware.xiff.core:JID" type="s" /> 
+        <dep id="org.jivesoftware.xiff.data.muc:MUCStatus" type="e" /> 
+        <dep id="org.jivesoftware.xiff.core:JID" type="e" /> 
+      </script>
+      <script name="mx/core/ContainerGlobals" mod="1228301651000" signatureChecksum="1217161931" >
+        <def id="mx.core:ContainerGlobals" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.core:IUIComponent" type="s" /> 
+        <dep id="mx.core:IButton" type="s" /> 
+        <dep id="flash.display:InteractiveObject" type="s" /> 
+        <dep id="mx.managers:IFocusManager" type="s" /> 
+        <dep id="mx.core:IUIComponent" type="e" /> 
+        <dep id="mx.core:IContainer" type="e" /> 
+        <dep id="mx.core:IButton" type="e" /> 
+        <dep id="flash.display:InteractiveObject" type="e" /> 
+      </script>
+      <script name="com/mintdigital/hemlock/Logger" mod="1228301650000" signatureChecksum="2426579752" >
+        <def id="com.mintdigital.hemlock:Logger" /> 
+        <dep id="flash.events:EventDispatcher" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="com.mintdigital.hemlock:HemlockEnvironment" type="e" /> 
+        <dep id="trace" type="e" /> 
+        <dep id="com.mintdigital.hemlock.events:LogEvent" type="e" /> 
+      </script>
+      <script name="org/jivesoftware/xiff/data/muc/MUCStatus" mod="1228301652000" signatureChecksum="349603639" >
+        <def id="org.jivesoftware.xiff.data.muc:MUCStatus" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.xml:XMLNode" type="s" /> 
+        <dep id="org.jivesoftware.xiff.data:XMLStanza" type="s" /> 
+        <dep id="flash.xml:XMLNode" type="e" /> 
+      </script>
+      <script name="org/jivesoftware/xiff/data/im/RosterExtension" mod="1228301652000" signatureChecksum="2633957058" >
+        <def id="org.jivesoftware.xiff.data.im:RosterExtension" /> 
+        <dep id="org.jivesoftware.xiff.data:ISerializable" type="i" /> 
+        <dep id="org.jivesoftware.xiff.data:Extension" type="i" /> 
+        <dep id="org.jivesoftware.xiff.data:IExtension" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.xml:XMLNode" type="s" /> 
+        <dep id="org.jivesoftware.xiff.core:JID" type="s" /> 
+        <dep id="org.jivesoftware.xiff.data.im:RosterItem" type="s" /> 
+        <dep id="org.jivesoftware.xiff.data.im:RosterItem" type="e" /> 
+        <dep id="org.jivesoftware.xiff.data:ExtensionClassRegistry" type="e" /> 
+      </script>
+      <script name="mx/core/EventPriority" mod="1228301651000" signatureChecksum="3052633480" >
+        <def id="mx.core:EventPriority" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="com/mintdigital/hemlock/data/PrivacyListExtension" mod="1228301650000" signatureChecksum="358635231" >
+        <def id="com.mintdigital.hemlock.data:PrivacyListExtension" /> 
+        <dep id="org.jivesoftware.xiff.data:ISerializable" type="i" /> 
+        <dep id="org.jivesoftware.xiff.data:Extension" type="i" /> 
+        <dep id="org.jivesoftware.xiff.data:IExtension" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.xml:XMLNode" type="s" /> 
+        <dep id="flash.xml:XMLNode" type="e" /> 
+        <dep id="flash.xml:XMLNodeType" type="e" /> 
+        <dep id="org.jivesoftware.xiff.data:ExtensionClassRegistry" type="e" /> 
+      </script>
+      <script name="com/mintdigital/hemlock/events/VCardEvent" mod="1228301650000" signatureChecksum="1861401047" >
+        <def id="com.mintdigital.hemlock.events:VCardEvent" /> 
+        <dep id="com.mintdigital.hemlock.events:HemlockEvent" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="com.mintdigital.hemlock.vcard:VCard" type="s" /> 
+        <dep id="flash.events:Event" type="s" /> 
+      </script>
+      <script name="org/jivesoftware/xiff/data/im/RosterItemVO" mod="1228301652000" signatureChecksum="4244182928" >
+        <def id="org.jivesoftware.xiff.data.im:RosterItemVO" /> 
+        <dep id="org.jivesoftware.xiff.data.im:Contact" type="i" /> 
+        <dep id="flash.events:IEventDispatcher" type="i" /> 
+        <dep id="flash.events:EventDispatcher" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="org.jivesoftware.xiff.core:JID" type="s" /> 
+        <dep id="org.jivesoftware.xiff.data.im:RosterExtension" type="e" /> 
+        <dep id="flash.events:Event" type="e" /> 
+        <dep id="mx.events:PropertyChangeEvent" type="e" /> 
+      </script>
+      <script name="org/jivesoftware/xiff/data/id/IIDGenerator" mod="1228301652000" signatureChecksum="861090449" >
+        <def id="org.jivesoftware.xiff.data.id:IIDGenerator" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="com/adobe/serialization/json/JSONTokenizer" mod="1228301650000" signatureChecksum="3980218547" >
+        <def id="com.adobe.serialization.json:JSONTokenizer" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="com.adobe.serialization.json:JSONToken" type="s" /> 
+        <dep id="com.adobe.serialization.json:JSONToken" type="e" /> 
+        <dep id="com.adobe.serialization.json:JSONTokenType" type="e" /> 
+        <dep id="com.adobe.serialization.json:JSONParseError" type="e" /> 
+      </script>
+      <script name="org/jivesoftware/xiff/data/id/IncrementalGenerator" mod="1228301652000" signatureChecksum="2150789817" >
+        <def id="org.jivesoftware.xiff.data.id:IncrementalGenerator" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="org.jivesoftware.xiff.data.id:IIDGenerator" type="i" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="mx/graphics/RoundedRectangle" mod="1228301651000" signatureChecksum="1552907462" >
+        <def id="mx.graphics:RoundedRectangle" /> 
+        <dep id="flash.geom:Rectangle" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="mx/core/ComponentDescriptor" mod="1228301651000" signatureChecksum="2826284896" >
+        <def id="mx.core:ComponentDescriptor" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="mx/core/UIComponentDescriptor" mod="1228301651000" signatureChecksum="4144999330" >
+        <def id="mx.core:UIComponentDescriptor" /> 
+        <dep id="mx.core:ComponentDescriptor" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="mx/modules/ModuleManagerGlobals" mod="1228301652000" signatureChecksum="1009790858" >
+        <def id="mx.modules:ModuleManagerGlobals" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="mx/effects/IEffectTargetHost" mod="1228301651000" signatureChecksum="891712516" >
+        <def id="mx.effects:IEffectTargetHost" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="mx/managers/SystemManager" mod="1228301652000" signatureChecksum="3379865539" >
+        <def id="mx.managers:SystemManager" /> 
+        <dep id="mx.core:IFlexModuleFactory" type="i" /> 
+        <dep id="mx.managers:ISystemManager" type="i" /> 
+        <dep id="mx.core:IFlexDisplayObject" type="i" /> 
+        <dep id="flash.display:MovieClip" type="i" /> 
+        <dep id="mx.core:IChildList" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.resources:IResourceManager" type="s" /> 
+        <dep id="flash.utils:Dictionary" type="s" /> 
+        <dep id="mx.styles:IStyleClient" type="s" /> 
+        <dep id="flash.events:MouseEvent" type="s" /> 
+        <dep id="mx.core:IUIComponent" type="s" /> 
+        <dep id="flash.geom:Point" type="s" /> 
+        <dep id="flash.utils:Timer" type="s" /> 
+        <dep id="flash.events:Event" type="s" /> 
+        <dep id="mx.events:FlexEvent" type="s" /> 
+        <dep id="mx.core:EmbeddedFontRegistry" type="s" /> 
+        <dep id="mx.core:RSLItem" type="s" /> 
+        <dep id="flash.geom:Rectangle" type="s" /> 
+        <dep id="flash.display:Sprite" type="s" /> 
+        <dep id="flash.display:DisplayObjectContainer" type="s" /> 
+        <dep id="mx.managers:IFocusManagerContainer" type="s" /> 
+        <dep id="flash.system:ApplicationDomain" type="s" /> 
+        <dep id="flash.display:Graphics" type="s" /> 
+        <dep id="flash.text:TextFormat" type="s" /> 
+        <dep id="mx.managers:SystemChildrenList" type="s" /> 
+        <dep id="mx.preloaders:Preloader" type="s" /> 
+        <dep id="flash.events:TimerEvent" type="s" /> 
+        <dep id="mx.core:TextFieldFactory" type="s" /> 
+        <dep id="flash.display:DisplayObject" type="s" /> 
+        <dep id="mx.managers:SystemRawChildrenList" type="s" /> 
+        <dep id="Error" type="s" /> 
+        <dep id="flash.display:Stage" type="s" /> 
+        <dep id="flash.text:Font" type="s" /> 
+        <dep id="mx.preloaders:DownloadProgressBar" type="e" /> 
+        <dep id="flash.utils:Dictionary" type="e" /> 
+        <dep id="mx.styles:IStyleClient" type="e" /> 
+        <dep id="flash.events:MouseEvent" type="e" /> 
+        <dep id="mx.managers:ILayoutManagerClient" type="e" /> 
+        <dep id="mx.core:IUIComponent" type="e" /> 
+        <dep id="flash.display:StageScaleMode" type="e" /> 
+        <dep id="flash.utils:Timer" type="e" /> 
+        <dep id="mx.resources:ResourceManager" type="e" /> 
+        <dep id="flash.events:Event" type="e" /> 
+        <dep id="mx.events:FlexEvent" type="e" /> 
+        <dep id="mx.core:Singleton" type="e" /> 
+        <dep id="flash.display:Loader" type="e" /> 
+        <dep id="mx.core:RSLItem" type="e" /> 
+        <dep id="flash.geom:Rectangle" type="e" /> 
+        <dep id="mx.messaging.config:LoaderConfig" type="e" /> 
+        <dep id="flash.display:DisplayObjectContainer" type="e" /> 
+        <dep id="flash.display:Sprite" type="e" /> 
+        <dep id="flash.system:ApplicationDomain" type="e" /> 
+        <dep id="flash.system:Capabilities" type="e" /> 
+        <dep id="mx.managers:IFocusManagerContainer" type="e" /> 
+        <dep id="mx.styles:StyleManager" type="e" /> 
+        <dep id="flash.display:InteractiveObject" type="e" /> 
+        <dep id="mx.core:FlexSprite" type="e" /> 
+        <dep id="flash.display:StageAlign" type="e" /> 
+        <dep id="mx.managers:SystemChildrenList" type="e" /> 
+        <dep id="mx.preloaders:Preloader" type="e" /> 
+        <dep id="mx.styles:ISimpleStyleClient" type="e" /> 
+        <dep id="flash.events:TimerEvent" type="e" /> 
+        <dep id="flash.events:IEventDispatcher" type="e" /> 
+        <dep id="QName" type="e" /> 
+        <dep id="Math" type="e" /> 
+        <dep id="mx.core:IInvalidating" type="e" /> 
+        <dep id="mx.managers:SystemManagerGlobals" type="e" /> 
+        <dep id="flash.display:DisplayObject" type="e" /> 
+        <dep id="mx.managers:SystemRawChildrenList" type="e" /> 
+        <dep id="mx.resources:ResourceBundle" type="e" /> 
+        <dep id="Error" type="e" /> 
+        <dep id="flash.text:Font" type="e" /> 
+        <dep id="mx.core:IRawChildrenContainer" type="e" /> 
+        <dep id="flash.utils:getQualifiedClassName" type="e" /> 
+      </script>
+      <script name="mx/managers/CursorManagerImpl" mod="1228301651000" signatureChecksum="3323492485" >
+        <def id="mx.managers:CursorManagerImpl" /> 
+        <dep id="mx.managers:ICursorManager" type="i" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.events:ContextMenuEvent" type="s" /> 
+        <dep id="flash.events:MouseEvent" type="s" /> 
+        <dep id="mx.managers:ISystemManager" type="s" /> 
+        <dep id="flash.display:DisplayObject" type="s" /> 
+        <dep id="flash.events:ProgressEvent" type="s" /> 
+        <dep id="flash.display:Sprite" type="s" /> 
+        <dep id="flash.display:Stage" type="s" /> 
+        <dep id="flash.events:Event" type="s" /> 
+        <dep id="flash.display:InteractiveObject" type="s" /> 
+        <dep id="mx.styles:CSSStyleDeclaration" type="s" /> 
+        <dep id="flash.events:MouseEvent" type="e" /> 
+        <dep id="flash.text:TextFieldType" type="e" /> 
+        <dep id="flash.text:TextField" type="e" /> 
+        <dep id="mx.managers:CursorManagerPriority" type="e" /> 
+        <dep id="flash.ui:Mouse" type="e" /> 
+        <dep id="flash.events:Event" type="e" /> 
+        <dep id="flash.events:IOErrorEvent" type="e" /> 
+        <dep id="flash.events:ContextMenuEvent" type="e" /> 
+        <dep id="flash.display:DisplayObject" type="e" /> 
+        <dep id="flash.events:ProgressEvent" type="e" /> 
+        <dep id="mx.managers:SystemManager" type="e" /> 
+        <dep id="mx.core:EventPriority" type="e" /> 
+        <dep id="Error" type="e" /> 
+        <dep id="mx.styles:StyleManager" type="e" /> 
+        <dep id="flash.display:InteractiveObject" type="e" /> 
+        <dep id="flash.events:EventDispatcher" type="e" /> 
+        <dep id="mx.core:ApplicationGlobals" type="e" /> 
+        <dep id="mx.core:FlexSprite" type="e" /> 
+        <dep id="mx.managers:CursorManager" type="e" /> 
+      </script>
+      <script name="mx/core/UIComponentGlobals" mod="1228301651000" signatureChecksum="2981240598" >
+        <def id="mx.core:UIComponentGlobals" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.geom:Matrix" type="s" /> 
+        <dep id="mx.managers:ILayoutManager" type="s" /> 
+        <dep id="flash.display:InteractiveObject" type="s" /> 
+        <dep id="flash.geom:Matrix" type="e" /> 
+      </script>
+      <script name="mx/core/FlexShape" mod="1228301651000" signatureChecksum="2868668800" >
+        <def id="mx.core:FlexShape" /> 
+        <dep id="flash.display:Shape" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="Error" type="s" /> 
+        <dep id="mx.utils:NameUtil" type="e" /> 
+        <dep id="Error" type="e" /> 
+      </script>
+      <script name="org/jivesoftware/xiff/data/vcard/VCardExtension" mod="1228301652000" signatureChecksum="1943057968" >
+        <def id="org.jivesoftware.xiff.data.vcard:VCardExtension" /> 
+        <dep id="org.jivesoftware.xiff.data:ISerializable" type="i" /> 
+        <dep id="org.jivesoftware.xiff.data:Extension" type="i" /> 
+        <dep id="org.jivesoftware.xiff.data:IExtension" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.xml:XMLNode" type="s" /> 
+      </script>
+      <script name="mx/events/ModuleEvent" mod="1228301651000" signatureChecksum="730265139" >
+        <def id="mx.events:ModuleEvent" /> 
+        <dep id="flash.events:ProgressEvent" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.events:Event" type="s" /> 
+        <dep id="mx.modules:IModuleInfo" type="s" /> 
+        <dep id="mx.modules:IModuleInfo" type="e" /> 
+      </script>
+      <script name="mx/binding/BindingManager" mod="1228301651000" signatureChecksum="3077689179" >
+        <def id="mx.binding:BindingManager" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.binding:Binding" type="s" /> 
+        <dep id="Math" type="e" /> 
+        <dep id="mx.binding:IBindingClient" type="e" /> 
+      </script>
+      <script name="mx/core/UITextFormat" mod="1228301651000" signatureChecksum="620387986" >
+        <def id="mx.core:UITextFormat" /> 
+        <dep id="flash.text:TextFormat" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.core:ITextFieldFactory" type="s" /> 
+        <dep id="mx.core:IFlexModuleFactory" type="s" /> 
+        <dep id="mx.core:EmbeddedFont" type="s" /> 
+        <dep id="mx.managers:ISystemManager" type="s" /> 
+        <dep id="mx.core:IEmbeddedFontRegistry" type="s" /> 
+        <dep id="flash.text:TextField" type="s" /> 
+        <dep id="flash.text:TextLineMetrics" type="s" /> 
+        <dep id="mx.core:EmbeddedFontRegistry" type="e" /> 
+        <dep id="mx.core:ITextFieldFactory" type="e" /> 
+        <dep id="mx.core:EmbeddedFont" type="e" /> 
+        <dep id="mx.core:IEmbeddedFontRegistry" type="e" /> 
+        <dep id="flash.text:TextField" type="e" /> 
+        <dep id="Math" type="e" /> 
+        <dep id="mx.core:Singleton" type="e" /> 
+      </script>
+      <script name="com/gsolo/encryption/MD5" mod="1228301650000" signatureChecksum="2952789333" >
+        <def id="com.gsolo.encryption:MD5" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="Math" type="e" /> 
+      </script>
+      <script name="mx/effects/effectClasses/AddRemoveEffectTargetFilter" mod="1228301651000" signatureChecksum="1742377704" >
+        <def id="mx.effects.effectClasses:AddRemoveEffectTargetFilter" /> 
+        <dep id="mx.effects:EffectTargetFilter" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.effects.effectClasses:PropertyChanges" type="s" /> 
+      </script>
+      <script name="com/mintdigital/hemlock/data/Message" mod="1228301650000" signatureChecksum="1918115159" >
+        <def id="com.mintdigital.hemlock.data:Message" /> 
+        <dep id="org.jivesoftware.xiff.data:ISerializable" type="i" /> 
+        <dep id="org.jivesoftware.xiff.data:XMPPStanza" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.xml:XMLNode" type="s" /> 
+        <dep id="org.jivesoftware.xiff.data.muc:MUCUserExtension" type="s" /> 
+        <dep id="Date" type="s" /> 
+        <dep id="Error" type="s" /> 
+        <dep id="org.jivesoftware.xiff.data.xhtml:XHTMLExtension" type="s" /> 
+        <dep id="com.mintdigital.hemlock.data:DataMessage" type="s" /> 
+        <dep id="Date" type="e" /> 
+        <dep id="Error" type="e" /> 
+        <dep id="org.jivesoftware.xiff.data.muc:MUCUserExtension" type="e" /> 
+        <dep id="org.jivesoftware.xiff.data:ExtensionClassRegistry" type="e" /> 
+        <dep id="trace" type="e" /> 
+        <dep id="com.mintdigital.hemlock.data:DataMessage" type="e" /> 
+        <dep id="org.jivesoftware.xiff.data.xhtml:XHTMLExtension" type="e" /> 
+      </script>
+      <script name="com/mintdigital/hemlock/data/DataMessage" mod="1228301650000" signatureChecksum="57445088" >
+        <def id="com.mintdigital.hemlock.data:DataMessage" /> 
+        <dep id="com.mintdigital.hemlock.data:Message" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="com.adobe.serialization.json:JSON" type="e" /> 
+        <dep id="trace" type="e" /> 
+      </script>
+      <script name="com/mintdigital/hemlock/conn/XMPPConnection" mod="1228301650000" signatureChecksum="1334377652" >
+        <def id="com.mintdigital.hemlock.conn:XMPPConnection" /> 
+        <dep id="flash.events:EventDispatcher" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.xml:XMLNode" type="s" /> 
+        <dep id="flash.xml:XMLDocument" type="s" /> 
+        <dep id="RegExp" type="s" /> 
+        <dep id="org.jivesoftware.xiff.util:SocketDataEvent" type="s" /> 
+        <dep id="SecurityError" type="s" /> 
+        <dep id="flash.events:Event" type="s" /> 
+        <dep id="org.jivesoftware.xiff.data:IQ" type="s" /> 
+        <dep id="flash.events:IOErrorEvent" type="s" /> 
+        <dep id="flash.events:SecurityErrorEvent" type="s" /> 
+        <dep id="org.jivesoftware.xiff.data:XMPPStanza" type="s" /> 
+        <dep id="Error" type="s" /> 
+        <dep id="com.mintdigital.hemlock.data:Message" type="s" /> 
+        <dep id="com.mintdigital.hemlock:Logger" type="s" /> 
+        <dep id="org.jivesoftware.xiff.data:Presence" type="s" /> 
+        <dep id="org.jivesoftware.xiff.util:SocketConn" type="s" /> 
+        <dep id="flash.xml:XMLDocument" type="e" /> 
+        <dep id="org.jivesoftware.xiff.util:SocketDataEvent" type="e" /> 
+        <dep id="org.jivesoftware.xiff.events:ConnectionSuccessEvent" type="e" /> 
+        <dep id="flash.events:Event" type="e" /> 
+        <dep id="org.jivesoftware.xiff.exception:SerializationException" type="e" /> 
+        <dep id="com.mintdigital.hemlock.events:SessionEvent" type="e" /> 
+        <dep id="com.mintdigital.hemlock:HemlockEnvironment" type="e" /> 
+        <dep id="org.jivesoftware.xiff.events:DisconnectionEvent" type="e" /> 
+        <dep id="com.mintdigital.hemlock.events:StreamStartEvent" type="e" /> 
+        <dep id="trace" type="e" /> 
+        <dep id="org.jivesoftware.xiff.data:Presence" type="e" /> 
+        <dep id="com.mintdigital.hemlock.events:FeaturesEvent" type="e" /> 
+        <dep id="com.mintdigital.hemlock.events:MessageEvent" type="e" /> 
+        <dep id="com.mintdigital.hemlock.events:ChallengeEvent" type="e" /> 
+        <dep id="RegExp" type="e" /> 
+        <dep id="SecurityError" type="e" /> 
+        <dep id="com.mintdigital.hemlock.events:PresenceEvent" type="e" /> 
+        <dep id="com.mintdigital.hemlock.events:RegistrationEvent" type="e" /> 
+        <dep id="org.jivesoftware.xiff.data:IQ" type="e" /> 
+        <dep id="flash.events:IOErrorEvent" type="e" /> 
+        <dep id="flash.events:SecurityErrorEvent" type="e" /> 
+        <dep id="com.mintdigital.hemlock.events:RoomEvent" type="e" /> 
+        <dep id="flash.system:Security" type="e" /> 
+        <dep id="Error" type="e" /> 
+        <dep id="com.mintdigital.hemlock.data:Message" type="e" /> 
+        <dep id="com.mintdigital.hemlock:Logger" type="e" /> 
+        <dep id="org.jivesoftware.xiff.util:SocketConn" type="e" /> 
+      </script>
+      <script name="com/mintdigital/hemlock/HemlockEnvironment" mod="1228301650000" signatureChecksum="3508739598" >
+        <def id="com.mintdigital.hemlock:HemlockEnvironment" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.external:ExternalInterface" type="e" /> 
+        <dep id="com.mintdigital.hemlock.utils:UrlParamUtils" type="e" /> 
+      </script>
+      <script name="com/mintdigital/hemlock/skins/HemlockSkin_FontGillSansBold" mod="1228306220000" signatureChecksum="3271226693" >
+        <def id="com.mintdigital.hemlock.skins:HemlockSkin_FontGillSansBold" /> 
+        <dep id="mx.core:FontAsset" type="i" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="com/mintdigital/hemlock/events/ChallengeEvent" mod="1228301650000" signatureChecksum="1395838491" >
+        <def id="com.mintdigital.hemlock.events:ChallengeEvent" /> 
+        <dep id="com.mintdigital.hemlock.events:HemlockEvent" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.xml:XMLNode" type="s" /> 
+        <dep id="com.mintdigital.hemlock.conn:XMPPConnection" type="s" /> 
+        <dep id="flash.events:Event" type="s" /> 
+      </script>
+      <script name="mx/core/UIComponentCachePolicy" mod="1228301651000" signatureChecksum="296182269" >
+        <def id="mx.core:UIComponentCachePolicy" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="mx/resources/LocaleSorter" mod="1228301652000" signatureChecksum="156851885" >
+        <def id="mx.resources:LocaleSorter" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="com/mintdigital/hemlock/widgets/HemlockWidget" mod="1228301650000" signatureChecksum="3388228468" >
+        <def id="com.mintdigital.hemlock.widgets:HemlockWidget" /> 
+        <dep id="com.mintdigital.hemlock.display:HemlockSprite" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="com.mintdigital.hemlock:HemlockContainer" type="s" /> 
+        <dep id="com.mintdigital.hemlock:Roster" type="s" /> 
+        <dep id="org.jivesoftware.xiff.core:JID" type="s" /> 
+        <dep id="org.jivesoftware.xiff.data:Presence" type="s" /> 
+        <dep id="com.mintdigital.hemlock:HemlockContainer" type="e" /> 
+        <dep id="com.mintdigital.hemlock:HemlockEnvironment" type="e" /> 
+        <dep id="org.jivesoftware.xiff.core:JID" type="e" /> 
+        <dep id="org.jivesoftware.xiff.data:Presence" type="e" /> 
+      </script>
+      <script name="mx/core/IProgrammaticSkin" mod="1228301651000" signatureChecksum="874659298" >
+        <def id="mx.core:IProgrammaticSkin" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="org/jivesoftware/xiff/util/SocketDataEvent" mod="1228301652000" signatureChecksum="1787391050" >
+        <def id="org.jivesoftware.xiff.util:SocketDataEvent" /> 
+        <dep id="flash.events:Event" type="i" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="mx/utils/StringUtil" mod="1228301652000" signatureChecksum="1775667221" >
+        <def id="mx.utils:StringUtil" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="RegExp" type="e" /> 
+      </script>
+      <script name="mx/core/RSLListLoader" mod="1228301651000" signatureChecksum="4109546598" >
+        <def id="mx.core:RSLListLoader" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.core:RSLItem" type="s" /> 
+        <dep id="flash.events:Event" type="s" /> 
+      </script>
+      <script name="com/mintdigital/hemlock/HemlockContainer" mod="1228301650000" signatureChecksum="1263277519" >
+        <def id="com.mintdigital.hemlock:HemlockContainer" /> 
+        <dep id="com.mintdigital.hemlock.display:HemlockSprite" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="com.mintdigital.hemlock.events:SessionEvent" type="s" /> 
+        <dep id="com.mintdigital.hemlock.events:RoomEvent" type="s" /> 
+        <dep id="com.mintdigital.hemlock.events:SystemNotificationEvent" type="s" /> 
+        <dep id="com.mintdigital.hemlock.widgets:HemlockWidget" type="s" /> 
+        <dep id="com.mintdigital.hemlock:IClient" type="s" /> 
+        <dep id="org.jivesoftware.xiff.core:JID" type="s" /> 
+        <dep id="com.mintdigital.hemlock.display:SystemNotificationManager" type="s" /> 
+        <dep id="com.mintdigital.hemlock.events:ConfigurationEvent" type="s" /> 
+        <dep id="com.mintdigital.hemlock.events:PresenceEvent" type="s" /> 
+        <dep id="com.mintdigital.hemlock.events:HemlockEvent" type="s" /> 
+        <dep id="com.mintdigital.hemlock.events:RegistrationEvent" type="s" /> 
+        <dep id="com.mintdigital.hemlock.events:LogEvent" type="s" /> 
+        <dep id="com.mintdigital.hemlock.events:SystemNotificationEvent" type="e" /> 
+        <dep id="com.mintdigital.hemlock.events:DiscoveryEvent" type="e" /> 
+        <dep id="org.jivesoftware.xiff.core:JID" type="e" /> 
+        <dep id="flash.display:StageScaleMode" type="e" /> 
+        <dep id="com.mintdigital.hemlock.display:SystemNotificationManager" type="e" /> 
+        <dep id="com.mintdigital.hemlock.events:PresenceEvent" type="e" /> 
+        <dep id="com.mintdigital.hemlock.events:LogEvent" type="e" /> 
+        <dep id="com.mintdigital.hemlock:XMPPClient" type="e" /> 
+        <dep id="com.mintdigital.hemlock.events:RegistrationEvent" type="e" /> 
+        <dep id="com.mintdigital.hemlock.strategies:MessageEventStrategy" type="e" /> 
+        <dep id="com.mintdigital.hemlock.events:SessionEvent" type="e" /> 
+        <dep id="com.mintdigital.hemlock.events:RoomEvent" type="e" /> 
+        <dep id="com.mintdigital.hemlock.events:ChatroomEvent" type="e" /> 
+        <dep id="com.mintdigital.hemlock:HemlockEnvironment" type="e" /> 
+        <dep id="com.mintdigital.hemlock.events:ConfigurationEvent" type="e" /> 
+        <dep id="trace" type="e" /> 
+        <dep id="flash.display:StageAlign" type="e" /> 
+        <dep id="com.mintdigital.hemlock.events:MessageEvent" type="e" /> 
+      </script>
+      <script name="org/jivesoftware/xiff/data/ExtensionClassRegistry" mod="1228301652000" signatureChecksum="1649239544" >
+        <def id="org.jivesoftware.xiff.data:ExtensionClassRegistry" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="org.jivesoftware.xiff.data:IExtension" type="s" /> 
+        <dep id="org.jivesoftware.xiff.data:IExtension" type="e" /> 
+      </script>
+      <script name="mx/events/RSLEvent" mod="1228301651000" signatureChecksum="1904012704" >
+        <def id="mx.events:RSLEvent" /> 
+        <dep id="flash.events:ProgressEvent" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.events:Event" type="s" /> 
+        <dep id="flash.net:URLRequest" type="s" /> 
+      </script>
+      <script name="com/adobe/serialization/json/JSONToken" mod="1228301650000" signatureChecksum="786392909" >
+        <def id="com.adobe.serialization.json:JSONToken" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="mx/core/UITextField" mod="1228301651000" signatureChecksum="3876475614" >
+        <def id="mx.core:UITextField" /> 
+        <dep id="mx.core:IFlexModule" type="i" /> 
+        <dep id="mx.core:FlexTextField" type="i" /> 
+        <dep id="mx.styles:ISimpleStyleClient" type="i" /> 
+        <dep id="mx.core:IIMESupport" type="i" /> 
+        <dep id="mx.managers:IToolTipManagerClient" type="i" /> 
+        <dep id="mx.core:IUITextField" type="i" /> 
+        <dep id="mx.core:IInvalidating" type="i" /> 
+        <dep id="mx.automation:IAutomationObject" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="mx.core:UITextFormat" type="s" /> 
+        <dep id="mx.resources:IResourceManager" type="s" /> 
+        <dep id="mx.managers:ISystemManager" type="s" /> 
+        <dep id="mx.core:EmbeddedFont" type="s" /> 
+        <dep id="mx.core:IUIComponent" type="s" /> 
+        <dep id="flash.events:Event" type="s" /> 
+        <dep id="mx.core:IEmbeddedFontRegistry" type="s" /> 
+        <dep id="mx.core:IFlexModuleFactory" type="s" /> 
+        <dep id="flash.display:DisplayObject" type="s" /> 
+        <dep id="flash.display:Sprite" type="s" /> 
+        <dep id="flash.display:DisplayObjectContainer" type="s" /> 
+        <dep id="flash.text:TextLineMetrics" type="s" /> 
+        <dep id="flash.text:TextFormat" type="s" /> 
+        <dep id="String" type="e" /> 
+        <dep id="mx.core:UITextFormat" type="e" /> 
+        <dep id="mx.styles:IStyleClient" type="e" /> 
+        <dep id="mx.core:EmbeddedFont" type="e" /> 
+        <dep id="mx.managers:ISystemManager" type="e" /> 
+        <dep id="mx.core:IUIComponent" type="e" /> 
+        <dep id="mx.core:FlexVersion" type="e" /> 
+        <dep id="uint" type="e" /> 
+        <dep id="mx.styles:StyleProtoChain" type="e" /> 
+        <dep id="mx.core:UIComponent" type="e" /> 
+        <dep id="mx.resources:ResourceManager" type="e" /> 
+        <dep id="flash.events:Event" type="e" /> 
+        <dep id="Math" type="e" /> 
+        <dep id="mx.core:Singleton" type="e" /> 
+        <dep id="mx.utils:StringUtil" type="e" /> 
+        <dep id="mx.core:EmbeddedFontRegistry" type="e" /> 
+        <dep id="mx.core:IEmbeddedFontRegistry" type="e" /> 
+        <dep id="Boolean" type="e" /> 
+        <dep id="mx.managers:SystemManager" type="e" /> 
+        <dep id="Number" type="e" /> 
+        <dep id="mx.styles:StyleManager" type="e" /> 
+        <dep id="flash.text:TextFormat" type="e" /> 
+        <dep id="flash.utils:getQualifiedClassName" type="e" /> 
+        <dep id="mx.managers:ToolTipManager" type="e" /> 
+      </script>
+      <script name="com/dynamicflash/util/Base64" mod="1228301650000" signatureChecksum="1845661981" >
+        <def id="com.dynamicflash.util:Base64" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.utils:ByteArray" type="s" /> 
+        <dep id="Error" type="e" /> 
+        <dep id="flash.utils:ByteArray" type="e" /> 
+      </script>
+      <script name="com/mintdigital/hemlock/display/SystemNotification" mod="1228301650000" signatureChecksum="1135818694" >
+        <def id="com.mintdigital.hemlock.display:SystemNotification" /> 
+        <dep id="com.mintdigital.hemlock.display:HemlockSprite" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.display:DisplayObject" type="s" /> 
+        <dep id="flash.display:Sprite" type="s" /> 
+        <dep id="flash.display:Stage" type="s" /> 
+        <dep id="flash.text:TextFormat" type="s" /> 
+        <dep id="flash.utils:setTimeout" type="e" /> 
+        <dep id="flash.text:TextFieldAutoSize" type="e" /> 
+        <dep id="com.mintdigital.hemlock.utils:HashUtils" type="e" /> 
+        <dep id="flash.text:TextField" type="e" /> 
+        <dep id="com.mintdigital.hemlock.skins:HemlockSkin" type="e" /> 
+        <dep id="flash.display:Sprite" type="e" /> 
+        <dep id="com.mintdigital.hemlock.display:HemlockSprite" type="e" /> 
+        <dep id="flash.display:GradientType" type="e" /> 
+        <dep id="flash.text:TextFormat" type="e" /> 
+      </script>
+      <script name="mx/core/TextFieldFactory" mod="1228301651000" signatureChecksum="3097270039" >
+        <def id="mx.core:TextFieldFactory" /> 
+        <dep id="mx.core:ITextFieldFactory" type="i" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="mx.core:mx_internal" type="n" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.utils:Dictionary" type="s" /> 
+        <dep id="mx.core:IFlexModuleFactory" type="s" /> 
+        <dep id="flash.text:TextField" type="s" /> 
+        <dep id="flash.utils:Dictionary" type="e" /> 
+        <dep id="flash.text:TextField" type="e" /> 
+      </script>
+      <script name="org/jivesoftware/xiff/data/IQ" mod="1228301652000" signatureChecksum="2200447782" >
+        <def id="org.jivesoftware.xiff.data:IQ" /> 
+        <dep id="org.jivesoftware.xiff.data:ISerializable" type="i" /> 
+        <dep id="org.jivesoftware.xiff.data:XMPPStanza" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.xml:XMLNode" type="s" /> 
+        <dep id="org.jivesoftware.xiff.core:JID" type="s" /> 
+      </script>
+      <script name="com/adobe/serialization/json/JSONTokenType" mod="1228301650000" signatureChecksum="1945943712" >
+        <def id="com.adobe.serialization.json:JSONTokenType" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="org/jivesoftware/xiff/util/SocketConn" mod="1228301652000" signatureChecksum="507207163" >
+        <def id="org.jivesoftware.xiff.util:SocketConn" /> 
+        <dep id="flash.net:Socket" type="i" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.events:ProgressEvent" type="s" /> 
+        <dep id="org.jivesoftware.xiff.util:SocketDataEvent" type="s" /> 
+        <dep id="flash.events:ProgressEvent" type="e" /> 
+        <dep id="org.jivesoftware.xiff.util:SocketDataEvent" type="e" /> 
+      </script>
+      <digests>
+        <digest type="SHA-256" signed="false" value="5e47948997956f4d81d7fe115dcba7e48b4e307ac2dad8ca42fad278dff525db"   />
+      </digests>
+    </library>
+  </libraries>
+  <files>
+    <file path="locale/en_US/utils.properties" mod="1214927818338" />
+    <file path="locale/en_US/skins.properties" mod="1217820680093" />
+    <file path="locale/en_US/styles.properties" mod="1217820680108" />
+    <file path="locale/en_US/core.properties" mod="1217820679952" />
+    <file path="locale/en_US/effects.properties" mod="1217820679968" />
+  </files>
+</swc>
