@@ -165,7 +165,7 @@ package com.mintdigital.hemlock.auth {
                 "cnonce=" + quoted(cnonce),
                 "nc=00000001",
                 "qop=auth",
-                'digest-uri="xmpp/' + HemlockEnvironment.SERVER + '"',
+                'digest-uri=' + quoted('xmpp/' + HemlockEnvironment.SERVER),
                 "response=" + responseValue(
                     username,
                     HemlockEnvironment.SERVER,
