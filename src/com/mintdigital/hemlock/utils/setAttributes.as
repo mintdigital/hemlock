@@ -1,5 +1,7 @@
 package com.mintdigital.hemlock.utils{
     
+    // TODO: Rename to setProperties() for consistency
+    
     public function setAttributes(object:Object, attributes:Object):void{
         // `attributes` is an options hash. Takes every attribute in the hash
         // and assigns its value to the `object`'s same attribute.
