@@ -65,15 +65,15 @@ namespace :hemlock do
       
       input_file = 'com/mintdigital/drawingDemo/containers/DrawingDemoContainer.as'
       output_file = 'com/mintdigital/drawingDemo/containers/DrawingDemoContainer.swf'
-      options = {
-        '-compiler.source-path' => '.',
-        '-compiler.fonts.managers' => 'flash.fonts.AFEFontManager',
-        '-compiler.include-libraries' => '../bin/HemlockCore.swc',
-        '-output' => output_file
-      }
-      options.merge!('-compiler.debug' => 'true') if args.debug
+      mxmlc_options = [
+        '-compiler.source-path=.',
+        '-compiler.fonts.managers=flash.fonts.AFEFontManager',
+        '-compiler.include-libraries=../bin/HemlockCore.swc',
+        "-output=#{output_file}"
+      ]
+      mxmlc_options << '-compiler.debug=true' if args.debug
       
-      `cd src && #{ENV['FLEX_SDK_HOME']}/bin/mxmlc #{options.map{ |k,v| "#{k}=#{v}" }.join(' ')} #{input_file}`
+      `cd src && #{ENV['FLEX_SDK_HOME']}/bin/mxmlc #{mxmlc_options.join(' ')} #{input_file}`
       puts "Built #{output_file}"
     end
   end
@@ -108,8 +108,8 @@ namespace :hemlock do
     `mv #{config_dir}/environment.as #{config_dir}/environment.as-orig`
     `cp #{config_dir}/environment.as-#{args.environment} #{config_dir}/environment.as`
     
-    # Compile with proper -compiler.debug flag
-    Rake::Task['hemlock:compile'].invoke(deploy_config['source_app'], deploy_config['debug'])
+    # Build with proper -compiler.debug flag
+    Rake::Task['hemlock:build:drawingDemo'].invoke(deploy_config['source_app'], deploy_config['debug'])
 
     # scp to server
     puts 'Transferring to server...'
@@ -246,14 +246,17 @@ namespace :hemlock do
         }
         eot
       end
-      puts "- Generated."
     end
   
     desc "Compile the test suite"
     task :compile_tests do
       puts 'Compiling test suite...'
-      # TODO: Make options readable; see hemlock:build:drawingDemo
-      `#{ENV['FLEX_SDK_HOME']}/bin/mxmlc -compiler.include-libraries "bin/FlexUnit.swc" "bin/FlexUnitRunner.swc" -compiler.debug=true -compiler.fonts.managers=flash.fonts.AFEFontManager src/HemlockTestRunner.mxml`
+      mxmlc_options = [
+        '-compiler.include-libraries "bin/FlexUnit.swc" "bin/FlexUnitRunner.swc"',
+        '-compiler.debug=true',
+        '-compiler.fonts.managers=flash.fonts.AFEFontManager'
+      ]
+      `#{ENV['FLEX_SDK_HOME']}/bin/mxmlc #{mxmlc_options.join(' ')} src/HemlockTestRunner.mxml`
     end
 
     desc "Open compiled tests"
@@ -275,6 +278,7 @@ namespace :hemlock do
 
     task :manifest do
       manifest_filename = 'manifestCore.xml'
+      
       xml = <<-EOS
 <?xml version="1.0"?>
 <componentPackage>
@@ -312,11 +316,21 @@ EOS
     
     task :compile do
       namespace = 'http://hemlock.mintdigital.com'
-      manifest_filename = 'manifestCore.xml'
-      output = '../bin/HemlockCore.swc'
+      manifest_filename = 'src/manifestCore.xml'
+      output = 'bin/HemlockCore.swc'
       
-      # TODO: Make options readable; see hemlock:build:drawingDemo
-      `cd src && #{ENV['FLEX_SDK_HOME']}/bin/compc -namespace #{namespace} #{manifest_filename} -include-namespaces #{namespace} -sp . -sp ../vendor/xiff/src -managers flash.fonts.AFEFontManager -output #{output}`
+      puts "Preparing #{output}..."
+      
+      compc_options = [
+        "-namespace #{namespace} #{manifest_filename}",
+        "-include-namespaces=#{namespace}",
+        '-sp=src',
+        '-sp=vendor/xiff/src',
+        '-managers=flash.fonts.AFEFontManager',
+        "-output=#{output}"
+      ]
+      
+      `#{ENV['FLEX_SDK_HOME']}/bin/compc #{compc_options.join(' ')}`
     end
   end # namespace :framework
   
@@ -358,11 +372,20 @@ EOS
     
     task :compile do
       namespace = 'http://hemlock-loaders.mintdigital.com'
-      manifest_filename = 'manifestLoaders.xml'
-      output = '../bin/HemlockLoaders.swc'
+      manifest_filename = 'src/manifestLoaders.xml'
+      output = 'bin/HemlockLoaders.swc'
       
-      # TODO: Make options readable; see hemlock:build:drawingDemo
-      `cd src && #{ENV['FLEX_SDK_HOME']}/bin/compc -namespace #{namespace} #{manifest_filename} -include-namespaces #{namespace} -sp . -sp ../vendor/xiff/src -managers flash.fonts.AFEFontManager -output #{output}`
+      puts "Preparing #{output}..."
+      
+      compc_options = [
+        "-namespace #{namespace} #{manifest_filename}",
+        "-include-namespaces=#{namespace}",
+        '-sp=src',
+        '-sp=vendor/xiff/src',
+        '-managers=flash.fonts.AFEFontManager',
+        "-output=#{output}"
+      ]
+      `#{ENV['FLEX_SDK_HOME']}/bin/compc #{compc_options.join(' ')}`
     end
   end # namespace :loaders
   
