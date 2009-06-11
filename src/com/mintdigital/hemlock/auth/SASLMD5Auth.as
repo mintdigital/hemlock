@@ -1,4 +1,5 @@
 package com.mintdigital.hemlock.auth {
+    import com.mintdigital.hemlock.HemlockEnvironment;
     import com.mintdigital.hemlock.conn.XMPPConnection;
     import com.mintdigital.hemlock.events.ChallengeEvent;
     
@@ -108,7 +109,14 @@ package com.mintdigital.hemlock.auth {
             Logger.debug("SASLMD5Auth::test() " );    
             username = "TEST_USERNAME";
             password = "TEST_PASSWORD";
-            var res:String = responseValue(username, "localhost", "xmpp/localhost", password, "2365057907", "4da1f5911223553007f3548ea3", "auth")
+            var res:String = responseValue(
+                username,
+                HemlockEnvironment.SERVER,
+                'xmpp/' + HemlockEnvironment.SERVER,
+                password,
+                "2365057907",
+                "4da1f5911223553007f3548ea3",
+                "auth");
             Logger.debug("response: " + res);
             
             Logger.debug("fullresponse: " + responseString("2544981027"));
@@ -151,15 +159,22 @@ package com.mintdigital.hemlock.auth {
             
             
             var tuples:Array = [
-            "username=" + quoted(username),
-            "realm=" + quoted("localhost"),
-            "nonce=" + quoted(nonce),
-            "cnonce=" + quoted(cnonce),
-            "nc=00000001",
-            "qop=auth",
-            "digest-uri=\"xmpp/localhost\"",
-            "response=" + responseValue(username, "localhost", "xmpp/localhost", password, nonce, cnonce, "auth"),
-            "charset=utf-8"
+                "username=" + quoted(username),
+                "realm=" + quoted(HemlockEnvironment.SERVER),
+                "nonce=" + quoted(nonce),
+                "cnonce=" + quoted(cnonce),
+                "nc=00000001",
+                "qop=auth",
+                'digest-uri="xmpp/' + HemlockEnvironment.SERVER + '"',
+                "response=" + responseValue(
+                    username,
+                    HemlockEnvironment.SERVER,
+                    'xmpp/' + HemlockEnvironment.SERVER,
+                    password,
+                    nonce,
+                    cnonce,
+                    "auth"),
+                "charset=utf-8"
             ];
             
             return(joined(tuples));
