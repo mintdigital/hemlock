@@ -5,6 +5,8 @@ package com.mintdigital.hemlock.widgets.roomList{
     import com.mintdigital.hemlock.controls.HemlockScrollBar;
     import com.mintdigital.hemlock.display.HemlockLabel;
     import com.mintdigital.hemlock.display.HemlockSprite;
+    import com.mintdigital.hemlock.utils.HashUtils;
+    import com.mintdigital.hemlock.utils.setAttributes;
     import com.mintdigital.hemlock.widgets.HemlockWidget;
     import com.mintdigital.hemlock.widgets.HemlockWidgetDelegate;
     import com.mintdigital.hemlock.widgets.IDelegateViews;
@@ -191,55 +193,50 @@ package com.mintdigital.hemlock.widgets.roomList{
             // views.listScrollBar.show();
             widget.showScreen(RoomListWidget.SCREEN_LIST);
             views.empty.visible = false;
-
-            // Prepare positions and sizes
-            var positions:Object = {}, sizes:Object = {};
-            positions.listItem  = { x: 0, y: views.list.numChildren * HEIGHT };
-            sizes.listItem      = { width: views.list.width, height: HEIGHT };
-            sizes.joinButton    = { width: 80, height: 30 };
-            positions.joinButton = {
-                x:  (sizes.listItem.width  - sizes.joinButton.width),
-                y:  0
-            }
-            positions.titleText = { x: 0, y: 0 };
-            sizes.titleText     = {
-                width:  sizes.listItem.width - sizes.joinButton.width,
+                        
+            // Prepare coordinates
+            var coords:Object = {};
+            coords.listItem = {
+                x:      0,
+                y:      HEIGHT * (HashUtils.length(widget.rooms) - 1),
+                width:  views.list.width,
+                height: HEIGHT
+            };
+            coords.joinButton = {
+                x:      0,
+                width:  80,
+                height: 30
+            };
+            coords.joinButton.x = (coords.listItem.width - coords.joinButton.width);
+            coords.titleText = {
+                x:      0,
+                y:      0,
+                width:  coords.listItem.width - coords.joinButton.width,
                 height: HEIGHT * 0.4
             };
-            positions.playersText = {
-                x:  0,
-                y:  positions.titleText.y + sizes.titleText.height
+            coords.playersText = {
+                x:      0,
+                y:      coords.titleText.y + coords.titleText.height,
+                width:  coords.titleText.width,
+                height: coords.listItem.height - coords.titleText.height
             };
-            sizes.playersText = {
-                width:  sizes.titleText.width,
-                height: sizes.listItem.height - sizes.titleText.height
-            };
-
-            var listItem:HemlockSprite = new HemlockSprite({
-                x:  positions.listItem.x,
-                y:  positions.listItem.y
-            });
+            
+            // Create view
+            var listItem:HemlockSprite = new HemlockSprite(HashUtils.merge({
+                name:   jidString
+            }, coords.listItem));
 
             // Create "join game" button
-            var joinButton:HemlockButton = new HemlockButton('joinGame', jidString, {
-                x:      positions.joinButton.x,
-                y:      positions.joinButton.y,
-                width:  sizes.joinButton.width,
-                height: sizes.joinButton.height,
+            var joinButton:HemlockButton = new HemlockButton('joinGame', jidString, HashUtils.merge({
                 label:  options.strings.joinRoomButton
-            });
+            }, coords.joinButton));
 
             // Create room title text
             var titleText:TextField = new TextField();
-            titleText.width = views.list.width - joinButton.width;
+            setAttributes(titleText, coords.titleText);
             with(titleText){
-                x           = positions.titleText.x;
-                y           = positions.titleText.y;
-                width       = sizes.titleText.width;
-                height      = sizes.titleText.height;
                 embedFonts  = true;
                 selectable  = false;
-                // text        = roomName + '\u2019s game';
                 text        = roomName;
             }
             var titleFormat:TextFormat = new TextFormat();
@@ -252,12 +249,8 @@ package com.mintdigital.hemlock.widgets.roomList{
 
             // Create "# players" text
             var playersText:TextField = new TextField();
-            playersText.width = views.list.width - joinButton.width;
+            setAttributes(playersText, coords.playersText);
             with(playersText){
-                x           = positions.playersText.x;
-                y           = positions.playersText.y;
-                width       = sizes.playersText.width;
-                height      = sizes.playersText.height;
                 embedFonts  = true;
                 selectable  = false;
                 text        = numPlayers + ' '
@@ -271,15 +264,50 @@ package com.mintdigital.hemlock.widgets.roomList{
             }
             playersText.setTextFormat(playersText.defaultTextFormat = playersFormat);
 
-            listItem.addChild(titleText);
-            listItem.addChild(playersText);
-            listItem.addChild(joinButton);
+            listItem.addChildren(
+                titleText,
+                playersText,
+                joinButton
+            );
 
             views.list.addChild(listItem);
-            listItem.setSize(sizes.listItem.width, sizes.listItem.height);
+            // listItem.setSize(sizes.listItem.width, sizes.listItem.height);
 
             views.list.dispatchEvent(new Event(Event.CHANGE)); // Notify scrollbar
             return listItem;
         }
+        
+        internal function removeListItem(jidString:String):void{
+            Logger.debug('RoomListWidgetViews::removeListItem() : jidString = ' + jidString);
+            
+            var listItem:HemlockSprite = views.list.getChildByName(jidString) as HemlockSprite;
+            Logger.debug('===== listItem = ' + (listItem)); // FIXME: testing; remove
+            Logger.debug('===== views.list.numChildren = ' + (views.list.numChildren)); // FIXME: testing; remove
+            if(!listItem){ return; }
+            
+            // Remove item
+            views.list.removeChild(listItem);
+            
+            // Update positions of other items
+            var numItems:uint = views.list.numChildren;
+            Logger.debug('===== numItems = ' + (numItems)); // FIXME: testing; remove
+            if(numItems > 0){
+                const HEIGHT:Number = views.list.getChildAt(0).height;
+                for(var i:uint = 0; i < numItems; i++){
+                    listItem = views.list.getChildAt(i) as HemlockSprite;
+                    /*
+                    listItem.move({
+                        yFrom:      listItem.y,
+                        yTo:        HEIGHT * i,
+                        duration:   0.25
+                    });
+                    */
+                    listItem.y = HEIGHT * i;
+                }
+            }else{
+                views.empty.visible = true;
+            }
+        }
+        
     }
 }

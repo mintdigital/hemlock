@@ -26,7 +26,7 @@ package com.mintdigital.hemlock.widgets.roomList {
 
         private var eventTypes:Object;
         protected var _room:String = 'roomList';
-        protected var _rooms:Object = {};
+        internal var rooms:Object = {};
         private var _configOptions:Object = {};
         private var _toJID:JID;
         protected static var _defaultOptions:Object = {
@@ -51,7 +51,7 @@ package com.mintdigital.hemlock.widgets.roomList {
             options = HashUtils.merge(_defaultOptions, options);
             super(parentSprite, HashUtils.merge({
                 delegates: {
-                    views: new RoomListWidgetViews(this),
+                    views:  new RoomListWidgetViews(this),
                     events: new RoomListWidgetEvents(this) 
                 }
             }, options));
@@ -70,7 +70,6 @@ package com.mintdigital.hemlock.widgets.roomList {
             var currentItems:Array /* of * JID strings */ = [];
             var item:*;
             var listItem:HemlockSprite;
-            var key:String;
             for each(item in items){
                 if(item.name.replace(/\s*\((\w+\,\s)?\d+\)$/g, '') != 'session'){
                     // We want to keep track of all items that should 
@@ -78,25 +77,27 @@ package com.mintdigital.hemlock.widgets.roomList {
                     currentItems.push(item.jid);
                     
                     // If this is a new item, create a display object
-                    // and track the room in _rooms.
-                    if (HashUtils.keys(_rooms).indexOf(item.jid) == -1) {
+                    // and track the room in rooms.
+                    if (HashUtils.keys(rooms).indexOf(item.jid) == -1) {
+                        rooms[item.jid] = item.name;
                         listItem = delegates.views.addListItem(item.name, item.jid);
-                        _rooms[item.jid] = listItem.name;
                     }
                 }
             }
-
-            for each(key in HashUtils.keys(_rooms)) {
-                // If a room's jid isn't present in the currentItems
-                // collection, that means that it is no longer available.
-                // Therefore, it should be removed from _rooms collection,
-                // and from the stage.
-                if (currentItems.indexOf(key) == -1) {
-                    listItem = views.list.getChildByName(_rooms[key]);
-                    views.list.removeChild(listItem);
-                    delete _rooms[key];
+            
+            (function():void{
+                var roomJIDString:String;
+                for each(var key:String in HashUtils.keys(rooms)) {
+                    // If a room's jid isn't present in the currentItems
+                    // collection, that means that it is no longer available.
+                    // Therefore, it should be removed from `rooms` collection,
+                    // and from the stage.
+                    if (currentItems.indexOf(key) == -1) {
+                        delete rooms[key];
+                        delegates.views.removeListItem(key);
+                    }
                 }
-            }
+            })();
             return currentItems;
         }
         
@@ -106,7 +107,7 @@ package com.mintdigital.hemlock.widgets.roomList {
             for each(var fieldInput:HemlockTextInput in views.formFields) {
                 _configOptions[fieldInput.name] = [fieldInput.value];
             }
-            _configOptions['muc#roomconfig_publicroom'] = [1];
+            _configOptions['muc#roomconfig_publicroom'] = [1]; // Makes room publicly visible
             // TODO: Randomize room name if blank
             container.configureChatRoom(_toJID, _configOptions);
             

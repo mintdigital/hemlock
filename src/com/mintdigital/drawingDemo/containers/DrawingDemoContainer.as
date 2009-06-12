@@ -61,7 +61,6 @@ package com.mintdigital.drawingDemo.containers{
             super.registerListeners();
 
             registerListener(dispatcher,    AppEvent.ROOM_JOINED,               onRoomJoined);
-            registerListener(dispatcher,    AppEvent.ROOM_USER_LEAVE,           onRoomUserLeave);
             registerListener(dispatcher,    AppEvent.CONFIGURATION_START,       onConfigurationStart);
             registerListener(dispatcher,    AppEvent.CONFIGURATION_COMPLETE,    onConfigurationComplete);
         }
@@ -90,17 +89,10 @@ package com.mintdigital.drawingDemo.containers{
             }
         }
 
-        private function onRoomUserLeave(event:AppEvent):void{
-            var data:Object = event.options;
-            if(widgets[data.jid.node]){
-                removeChild(widgets[data.jid.node]);
-                delete widgets[data.jid.node];
-            }
-        }
-
         private function onConfigurationStart(event:AppEvent):void{
             var jid:JID = event.from;
             if(jid.type == JID.TYPE_APP){
+                // Mark the app room private so that it doesn't appear in RoomListWidget
                 configureChatRoom(jid, { 'muc#roomconfig_publicroom' : [0] });
             }
         }
