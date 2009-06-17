@@ -76,8 +76,12 @@ package com.mintdigital.drawingDemo.containers{
         //--------------------------------------
 
         private function onRoomJoined(event:AppEvent):void{
+            Logger.debug('DrawingDemoContainer::onRoomJoined()');
+            
             var data:Object = event.options;
+            
             if(data.jid.node != JID.TYPE_SESSION && widgets[data.jid.node] == null){
+                // Update widgets
                 _userJID = data.jid;
                 switch(data.jid.type){
                     case JID.TYPE_CHAT:
@@ -266,7 +270,7 @@ package com.mintdigital.drawingDemo.containers{
         //--------------------------------------
 
         private function signInAnonymously():void{
-            Logger.debug('TopTrumps::signInAnonymously()');
+            Logger.debug('DrawingDemoContainer::signInAnonymously()');
             
             var username:String = ArrayUtils.rand([
                     // Colors
@@ -278,8 +282,9 @@ package com.mintdigital.drawingDemo.containers{
                     'fudge', 'caramel', 'marzipan',
                     
                     // Animals
-                    'horse', 'eagle', 'bear', 'pigeon', 'cricket', 'squirrel',
-                    'hamster', 'bug', 'spider', 'insect',
+                    'horse', 'eagle', 'bear', 'pigeon', 'squirrel', 'hamster',
+                    'cricket', 'spider',
+                    'cheetah', 'puma', 'jaguar', 'panther', 'tiger', 'leopard',
                     
                     // Misc
                     'magic', 'happy', 'earth', 'awesome', 'donk'
@@ -288,15 +293,20 @@ package com.mintdigital.drawingDemo.containers{
             signIn(username, '');
         }
 
-        // Override to specify type JID.TYPE_CHAT
-        override public function createChatRoom(roomType:String):void {
-            Logger.debug("TopTrumps::createChatRoom()");
+        override public function createChatRoom(roomType:String):void{
+            Logger.debug("DrawingDemoContainer::createChatRoom()");
+
+            // Overridden to only create a CHAT room first
             client.createChatRoom(JID.TYPE_CHAT, domain);
         }
 
-        // Override to join the game at the same time.
-        override public function joinChatRoom(toJID:JID):void {
+        override public function joinChatRoom(toJID:JID):void{
+            Logger.debug('DrawingDemoContainer::joinChatRoom()');
+            
+            // Join CHAT room
             super.joinChatRoom(toJID);
+            
+            // Join APP room at the same time
             client.joinChatRoom(new JID(
                 toJID.toString().replace(JID.TYPE_CHAT + '_', JID.TYPE_APP + '_') + '/' + client.username
             ));

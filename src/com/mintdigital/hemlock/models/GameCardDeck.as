@@ -36,7 +36,7 @@ package com.mintdigital.hemlock.models{
         }
         
         public function populate():void{
-            // TODO: Set up as a default card pack instead; see TopTrumps
+            // TODO: Set up as a default card pack instead
             
             // Populate _cards with 52 standard cards. Override this to create
             // subclasses with custom decks.

@@ -162,9 +162,20 @@ package com.mintdigital.hemlock.clients{
             _loggingOut = false;
         }
         
-        public function joinChatRoom(toJID:JID):void {
-            Logger.debug("XMPPClient::joinChatRoom()");
+        public function createChatRoom(roomType:String, domain:String, key:String=null):void {
+            Logger.debug("XMPPClient::createChatRoom()");
             
+            var presence:Presence = new Presence(newRoomJID(roomType, domain, key), _jid),
+                mucExtension:MUCExtension = new MUCExtension();
+            mucExtension.maxchars = 0; // Request no history
+            presence.addExtension(mucExtension);
+            _connection.sendStanza(presence);
+        }
+        
+        public function joinChatRoom(toJID:JID):void {
+            Logger.debug('XMPPClient::joinChatRoom() : toJID = ' + toJID);
+            
+            // Send presence
             var presence:Presence = new Presence(toJID, _jid),
                 mucExtension:MUCExtension = new MUCExtension();
             mucExtension.maxchars = 0; // Request no history
@@ -174,18 +185,10 @@ package com.mintdigital.hemlock.clients{
         }
         
         public function leaveChatRoom(toJID:JID):void {
-            Logger.debug("XMPPClient::leaveChatRoom()");
-            var presence:Presence = new Presence(toJID, _jid, Presence.UNAVAILABLE_TYPE);
-            _connection.sendStanza(presence);
-        }
-        
-        public function createChatRoom(roomType:String, domain:String, key:String=null):void {
-            Logger.debug("XMPPClient::createChatRoom()");
+            Logger.debug('XMPPClient::leaveChatRoom() : toJID = ' + toJID);
             
-            var presence:Presence = new Presence(newRoomJID(roomType, domain, key), _jid),
-                mucExtension:MUCExtension = new MUCExtension();
-            mucExtension.maxchars = 0; // Request no history
-            presence.addExtension(mucExtension);
+            // Send presence
+            var presence:Presence = new Presence(toJID, _jid, Presence.UNAVAILABLE_TYPE);
             _connection.sendStanza(presence);
         }
         
@@ -618,13 +621,12 @@ package com.mintdigital.hemlock.clients{
     
         public function handleBindResponse(packet:IQ) : void {
             Logger.debug("XMPPClient::handleBindResponse()");
-            var bind_ext:BindExtension = packet.getExtension("bind") as BindExtension;
-            _jid = new JID(bind_ext.getJID());
+            var bindExtension:BindExtension = packet.getExtension("bind") as BindExtension;
+            _jid = new JID(bindExtension.getJID());
             
             var sessionIQ:IQ = new IQ(null, "set");
 
             sessionIQ.addExtension(new SessionExtension());
-
             sessionIQ.callbackName = "handleSessionResponse";
             sessionIQ.callbackScope = this;
 
@@ -774,13 +776,13 @@ package com.mintdigital.hemlock.clients{
             _registration.start();
         }
 
-        private function establishSession():void
-        {
+        private function establishSession():void{
             Logger.debug("XMPPClient::establishSession()");
-            var bindIQ:IQ = new IQ(null, "set");
+            var bindIQ:IQ = new IQ(null, "set"),
+                bindExtension:BindExtension = new BindExtension();
+            bindExtension.resource = username || 'hemlock';
 
-            bindIQ.addExtension(new BindExtension());
-
+            bindIQ.addExtension(bindExtension);
             bindIQ.callbackName = "handleBindResponse";
             bindIQ.callbackScope = this;
 

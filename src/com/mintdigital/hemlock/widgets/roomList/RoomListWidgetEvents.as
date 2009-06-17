@@ -29,12 +29,12 @@ package com.mintdigital.hemlock.widgets.roomList {
             widget.registerListener(views.configFormCancelButton,      MouseEvent.CLICK, onCancellationEvent);
             
             // Register container/dispatcher listeners
-            widget.registerListener(widget.dispatcher,      AppEvent.ROOM_CONFIGURED,           onRoomChange);
-            widget.registerListener(widget.dispatcher,      AppEvent.ROOM_JOINED,               onRoomChange);
-            widget.registerListener(widget.dispatcher,      AppEvent.ROOM_USER_LEAVE,           onRoomChange);
-            widget.registerListener(widget.dispatcher,      AppEvent.CONFIGURATION_START,       onConfigurationStart);
-            widget.registerListener(widget.dispatcher,      AppEvent.CONFIGURATION_COMPLETE,    onConfigurationComplete);
-            widget.registerListener(widget.dispatcher,      AppEvent.DISCOVERY_ITEMS_FOUND,     onDiscoveryItemsFound);
+            widget.registerListener(widget.dispatcher,  AppEvent.ROOM_CONFIGURED,           onRoomChange);
+            widget.registerListener(widget.dispatcher,  AppEvent.ROOM_JOINED,               onRoomChange);
+            widget.registerListener(widget.dispatcher,  AppEvent.ROOM_USER_LEAVE,           onRoomChange);
+            widget.registerListener(widget.dispatcher,  AppEvent.CONFIGURATION_START,       onConfigurationStart);
+            widget.registerListener(widget.dispatcher,  AppEvent.CONFIGURATION_COMPLETE,    onConfigurationComplete);
+            widget.registerListener(widget.dispatcher,  AppEvent.DISCOVERY_ITEMS_FOUND,     onDiscoveryItemsFound);
         }
         
 
@@ -43,8 +43,8 @@ package com.mintdigital.hemlock.widgets.roomList {
         //  Handlers > Views
         //--------------------------------------
 
-        private function onJoinGameButtonClick(event:MouseEvent):void{
-            Logger.debug('RoomListWidget::onJoinGameButtonClick()');
+        private function onJoinRoomButtonClick(event:MouseEvent):void{
+            Logger.debug('RoomListWidget::onJoinRoomButtonClick()');
         
             var button:HemlockButton = event.target.parent as HemlockButton;
             container.joinChatRoom(new JID(button.value as String));
@@ -72,19 +72,21 @@ package com.mintdigital.hemlock.widgets.roomList {
         //  Handlers > App
         //--------------------------------------
         
-        private function onRoomChange(ev:AppEvent):void{
-           container.discoChatRooms();
-           widget.hideConfigForm();
+        private function onRoomChange(event:AppEvent):void{
+            Logger.debug('RoomListWidgetEvents::onRoomChange() : type = ' + event.type);
+            
+            container.discoChatRooms();
+            widget.hideConfigForm();
         }
         
-        private function onConfigurationStart(ev:AppEvent):void {
-            if (ev.from.type == JID.TYPE_SESSION) { return; }
+        private function onConfigurationStart(event:AppEvent):void {
+            if (event.from.type == JID.TYPE_SESSION) { return; }
             
-            widget.toJID = ev.from;
+            widget.toJID = event.from;
             widget.showScreen(RoomListWidget.SCREEN_FORM);
 
             // FIXME: Move to views delegate!
-            for each(var field:FormField in ev.options.fields) {
+            for each(var field:FormField in event.options.fields) {
                 if (field.type == FormExtension.FIELD_TYPE_TEXT_SINGLE) {
                     var textInput:HemlockTextInput = configField(field);
                     widget.addChild(textInput);
@@ -99,20 +101,20 @@ package com.mintdigital.hemlock.widgets.roomList {
             widget.updateSize();
         }
         
-        private function onConfigurationComplete(ev:AppEvent):void {
+        private function onConfigurationComplete(event:AppEvent):void {
             container.discoChatRooms();
         }
         
-        private function onDiscoveryItemsFound(ev:AppEvent):void {
+        private function onDiscoveryItemsFound(event:AppEvent):void {
             Logger.debug('RoomListWidgetEvents::onDiscoveryItemsFound()');
             
-            var items:Array /* of * */ = widget.updateRoomList(ev.options.items);
+            var items:Array /* of * */ = widget.updateRoomList(event.options.items);
 
-            // Listen to new "join game" buttons in list
+            // Listen to new "join" buttons in list
             var numRooms:uint = views.list.numChildren;
             for(var i:uint = numRooms - items.length; i < numRooms; i++){
-                var button:HemlockButton = views.list.getChildAt(i).getChildByName('joinGame') as HemlockButton;
-                widget.registerListener(button, MouseEvent.CLICK, onJoinGameButtonClick);
+                var button:HemlockButton = views.list.getChildAt(i).getChildByName('join') as HemlockButton;
+                widget.registerListener(button, MouseEvent.CLICK, onJoinRoomButtonClick);
             }
             widget.startListeners();
         }
