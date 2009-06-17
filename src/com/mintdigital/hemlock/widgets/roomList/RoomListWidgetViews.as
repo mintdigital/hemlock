@@ -328,6 +328,23 @@ package com.mintdigital.hemlock.widgets.roomList{
                 participantsText.text = numParticipants + ' '
                     + options.strings[numParticipants == 1 ? 'participant' : 'participants'];
             }
+
+            // Disable/enable "join" button
+            if(widget.options.maxParticipants > 0){
+                var joinButton:HemlockButton = listItem.getChildByName('join') as HemlockButton;
+                if(numParticipants < widget.options.maxParticipants){
+                    joinButton.enable();
+                }else{
+                    joinButton.disable({ label: 'Full' });
+                        // TODO: Update button handler to also check # participants
+                        // - Backup against race condition where "Join" is clicked
+                        //   before button is disabled.
+                        // - Widget needs its own model storing room JIDs, titles,
+                        //   and number of participants.
+                        // TODO: Disable buttons by default, until they're
+                        //       specifically enabled in this function?
+                }
+            }
         }
         
     }

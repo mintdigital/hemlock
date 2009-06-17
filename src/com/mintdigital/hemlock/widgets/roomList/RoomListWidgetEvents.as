@@ -114,9 +114,9 @@ package com.mintdigital.hemlock.widgets.roomList {
             var numRooms:uint = views.list.numChildren;
             for(var i:uint = numRooms - items.length; i < numRooms; i++){
                 var button:HemlockButton = views.list.getChildAt(i).getChildByName('join') as HemlockButton;
-                widget.registerListener(button, MouseEvent.CLICK, onJoinRoomButtonClick);
+                button.registerListener(button, MouseEvent.CLICK, onJoinRoomButtonClick);
+                // button.startListeners();
             }
-            widget.startListeners();
         }
         
         private function get configFormInputY():int {

@@ -30,6 +30,7 @@ package com.mintdigital.hemlock.widgets.roomList {
         private var _configOptions:Object = {};
         private var _toJID:JID;
         protected static var _defaultOptions:Object = {
+            maxParticipants:        0, // 0: Unlimited participants
             headerColor:            0x000000,
             roomTitleColor:         0x000000,
             roomMetaColor:          0x000000,

@@ -176,8 +176,9 @@ package com.mintdigital.drawingDemo.containers{
                 widgets.roomList.show();
             }else{
                 widgets.roomList = new RoomListWidget(this, HashUtils.merge({
-                    roomType:   JID.TYPE_APP,
-                    strings:    HashUtils.merge(RoomListWidget.defaultOptions.strings, {
+                    roomType:           JID.TYPE_APP,
+                    maxParticipants:    5,
+                    strings:            HashUtils.merge(RoomListWidget.defaultOptions.strings, {
                         allRooms:           'Current drawings',
                         newRoomButton:      'Start a new drawing',
                         noRooms:            'No drawings yet',
