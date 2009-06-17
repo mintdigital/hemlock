@@ -7,6 +7,7 @@ package com.mintdigital.drawingDemo.containers{
     import com.mintdigital.hemlock.skins.hemlockSoft.HemlockSoftSkin;
     import com.mintdigital.hemlock.strategies.DrawEventStrategy;
     import com.mintdigital.hemlock.strategies.RoomEventStrategy;
+    import com.mintdigital.hemlock.utils.ArrayUtils;
     import com.mintdigital.hemlock.utils.GraphicsUtils;
     import com.mintdigital.hemlock.utils.HashUtils;
     import com.mintdigital.hemlock.widgets.chatroom.ChatroomWidget;
@@ -18,6 +19,7 @@ package com.mintdigital.drawingDemo.containers{
     [SWF(width="1000", height="665", backgroundColor="#CCCCCC")]
     public class DrawingDemoContainer extends HemlockContainer{
 
+        private const USE_ANONYMOUS_SIGNIN:Boolean = true;
         private var _userJID:JID;
 
 
@@ -38,7 +40,9 @@ package com.mintdigital.drawingDemo.containers{
 
             // Set up widgets
             addDebugWidget();
-            addInitialWidgets();
+            USE_ANONYMOUS_SIGNIN
+                ? signInAnonymously()
+                : addInitialWidgets();
 
             // Wrap up
             if(widgets.debug){ moveChildToFront(widgets.debug); }
@@ -260,6 +264,29 @@ package com.mintdigital.drawingDemo.containers{
         //--------------------------------------
         //  Misc helpers
         //--------------------------------------
+
+        private function signInAnonymously():void{
+            Logger.debug('TopTrumps::signInAnonymously()');
+            
+            var username:String = ArrayUtils.rand([
+                    // Colors
+                    'red', 'orange', 'yellow', 'green', 'blue', 'purple',
+                    'white', 'gray', 'black', 'brown',
+                    
+                    // Foods
+                    'apple', 'banana', 'chocolate', 'vanilla', 'granola',
+                    'fudge', 'caramel', 'marzipan',
+                    
+                    // Animals
+                    'horse', 'eagle', 'bear', 'pigeon', 'cricket', 'squirrel',
+                    'hamster', 'bug', 'spider', 'insect',
+                    
+                    // Misc
+                    'magic', 'happy', 'earth', 'awesome', 'donk'
+                ]) + (Math.round(Math.random() * (99 - 10)) + 10);
+            Logger.debug('- Random username: ' + username);
+            signIn(username, '');
+        }
 
         // Override to specify type JID.TYPE_CHAT
         override public function createChatRoom(roomType:String):void {
