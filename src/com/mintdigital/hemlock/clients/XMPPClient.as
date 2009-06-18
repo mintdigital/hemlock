@@ -393,13 +393,13 @@ package com.mintdigital.hemlock.clients{
                     dispatchRoomLeaveEvent(e.presence, roomJID);
                 }
 
-                notifyApp(AppEvent.PRESENCE_UPDATE, {
-                    presenceFrom:   new JID(e.presence.from.toString()),
-                    presenceType:   e.presence.type,
-                    presenceRole:   e.presence.role,
-                    presenceStatus: e.presence.status,
-                    presenceRealJID:   e.presence.realJID.toString(),
-                    presenceAffiliation: e.presence.affiliation
+                dispatchAppEvent(AppEvent.PRESENCE_UPDATE, {
+                    presenceFrom:       new JID(e.presence.from.toString()),
+                    presenceType:       e.presence.type,
+                    presenceRole:       e.presence.role,
+                    presenceStatus:     e.presence.status,
+                    presenceRealJID:    e.presence.realJID.toString(),
+                    presenceAffiliation:e.presence.affiliation
                 });            
             }
         }
@@ -497,7 +497,7 @@ package com.mintdigital.hemlock.clients{
         
         private function onStreamError(event:StreamEvent):void{
             Logger.debug('XMPPClient::onStreamError() : loggedIn = ' + _loggedIn);
-            notifyApp(AppEvent.STREAM_ERROR,event.options);
+            dispatchAppEvent(AppEvent.STREAM_ERROR,event.options);
         }
 
         private function onFeatures(event:FeaturesEvent) : void {
@@ -522,7 +522,7 @@ package com.mintdigital.hemlock.clients{
         }
 
         private function onSessionDestroy(ev:SessionEvent): void {
-            notifyApp(AppEvent.SESSION_DESTROY);
+            dispatchAppEvent(AppEvent.SESSION_DESTROY);
         }
     
         private function onSessionCreateFailure(evt:SessionEvent) : void {
@@ -531,7 +531,7 @@ package com.mintdigital.hemlock.clients{
             _auth.stop();
             _keepAliveTimer.stop();
             _connection.disconnect();
-            notifyApp(AppEvent.SESSION_CREATE_FAILURE);
+            dispatchAppEvent(AppEvent.SESSION_CREATE_FAILURE);
         }
         
         private function onKeepAliveTimer(evt:Event) : void {
@@ -557,14 +557,14 @@ package com.mintdigital.hemlock.clients{
         
         private function onRegistrationErrors(evt : RegistrationEvent) : void {
             Logger.debug("XMPPClient::onRegistrationErrors()");
-            notifyApp(AppEvent.REGISTRATION_ERRORS);
+            dispatchAppEvent(AppEvent.REGISTRATION_ERRORS);
             _registering = false;
             _keepAliveTimer.stop();
             _connection.disconnect();
         }
 
         private function onConnectionDestroy(evt : ConnectionEvent) : void {
-            notifyApp(AppEvent.CONNECTION_DESTROY);
+            dispatchAppEvent(AppEvent.CONNECTION_DESTROY);
         }
         
         //--------------------------------------
@@ -613,7 +613,7 @@ package com.mintdigital.hemlock.clients{
                     break;
                     
             }
-            notifyApp(notifName, notifData);
+            dispatchAppEvent(notifName, notifData);
         }
 
         public function handleSessionResponse(packet:IQ):void
@@ -621,12 +621,12 @@ package com.mintdigital.hemlock.clients{
             Logger.debug("XMPPClient::handleSessionResponse()");
             _sessionStarted = true;
             
-            notifyApp(AppEvent.SESSION_CREATE_SUCCESS, {
+            dispatchAppEvent(AppEvent.SESSION_CREATE_SUCCESS, {
                 from: _username,
                 jid: _jid
             });
             
-            notifyApp(AppEvent.PRESENCE_CREATE, {
+            dispatchAppEvent(AppEvent.PRESENCE_CREATE, {
                 presenceFrom:   _jid,
                 presenceType:   PresenceEvent.STATUS_AVAILABLE
             });
@@ -656,7 +656,7 @@ package com.mintdigital.hemlock.clients{
             Logger.debug("XMPPClient::handleRoomDisco()");
             
             var disco:ItemDiscoExtension = packet.getExtension("query") as ItemDiscoExtension;
-            notifyApp(AppEvent.DISCOVERY_ITEMS_FOUND, {
+            dispatchAppEvent(AppEvent.DISCOVERY_ITEMS_FOUND, {
                 items: disco.items
             });
         }
@@ -665,7 +665,7 @@ package com.mintdigital.hemlock.clients{
             Logger.debug("XMPPClient::handleUserDisco()");
             
             var disco:ItemDiscoExtension = packet.getExtension("query") as ItemDiscoExtension;
-            notifyApp(AppEvent.DISCOVERY_USERS_FOUND, {
+            dispatchAppEvent(AppEvent.DISCOVERY_USERS_FOUND, {
                 items: disco.items
             });
         }
@@ -675,9 +675,9 @@ package com.mintdigital.hemlock.clients{
             
             switch(packet.type) {
                 case 'result':
-                    notifyApp(AppEvent.ITEM_UPDATE, {
-                        to: packet.to,
-                        from: packet.from
+                    dispatchAppEvent(AppEvent.ITEM_UPDATE, {
+                        to:     packet.to,
+                        from:   packet.from
                     });
                     break;
                 case 'error':
@@ -691,9 +691,9 @@ package com.mintdigital.hemlock.clients{
             
             switch(packet.type) {
                 case 'result':
-                    notifyApp(AppEvent.AFFILIATION_UPDATE, {
-                        to: packet.to,
-                        from: packet.from
+                    dispatchAppEvent(AppEvent.AFFILIATION_UPDATE, {
+                        to:     packet.to,
+                        from:   packet.from
                     });
                     break;
                 case 'error':
@@ -707,9 +707,9 @@ package com.mintdigital.hemlock.clients{
             
             switch(packet.type) {
                 case 'result':
-                    notifyApp(AppEvent.ROLE_UPDATE, {
-                        to: packet.to,
-                        from: packet.from
+                    dispatchAppEvent(AppEvent.ROLE_UPDATE, {
+                        to:     packet.to,
+                        from:   packet.from
                     });
                     break;
                 case 'error':
@@ -724,11 +724,11 @@ package com.mintdigital.hemlock.clients{
         
         private function dispatchRoomJoinEvent(presence:Presence, roomJID:JID):void {
             Logger.debug("XMPPClient::dispatchRoomJoinNotification()");
-            notifyApp(AppEvent.ROOM_JOINED, {
-                name: presence.from.node,
-                jid: roomJID,
-                to: _jid,
-                from: presence.from
+            dispatchAppEvent(AppEvent.ROOM_JOINED, {
+                name:   presence.from.node,
+                jid:    roomJID,
+                to:     _jid,
+                from:   presence.from
             });
             
             sendDiscoveryRequest();
@@ -738,10 +738,10 @@ package com.mintdigital.hemlock.clients{
         
         private function dispatchRoomLeaveEvent(presence:Presence, roomJID:JID):void {
             Logger.debug("XMPPClient::dispatchRoomLeaveNotification()");
-            notifyApp(AppEvent.ROOM_LEAVE, {
-                jid: roomJID,
-                to: _jid,
-                from: presence.from
+            dispatchAppEvent(AppEvent.ROOM_LEAVE, {
+                jid:    roomJID,
+                to:     _jid,
+                from:   presence.from
             });
             
             var i:int = _roomJIDs.indexOf(roomJID.toString());
@@ -829,18 +829,25 @@ package com.mintdigital.hemlock.clients{
             }
         }
         
-        // notify app is shorter version, it handles the core app events by dispatching AppEvent events
-        public function notifyApp(notifType:String, notifData:Object = null):void
-        {
-            Logger.debug("Client sending notification: " + notifType);
-            dispatchEvent(new AppEvent(notifType, notifData))
+        public function dispatchEvent(event:HemlockEvent):void{
+            _dispatcher.dispatchEvent(event);
         }
         
-        // this allows for dispatching any type of event on dispatcher
-        public function dispatchEvent(ev:HemlockEvent):void
-        {
-            _dispatcher.dispatchEvent(ev);
+        public function dispatchAppEvent(eventType:String, eventOptions:Object = null):void{
+            // Convenience function for dispatching an AppEvent on the
+            // dispatcher. To dispatch other types of events, use
+            // dispatchEvent().
+            
+            Logger.debug('XMPPClient::dispatchAppEvent() : eventType = ' + eventType);
+            dispatchEvent(new AppEvent(eventType, eventOptions));
         }
+        
+        public function notifyApp(notifType:String, notifData:Object = null):void
+        {
+            Logger.warn('DEPRECATED: XMPPClient::notifyApp(); use dispatchAppEvent() instead.');
+            dispatchAppEvent(notifType, notifData);
+        }
+        
         
         
         
