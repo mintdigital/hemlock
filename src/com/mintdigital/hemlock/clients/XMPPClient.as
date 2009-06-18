@@ -86,19 +86,19 @@ package com.mintdigital.hemlock.clients{
 
             _connection = new XMPPConnection();
             
-            _connection.addEventListener(Event.CLOSE, onSocketClosed);
-            _connection.addEventListener(ConnectionEvent.DESTROY, onConnectionDestroy);
-            _connection.addEventListener(FeaturesEvent.FEATURES, onFeatures);
-            _connection.addEventListener(IOErrorEvent.IO_ERROR, onIOError);
-            _connection.addEventListener(MessageEvent.CHAT_MESSAGE, onMessageEvent);
-            _connection.addEventListener(PresenceEvent.UPDATE, onPresenceUpdate);
-            _connection.addEventListener(RegistrationEvent.COMPLETE, onRegistrationComplete);
-            _connection.addEventListener(RegistrationEvent.ERRORS, onRegistrationErrors);
-            _connection.addEventListener(SessionEvent.CREATE_FAILURE, onSessionCreateFailure);
-            _connection.addEventListener(SessionEvent.CREATE_SUCCESS, onLoginSuccess);
-            _connection.addEventListener(SessionEvent.DESTROY, onSessionDestroy);
-            _connection.addEventListener(StreamEvent.ERROR, onStreamError);
-            _connection.addEventListener(StreamEvent.START, onStreamStart);
+            _connection.addEventListener(Event.CLOSE,                   onSocketClosed);
+            _connection.addEventListener(ConnectionEvent.DESTROY,       onConnectionDestroy);
+            _connection.addEventListener(FeaturesEvent.FEATURES,        onFeatures);
+            _connection.addEventListener(IOErrorEvent.IO_ERROR,         onIOError);
+            _connection.addEventListener(MessageEvent.CHAT_MESSAGE,     onMessageEvent);
+            _connection.addEventListener(PresenceEvent.UPDATE,          onPresenceUpdate);
+            _connection.addEventListener(RegistrationEvent.COMPLETE,    onRegistrationComplete);
+            _connection.addEventListener(RegistrationEvent.ERRORS,      onRegistrationErrors);
+            _connection.addEventListener(SessionEvent.CREATE_FAILURE,   onSessionCreateFailure);
+            _connection.addEventListener(SessionEvent.CREATE_SUCCESS,   onLoginSuccess);
+            _connection.addEventListener(SessionEvent.DESTROY,          onSessionDestroy);
+            _connection.addEventListener(StreamEvent.ERROR,             onStreamError);
+            _connection.addEventListener(StreamEvent.START,             onStreamStart);
             
             ExtensionClassRegistry.register(BindExtension);
             ExtensionClassRegistry.register(RegisterExtension);
@@ -298,14 +298,6 @@ package com.mintdigital.hemlock.clients{
             _connection.sendStanza(dataMessage);
         }
         
-        public function sendDiscoveryRequest(toJID:JID=null):void {
-            Logger.debug("XMPPClient::sendDiscoveryRequest()");
-            if (!toJID) {
-                toJID = sessionJID();
-            }
-            sendDataMessage(toJID, AppEvent.ROOM_CONFIGURED);
-        }
-        
         public function sendPresence(toJID:JID, options:Object):void{
             // Accepted options:
             // - type: One of the static Presence "_TYPE" constants
@@ -318,6 +310,14 @@ package com.mintdigital.hemlock.clients{
                 toJID, jid, options.type, options.show, options.status, options.priority
                 );
             _connection.sendStanza(presence);
+        }
+        
+        public function sendDiscoveryRequest(toJID:JID=null):void {
+            Logger.debug("XMPPClient::sendDiscoveryRequest()");
+            if (!toJID) {
+                toJID = sessionJID();
+            }
+            sendDataMessage(toJID, AppEvent.ROOM_CONFIGURED);
         }
         
         public function updatePrivacyList(fromJID:JID, stanzaName:String, action:String, options:Object = null):void{
@@ -371,14 +371,6 @@ package com.mintdigital.hemlock.clients{
         
         private function sessionJID(name:String = null):JID {
             return new JID(SESSION_NODE + "@" + domain + (name ? "/" + name : ""));
-        }
-        
-        private function get domain():String {
-            return "conference." + HemlockEnvironment.SERVER;
-        }
-        
-        private function get domainJID():JID {
-            return new JID(domain);
         }
         
         
@@ -856,50 +848,27 @@ package com.mintdigital.hemlock.clients{
         //  Properties
         //--------------------------------------
         
-        public function get username() : String { 
-            return _username; 
-        }
+        public function get username():String           { return _username; }
+        public function set username(value:String):void { _username = value; }
         
-        public function set username( arg:String ) : void { 
-            _username = arg; 
-        }
+        public function get password():String           { return _password; }
+        public function set password(value:String):void { _password = value; }
         
-        public function get password() : String { 
-            return _password; 
-        }
+        public function get server():String             { return _server; }
+        public function set server(value:String):void   { _server = value; }
         
-        public function set password( arg:String ) : void { 
-            _password = arg;
-        }
+        public function get registering():Boolean           { return _registering; }
+        public function set registering(value:Boolean):void { _registering = value; }
         
-        public function get avatar() : ByteArray {
-            return _vCard.avatar;
-        }
-        
-        public function get server() : String { 
-            return _server; 
-        }
-        
-        public function set server( arg:String ) : void { 
-            _server = arg; 
-        }
-        
-        public function get registering() : Boolean { 
-            return _registering; 
-        }
-        
-        public function set registering( arg:Boolean ) : void { 
-            _registering = arg; 
-        }
-        
-        public function get jid():JID{
-            return _jid;
-        }
+        public function get jid():JID           { return _jid; }
 
-        private function get timestamp():String {
-            var d:Date = new Date();
-            return d.getTime().toString();
-        }
+        public function get avatar():ByteArray  { return _vCard.avatar; }
+        
+        private function get timestamp():String { return (new Date()).getTime().toString(); }
+        
+        private function get domain():String    { return 'conference.' + HemlockEnvironment.SERVER; }
+        
+        private function get domainJID():JID    { return new JID(domain); }
         
     } 
 }

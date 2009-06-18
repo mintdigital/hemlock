@@ -196,12 +196,12 @@ package com.mintdigital.hemlock.containers{
             client.sendDataMessage(toJID, payloadType, payload || {});
         }
         
-        public function updateItem(roomJID:JID, updating:JID, opts:Object=null):void {
-            client.updateItem(roomJID, updating, opts);
-        }
-        
         public function sendDirectDataMessage(toJID:JID, payloadType:String, payload:*):void{
             client.sendDirectDataMessage(toJID, payloadType, payload || {});
+        }
+        
+        public function updateItem(roomJID:JID, updating:JID, opts:Object=null):void {
+            client.updateItem(roomJID, updating, opts);
         }
         
         public function sendPresence(toJID:JID, options:Object):void{
