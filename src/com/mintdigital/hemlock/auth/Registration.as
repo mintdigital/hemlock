@@ -18,8 +18,8 @@ package com.mintdigital.hemlock.auth {
         public var _username : String;
         public var _password : String;
         private var _regResponse:RegisterExtension = new RegisterExtension();
-        private var _getRegisterIQ:IQ = new IQ(null, "get");
-        private var _setRegisterIQ:IQ = new IQ(null, "set");
+        private var _getRegisterIQ:IQ = new IQ(null, IQ.GET_TYPE);
+        private var _setRegisterIQ:IQ = new IQ(null, IQ.SET_TYPE);
         
         function Registration(connection : XMPPConnection){
             Logger.debug("Registration()");

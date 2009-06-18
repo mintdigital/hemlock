@@ -211,7 +211,7 @@ package com.mintdigital.hemlock.clients{
             Logger.debug("XMPPClient::updateAffiliation()");
             
             var options:Object = opts || {};
-            var iq:IQ = new IQ(new JID(roomJID.toBareJID()), 'set');
+            var iq:IQ = new IQ(new JID(roomJID.toBareJID()), IQ.SET_TYPE);
             var adminExtension:MUCAdminExtension = new MUCAdminExtension();
             
             adminExtension.addItem(options.affiliation, options.role, options.nickname, updating);
@@ -225,7 +225,7 @@ package com.mintdigital.hemlock.clients{
         public function configureRoom(roomJID:JID, configOptions:Object = null):void{
             Logger.debug('XMPPClient::configureRoom() : roomJID = ' + roomJID);
             
-            var configIQ:IQ = new IQ(new JID(roomJID.toBareJID()), 'set');
+            var configIQ:IQ = new IQ(new JID(roomJID.toBareJID()), IQ.SET_TYPE);
             var userExt:MUCOwnerExtension = new MUCOwnerExtension();
             configIQ.addExtension(userExt);
             
@@ -248,7 +248,7 @@ package com.mintdigital.hemlock.clients{
         public function discoRooms():void{
             Logger.debug('XMPPClient::discoRooms()');
             
-            var discoIQ:IQ = new IQ(domainJID, "get");
+            var discoIQ:IQ = new IQ(domainJID, IQ.GET_TYPE);
             
             discoIQ.addExtension(new ItemDiscoExtension());
             discoIQ.callbackName = "handleRoomDisco";
@@ -263,7 +263,7 @@ package com.mintdigital.hemlock.clients{
         }
         
         public function discoUsers(toJID:JID):void {
-            var discoIQ:IQ = new IQ(toJID, "get");
+            var discoIQ:IQ = new IQ(toJID, IQ.GET_TYPE);
             
             discoIQ.addExtension(new ItemDiscoExtension());
             discoIQ.callbackName = "handleUserDisco";
@@ -415,7 +415,7 @@ package com.mintdigital.hemlock.clients{
         private function onRoomEventCreate(e:PresenceEvent):void {
             Logger.debug("XMPPClient::onRoomEventCreate()");
             
-            var customConfigureIQ:IQ = new IQ(new JID(e.presence.from.toBareJID()), 'get');
+            var customConfigureIQ:IQ = new IQ(new JID(e.presence.from.toBareJID()), IQ.GET_TYPE);
             var userExt:MUCOwnerExtension = new MUCOwnerExtension();
             customConfigureIQ.addExtension(userExt);
     
@@ -651,7 +651,7 @@ package com.mintdigital.hemlock.clients{
             var bindExtension:BindExtension = packet.getExtension("bind") as BindExtension;
             _jid = new JID(bindExtension.getJID());
             
-            var sessionIQ:IQ = new IQ(null, "set");
+            var sessionIQ:IQ = new IQ(null, IQ.SET_TYPE);
 
             sessionIQ.addExtension(new SessionExtension());
             sessionIQ.callbackName = "handleSessionResponse";
@@ -805,7 +805,7 @@ package com.mintdigital.hemlock.clients{
 
         private function establishSession():void{
             Logger.debug("XMPPClient::establishSession()");
-            var bindIQ:IQ = new IQ(null, "set"),
+            var bindIQ:IQ = new IQ(null, IQ.SET_TYPE),
                 bindExtension:BindExtension = new BindExtension();
             bindExtension.resource = username || 'hemlock';
 
