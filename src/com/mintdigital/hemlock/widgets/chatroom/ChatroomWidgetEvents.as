@@ -59,7 +59,7 @@ package com.mintdigital.hemlock.widgets.chatroom{
         }
 
         private function onLinkEvent(e:TextEvent):void {
-            container.leaveChatRoom(new JID(e.text));
+            container.leaveRoom(new JID(e.text));
         }
         
         

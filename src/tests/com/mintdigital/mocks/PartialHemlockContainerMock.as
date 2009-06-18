@@ -50,9 +50,9 @@ package tests.com.mintdigital.mocks {
             super.sendPresence(toJID, options);
 		}
 
-		override public function leaveChatRoom(toJID:JID):void{
-	        mock.record("leaveChatRoom", toJID);
-			super.leaveChatRoom(toJID);
+		override public function leaveRoom(toJID:JID):void{
+	        mock.record("leaveRoom", toJID);
+			super.leaveRoom(toJID);
 		}
 	
 		override protected function setUpStage():void{

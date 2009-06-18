@@ -111,7 +111,7 @@ package com.mintdigital.hemlock.widgets.roomList {
             }
             _configOptions['muc#roomconfig_publicroom'] = [1]; // Makes room publicly visible
             // TODO: Randomize room name if blank
-            container.configureChatRoom(_toJID, _configOptions);
+            container.configureRoom(_toJID, _configOptions);
             
             // Update UI
             // TODO: Allow button disabling; needs testing

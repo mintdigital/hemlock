@@ -144,7 +144,7 @@ package com.mintdigital.hemlock.clients{
                 for each(roomJIDString in _roomJIDs) {
                     roomJID = new JID(roomJIDString);
                     if (roomJID.node != SESSION_NODE) {
-                        leaveChatRoom(roomJID);
+                        leaveRoom(roomJID);
                     }
                 }
             } else {
@@ -162,9 +162,9 @@ package com.mintdigital.hemlock.clients{
             _loggingOut = false;
         }
         
-        public function createChatRoom(roomType:String, domain:String, key:String=null):void {
-            Logger.debug("XMPPClient::createChatRoom()");
-            
+        public function createRoom(roomType:String, domain:String, key:String = null):void{
+            Logger.debug('XMPPClient::createRoom()');
+
             var presence:Presence = new Presence(newRoomJID(roomType, domain, key), _jid),
                 mucExtension:MUCExtension = new MUCExtension();
             mucExtension.maxchars = 0; // Request no history
@@ -172,11 +172,16 @@ package com.mintdigital.hemlock.clients{
             _connection.sendStanza(presence);
         }
         
-        public function joinChatRoom(toJID:JID):void {
-            Logger.debug('XMPPClient::joinChatRoom() : toJID = ' + toJID);
-            
+        public function createChatRoom(roomType:String, domain:String, key:String=null):void {
+            Logger.warn('DEPRECATED: XMPPClient::createChatRoom(); use createRoom() instead.');
+            createRoom(roomType, domain, key);
+        }
+        
+        public function joinRoom(roomJID:JID):void{
+            Logger.debug('XMPPClient::joinRoom() : roomJID = ' + roomJID);
+
             // Send presence
-            var presence:Presence = new Presence(toJID, _jid),
+            var presence:Presence = new Presence(roomJID, _jid),
                 mucExtension:MUCExtension = new MUCExtension();
             mucExtension.maxchars = 0; // Request no history
                 // http://xmpp.org/extensions/xep-0045.html#example-37
@@ -184,12 +189,22 @@ package com.mintdigital.hemlock.clients{
             _connection.sendStanza(presence);
         }
         
-        public function leaveChatRoom(toJID:JID):void {
-            Logger.debug('XMPPClient::leaveChatRoom() : toJID = ' + toJID);
+        public function joinChatRoom(toJID:JID):void {
+            Logger.warn('DEPRECATED: XMPPClient::joinChatRoom(); use joinRoom() instead.');
+            joinRoom(toJID);
+        }
+        
+        public function leaveRoom(roomJID:JID):void{
+            Logger.debug('XMPPClient::leaveRoom() : roomJID = ' + roomJID);
             
             // Send presence
-            var presence:Presence = new Presence(toJID, _jid, Presence.UNAVAILABLE_TYPE);
+            var presence:Presence = new Presence(roomJID, _jid, Presence.UNAVAILABLE_TYPE);
             _connection.sendStanza(presence);
+        }
+        
+        public function leaveChatRoom(toJID:JID):void {
+            Logger.warn('DEPRECATED: XMPPClient::leaveChatRoom(); use leaveRoom() instead.');
+            leaveRoom(toJID);
         }
         
         public function updateItem(roomJID:JID, updating:JID, opts:Object=null):void {
@@ -207,8 +222,8 @@ package com.mintdigital.hemlock.clients{
             _connection.sendStanza(iq);
         }
         
-        public function configureChatRoom(toJID:JID, configOptions:Object=null):void {
-            Logger.debug("XMPPClient::configureChatRoom()");
+        public function configureRoom(roomJID:JID, configOptions:Object = null):void{
+            Logger.debug('XMPPClient::configureRoom() : roomJID = ' + roomJID);
             
             var configIQ:IQ = new IQ(new JID(toJID.toBareJID()), 'set');
             var userExt:MUCOwnerExtension = new MUCOwnerExtension();
@@ -225,7 +240,14 @@ package com.mintdigital.hemlock.clients{
             _connection.sendStanza(configIQ);
         }
         
-        public function discoChatRooms():void {
+        public function configureChatRoom(toJID:JID, configOptions:Object=null):void {
+            Logger.warn('DEPRECATED: XMPPClient::configureChatRoom(); use configureRoom() instead.');
+            configureRoom(toJID, configOptions);
+        }
+        
+        public function discoRooms():void{
+            Logger.debug('XMPPClient::discoRooms()');
+            
             var discoIQ:IQ = new IQ(domainJID, "get");
             
             discoIQ.addExtension(new ItemDiscoExtension());
@@ -233,6 +255,11 @@ package com.mintdigital.hemlock.clients{
             discoIQ.callbackScope = this;
             
             _connection.sendStanza(discoIQ);
+        }
+        
+        public function discoChatRooms():void {
+            Logger.warn('DEPRECATED: XMPPClient::discoChatRooms(); use discoRooms() instead.');
+            discoRooms();
         }
         
         public function discoUsers(toJID:JID):void {
@@ -584,7 +611,7 @@ package com.mintdigital.hemlock.clients{
                         
                         sendDiscoveryRequest();
                         
-                        joinChatRoom(new JID(packet.from.toString()));
+                        joinRoom(new JID(packet.from.toString()));
                     }
                     break;
                     

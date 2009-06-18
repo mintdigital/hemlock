@@ -47,11 +47,11 @@ package com.mintdigital.hemlock.widgets.roomList {
             Logger.debug('RoomListWidget::onJoinRoomButtonClick()');
         
             var button:HemlockButton = event.target.parent as HemlockButton;
-            container.joinChatRoom(new JID(button.value as String));
+            container.joinRoom(new JID(button.value as String));
         }
 
         private function onNewRoomEvent(event:MouseEvent):void {
-            container.createChatRoom(widget.roomType);
+            container.createRoom(widget.roomType);
         }
         
         private function onCreateRoomEvent(event:MouseEvent):void {
@@ -75,7 +75,7 @@ package com.mintdigital.hemlock.widgets.roomList {
         private function onRoomChange(event:AppEvent):void{
             Logger.debug('RoomListWidgetEvents::onRoomChange() : type = ' + event.type);
             
-            container.discoChatRooms();
+            container.discoRooms();
             widget.hideConfigForm();
         }
         
@@ -102,7 +102,7 @@ package com.mintdigital.hemlock.widgets.roomList {
         }
         
         private function onConfigurationComplete(event:AppEvent):void {
-            container.discoChatRooms();
+            container.discoRooms();
         }
         
         private function onDiscoveryItemsFound(event:AppEvent):void {

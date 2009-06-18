@@ -157,7 +157,7 @@ package com.mintdigital.hemlock.containers{
         }
         
         protected function onSessionCreateSuccess(event:AppEvent):void {
-            client.joinChatRoom(createRoomJID(event.options.jid.resource));
+            client.joinRoom(createRoomJID(event.options.jid.resource));
         }
         
         protected function onRegistrationErrors(event:AppEvent):void{
@@ -235,25 +235,25 @@ package com.mintdigital.hemlock.containers{
             client.logout();
         }
         
-        public function joinChatRoom(toJID:JID):void{
-            client.joinChatRoom(new JID(toJID.toString() + '/' + client.username));
+        public function createRoom(roomType:String):void{
+            client.createRoom(roomType, domain);
+        }
+
+        public function joinRoom(toJID:JID):void{
+            client.joinRoom(new JID(toJID.toString() + '/' + client.username));
         }
         
-        public function createChatRoom(roomType:String):void{
-            client.createChatRoom(roomType, domain);
+        public function leaveRoom(toJID:JID):void{
+            client.leaveRoom(toJID);
+        }
+
+        public function configureRoom(toJID:JID, configOptions:Object=null):void{
+            client.configureRoom(toJID, configOptions || {});
         }
         
-        public function configureChatRoom(toJID:JID, configOptions:Object=null):void{
-            client.configureChatRoom(toJID, configOptions || {});
-        }
-        
-        public function leaveChatRoom(toJID:JID):void{
-            client.leaveChatRoom(toJID);
-        }
-        
-        public function discoChatRooms():void{
-            Logger.debug("HemlockContainer::discoChatRooms()");
-            client.discoChatRooms();
+        public function discoRooms():void{
+            Logger.debug("HemlockContainer::discoRooms()");
+            client.discoRooms();
         }
         
         public function discoUsers(roomJID:JID):void{

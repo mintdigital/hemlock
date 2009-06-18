@@ -101,14 +101,14 @@ package com.mintdigital.drawingDemo.containers{
             var jid:JID = event.from;
             if(jid.type == JID.TYPE_APP){
                 // Mark the app room private so that it doesn't appear in RoomListWidget
-                configureChatRoom(jid, { 'muc#roomconfig_publicroom' : [0] });
+                configureRoom(jid, { 'muc#roomconfig_publicroom' : [0] });
             }
         }
 
         private function onConfigurationComplete(event:AppEvent):void{
             var jid:JID = event.from;
             if(jid.type == JID.TYPE_CHAT){
-                client.createChatRoom(JID.TYPE_APP, domain, jid.key);
+                client.createRoom(JID.TYPE_APP, domain, jid.key);
             }
         }
 
@@ -294,21 +294,21 @@ package com.mintdigital.drawingDemo.containers{
             signIn(username, '');
         }
 
-        override public function createChatRoom(roomType:String):void{
-            Logger.debug("DrawingDemoContainer::createChatRoom()");
+        override public function createRoom(roomType:String):void{
+            Logger.debug("DrawingDemoContainer::createRoom()");
 
             // Overridden to only create a CHAT room first
-            client.createChatRoom(JID.TYPE_CHAT, domain);
+            client.createRoom(JID.TYPE_CHAT, domain);
         }
 
-        override public function joinChatRoom(toJID:JID):void{
-            Logger.debug('DrawingDemoContainer::joinChatRoom()');
+        override public function joinRoom(toJID:JID):void{
+            Logger.debug('DrawingDemoContainer::joinRoom()');
             
             // Join CHAT room
-            super.joinChatRoom(toJID);
+            super.joinRoom(toJID);
             
             // Join APP room at the same time
-            client.joinChatRoom(new JID(
+            client.joinRoom(new JID(
                 toJID.toString().replace(JID.TYPE_CHAT + '_', JID.TYPE_APP + '_') + '/' + client.username
             ));
         }
