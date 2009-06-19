@@ -6,7 +6,7 @@ package com.mintdigital.hemlock.widgets.roomList{
     import com.mintdigital.hemlock.display.HemlockLabel;
     import com.mintdigital.hemlock.display.HemlockSprite;
     import com.mintdigital.hemlock.utils.HashUtils;
-    import com.mintdigital.hemlock.utils.setAttributes;
+    import com.mintdigital.hemlock.utils.setProperties;
     import com.mintdigital.hemlock.widgets.HemlockWidget;
     import com.mintdigital.hemlock.widgets.HemlockWidgetDelegate;
     import com.mintdigital.hemlock.widgets.IDelegateViews;
@@ -233,7 +233,7 @@ package com.mintdigital.hemlock.widgets.roomList{
 
             // Create room title text
             var titleText:TextField = new TextField();
-            setAttributes(titleText, coords.titleText);
+            setProperties(titleText, coords.titleText);
             with(titleText){
                 name        = 'titleText';
                 embedFonts  = true;
@@ -250,7 +250,7 @@ package com.mintdigital.hemlock.widgets.roomList{
 
             // Create "# people" text
             var participantsText:TextField = new TextField();
-            setAttributes(participantsText, coords.participantsText);
+            setProperties(participantsText, coords.participantsText);
             with(participantsText){
                 name        = 'participantsText';
                 embedFonts  = true;
