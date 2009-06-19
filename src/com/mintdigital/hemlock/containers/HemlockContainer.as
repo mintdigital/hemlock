@@ -60,7 +60,10 @@ package com.mintdigital.hemlock.containers{
             // only after the stage is ready. This is useful when loading your
             // container via a loader.
             
-            stage.scaleMode = StageScaleMode.NO_SCALE;
+            // stage.scaleMode = StageScaleMode.NO_SCALE;
+            stage.scaleMode = StageScaleMode.SHOW_ALL;
+                // Allow scaling so that browsers' page zoom (not text zoom)
+                // doesn't chop off the Flash content.
             stage.align     = StageAlign.TOP_LEFT;
         }
 

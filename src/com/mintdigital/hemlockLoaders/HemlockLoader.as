@@ -38,6 +38,7 @@ package com.mintdigital.hemlockLoaders{
         public function HemlockLoader(){
             initialize();
             flashvars = this.loaderInfo.parameters;
+            initializeStage();
             createViews();
             registerListeners();
             
@@ -65,6 +66,14 @@ package com.mintdigital.hemlockLoaders{
             skin.PROGRESS_WRAPPER_HEIGHT    = this.height; // Number
         }
         
+        protected function initializeStage():void{
+            // stage.scaleMode = StageScaleMode.NO_SCALE;
+            stage.scaleMode = StageScaleMode.SHOW_ALL;
+                // Allow scaling so that browsers' page zoom (not text zoom)
+                // doesn't chop off the Flash content.
+            stage.align     = StageAlign.TOP_LEFT;
+        }
+        
         
         
         //--------------------------------------
@@ -72,9 +81,6 @@ package com.mintdigital.hemlockLoaders{
         //--------------------------------------
         
         protected function createViews():void{
-            stage.scaleMode = StageScaleMode.NO_SCALE;
-            stage.align     = StageAlign.TOP_LEFT;
-            
             // Prop open
             with(graphics){
                 beginFill(0, 0);
