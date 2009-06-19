@@ -11,10 +11,6 @@ package com.mintdigital.hemlock.events{
             super(type, options);
         }
         
-        public function get username():String { return options.username; }
-        public function get password():String { return options.password; }
-        public function get jid():String { return options.jid; }
-    
         override public function clone() : Event {
             return new SessionEvent(type, options);
         }
@@ -22,5 +18,16 @@ package com.mintdigital.hemlock.events{
         override public function toString() : String {
             return formatHemlockEventToString('SessionEvent');
         }
+        
+        
+        
+        //--------------------------------------
+        //  Properties
+        //--------------------------------------
+        
+        public function get username():String   { return options.username; }
+        public function get password():String   { return options.password; }
+        public function get jid():String        { return options.jid; }
+        
     }
 }

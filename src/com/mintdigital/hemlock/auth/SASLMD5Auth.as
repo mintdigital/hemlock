@@ -1,9 +1,8 @@
 package com.mintdigital.hemlock.auth {
     import com.mintdigital.hemlock.HemlockEnvironment;
+    import com.mintdigital.hemlock.Logger;
     import com.mintdigital.hemlock.conn.XMPPConnection;
     import com.mintdigital.hemlock.events.ChallengeEvent;
-    
-    import com.mintdigital.hemlock.Logger;
     
     import com.dynamicflash.util.Base64;
     
@@ -106,7 +105,7 @@ package com.mintdigital.hemlock.auth {
         }
 
         public function test() : void {
-            Logger.debug("SASLMD5Auth::test() " );    
+            Logger.debug("SASLMD5Auth::test()");
             username = "TEST_USERNAME";
             password = "TEST_PASSWORD";
             var res:String = responseValue(
@@ -150,11 +149,11 @@ package com.mintdigital.hemlock.auth {
         {
             var cnonce:String = hh((new Date()).toString());
             
-            Logger.debug("generating response with:  " );
-            Logger.debug("username: " + username);
-            Logger.debug("password: " + password);
-            Logger.debug("nonce: " + nonce);
-            Logger.debug("cnonce: " + cnonce);
+            Logger.debug("Generating response with:");
+            Logger.debug("- username: " + username);
+            Logger.debug("- password: " + password);
+            Logger.debug("- nonce: "    + nonce);
+            Logger.debug("- cnonce: "   + cnonce);
             
             
             

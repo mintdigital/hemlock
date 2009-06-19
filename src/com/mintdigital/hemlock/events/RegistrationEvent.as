@@ -6,22 +6,14 @@ package com.mintdigital.hemlock.events {
     
     public class RegistrationEvent extends HemlockEvent {
       
-        public static const START : String = "start";
-        public static const REGISTERING : String = "registering";
-        public static const COMPLETE : String = "complete";
-        public static const ERRORS : String = "errors";
-        
-        //--------------------------------------
-        //  CONSTRUCTOR
-        //--------------------------------------
-            
+        public static const START:String        = 'start';
+        public static const REGISTERING:String  = 'registering';
+        public static const COMPLETE:String     = 'complete';
+        public static const ERRORS:String       = 'errors';
+
         public function RegistrationEvent (type:String, options:Object = null){
             super(type, options);
         }
-        
-        public function get iq():IQ    { return options.iq; }
-        public function get username():String { return options.username; }
-        public function get password():String { return options.password; }
         
         public override function clone() : Event {
             return new RegistrationEvent(type, options);
@@ -30,7 +22,17 @@ package com.mintdigital.hemlock.events {
         public override function toString() : String {
             return formatToString("RegistrationEvent", "type", "bubbles", "cancelable", "eventPhase", "connection")
             // TODO: Update to use HemlockEvent::formatHemlockEventToString() ?
-        }        
+        }
+
+
+
+        //--------------------------------------
+        //  Properties
+        //--------------------------------------
+
+        public function get iq():IQ             { return options.iq; }
+        public function get username():String   { return options.username; }
+        public function get password():String   { return options.password; }
         
     }
 }

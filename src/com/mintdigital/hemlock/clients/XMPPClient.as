@@ -52,10 +52,6 @@ package com.mintdigital.hemlock.clients{
 
     public class XMPPClient implements IClient{
 
-        //--------------------------------------
-        //  CONSTRUCTOR
-        //--------------------------------------
-
         private var _connection:XMPPConnection;
         private var _keepAliveTimer:Timer;
         private var _lastSent:int = 0;
@@ -180,7 +176,6 @@ package com.mintdigital.hemlock.clients{
         public function joinRoom(roomJID:JID):void{
             Logger.debug('XMPPClient::joinRoom() : roomJID = ' + roomJID);
 
-            // Send presence
             var presence:Presence = new Presence(roomJID, _jid),
                 mucExtension:MUCExtension = new MUCExtension();
             mucExtension.maxchars = 0; // Request no history
@@ -197,7 +192,6 @@ package com.mintdigital.hemlock.clients{
         public function leaveRoom(roomJID:JID):void{
             Logger.debug('XMPPClient::leaveRoom() : roomJID = ' + roomJID);
             
-            // Send presence
             var presence:Presence = new Presence(roomJID, _jid, Presence.UNAVAILABLE_TYPE);
             _connection.sendStanza(presence);
         }
@@ -215,10 +209,11 @@ package com.mintdigital.hemlock.clients{
             var adminExtension:MUCAdminExtension = new MUCAdminExtension();
             
             adminExtension.addItem(options.affiliation, options.role, options.nickname, updating);
-            iq.addExtension(adminExtension);
             
+            iq.addExtension(adminExtension);
             iq.callbackName = "handleItemUpdate";
             iq.callbackScope = this;
+            
             _connection.sendStanza(iq);
         }
         
@@ -274,17 +269,17 @@ package com.mintdigital.hemlock.clients{
         
         public function sendMessage(toJID:JID, messageBody:String) : void {
             var message:Message = new Message({
-                recipient: toJID,
-                body: messageBody,
-                type: Message.GROUPCHAT_TYPE
+                recipient:  toJID,
+                body:       messageBody,
+                type:       Message.GROUPCHAT_TYPE
             });
             _connection.sendStanza(message);
         }
         
         public function sendDataMessage(toJID:JID, payloadType:String, payload:*=null):void{
             var dataMessage:DataMessage = new DataMessage(payloadType, payload || {}, {
-                recipient: toJID,
-                type: Message.GROUPCHAT_TYPE
+                recipient:  toJID,
+                type:       Message.GROUPCHAT_TYPE
             });
             _connection.sendStanza(dataMessage);
         }
@@ -292,8 +287,8 @@ package com.mintdigital.hemlock.clients{
         //TODO - maybe refactor these into 1 method
         public function sendDirectDataMessage(toJID:JID, payloadType:String, payload:*=null):void{
             var dataMessage:DataMessage = new DataMessage(payloadType, payload || {}, {
-                recipient: toJID,
-                type: Message.CHAT_TYPE
+                recipient:  toJID,
+                type:       Message.CHAT_TYPE
             });
             _connection.sendStanza(dataMessage);
         }
@@ -306,6 +301,7 @@ package com.mintdigital.hemlock.clients{
             // - priority: Number, usually 1-5
             
             Logger.debug('XMPPClient::sendPresence() : options = ' + HashUtils.toString(options));
+
             var presence:Presence = new Presence(
                 toJID, jid, options.type, options.show, options.status, options.priority
                 );
@@ -314,9 +310,8 @@ package com.mintdigital.hemlock.clients{
         
         public function sendDiscoveryRequest(toJID:JID=null):void {
             Logger.debug("XMPPClient::sendDiscoveryRequest()");
-            if (!toJID) {
-                toJID = sessionJID();
-            }
+
+            if(!toJID){ toJID = sessionJID(); }
             sendDataMessage(toJID, AppEvent.ROOM_CONFIGURED);
         }
         
@@ -412,7 +407,7 @@ package com.mintdigital.hemlock.clients{
             customConfigureIQ.addExtension(userExt);
     
             /*  customConfigureIQ.callbackName =  HemlockEnvironment.demo ? "handleConfigurationResponse" : "handleCustomConfigResponse";*/
-            customConfigureIQ.callbackName =  "handleCustomConfigResponse";
+            customConfigureIQ.callbackName  = "handleCustomConfigResponse";
             customConfigureIQ.callbackScope = this;
 
             _connection.sendStanza(customConfigureIQ);
@@ -420,6 +415,7 @@ package com.mintdigital.hemlock.clients{
         
         private function onMessageEvent(evt:MessageEvent):void{
             Logger.debug('XMPPClient::onMessageEvent() : evt = ' + evt);
+
             for each(var strategy:* in _eventStrategies){
                 if(strategy.dispatchMatchingEvent(_dispatcher, evt)){ break; }
             }
@@ -438,7 +434,6 @@ package com.mintdigital.hemlock.clients{
                 case VCardEvent.LOADED:
                     Logger.debug("- VCard loaded");
                     _vCard = e.vcard;
-                    
 /*                    var s:String = "R0lGODlhDwAPAKECAAAAzMzM/////wAAACwAAAAADwAPAAACIISPeQHsrZ5ModrLlN48CXF8m2iQ3YmmKqVlRtW4MLwWACH+H09wdGltaXplZCBieSBVbGVhZCBTbWFydFNhdmVyIQAAOw=="
                     _vCard.setAvatar(s);
                     _vCard.saveVCard(_connection, this);*/
@@ -514,20 +509,20 @@ package com.mintdigital.hemlock.clients{
         }
 
         private function onSocketClosed(evt:Event) : void {
-            Logger.debug("XMPPClient::socketClosed() " );
+            Logger.debug('XMPPClient::socketClosed()');
         }
 
         private function onIOError(evt:Event) : void {
-            Logger.debug("XMPPClient::onIOError() " );
+            Logger.debug('XMPPClient::onIOError()');
         }
 
         private function onSessionDestroy(ev:SessionEvent): void {
             dispatchAppEvent(AppEvent.SESSION_DESTROY);
         }
     
-        private function onSessionCreateFailure(evt:SessionEvent) : void {
-            Logger.debug("XMPPClient::onSessionCreateFailure() " + evt.type );
-            Logger.debug("login FAIL....");
+        private function onSessionCreateFailure(event:SessionEvent) : void {
+            Logger.debug("XMPPClient::onSessionCreateFailure() : event.type = " + event.type );
+            Logger.debug("Login FAILED");
             _auth.stop();
             _keepAliveTimer.stop();
             _connection.disconnect();
@@ -535,7 +530,7 @@ package com.mintdigital.hemlock.clients{
         }
         
         private function onKeepAliveTimer(evt:Event) : void {
-            Logger.debug("XMPPClient::onKeepAliveTimer() " );
+            Logger.debug("XMPPClient::onKeepAliveTimer()");
             _connection.sendKeepAlive();
             resetKeepAliveTimer();
         }
@@ -566,7 +561,9 @@ package com.mintdigital.hemlock.clients{
         private function onConnectionDestroy(evt : ConnectionEvent) : void {
             dispatchAppEvent(AppEvent.CONNECTION_DESTROY);
         }
-        
+
+
+
         //--------------------------------------
         //  Callbacks
         //--------------------------------------
@@ -640,13 +637,13 @@ package com.mintdigital.hemlock.clients{
     
         public function handleBindResponse(packet:IQ) : void {
             Logger.debug("XMPPClient::handleBindResponse()");
+
             var bindExtension:BindExtension = packet.getExtension("bind") as BindExtension;
             _jid = new JID(bindExtension.getJID());
-            
-            var sessionIQ:IQ = new IQ(null, IQ.SET_TYPE);
 
+            var sessionIQ:IQ = new IQ(null, IQ.SET_TYPE);
             sessionIQ.addExtension(new SessionExtension());
-            sessionIQ.callbackName = "handleSessionResponse";
+            sessionIQ.callbackName  = "handleSessionResponse";
             sessionIQ.callbackScope = this;
 
             _connection.sendStanza(sessionIQ);
@@ -681,7 +678,7 @@ package com.mintdigital.hemlock.clients{
                     });
                     break;
                 case 'error':
-                    Logger.debug("Error trying to update affiliation.");
+                    Logger.debug("Error trying to update item.");
                     break;
             }
         }
@@ -722,8 +719,27 @@ package com.mintdigital.hemlock.clients{
         //  Event dispatchers
         //--------------------------------------
         
+        public function dispatchEvent(event:HemlockEvent):void{
+            _dispatcher.dispatchEvent(event);
+        }
+        
+        public function dispatchAppEvent(eventType:String, eventOptions:Object = null):void{
+            // Convenience function for dispatching an AppEvent on the
+            // dispatcher. To dispatch other types of events, use
+            // dispatchEvent().
+            
+            Logger.debug('XMPPClient::dispatchAppEvent() : eventType = ' + eventType);
+            dispatchEvent(new AppEvent(eventType, eventOptions));
+        }
+        
+        public function notifyApp(notifType:String, notifData:Object = null):void{
+            Logger.warn('DEPRECATED: XMPPClient::notifyApp(); use dispatchAppEvent() instead.');
+            dispatchAppEvent(notifType, notifData);
+        }
+        
         private function dispatchRoomJoinEvent(presence:Presence, roomJID:JID):void {
             Logger.debug("XMPPClient::dispatchRoomJoinNotification()");
+
             dispatchAppEvent(AppEvent.ROOM_JOINED, {
                 name:   presence.from.node,
                 jid:    roomJID,
@@ -738,6 +754,7 @@ package com.mintdigital.hemlock.clients{
         
         private function dispatchRoomLeaveEvent(presence:Presence, roomJID:JID):void {
             Logger.debug("XMPPClient::dispatchRoomLeaveNotification()");
+
             dispatchAppEvent(AppEvent.ROOM_LEAVE, {
                 jid:    roomJID,
                 to:     _jid,
@@ -761,8 +778,7 @@ package com.mintdigital.hemlock.clients{
         //--------------------------------------
         
         private function resetKeepAliveTimer() : void {
-            if(_keepAliveTimer)
-                _keepAliveTimer.stop();
+            if(_keepAliveTimer){ _keepAliveTimer.stop(); }
             _keepAliveTimer = new Timer(15000);
             _keepAliveTimer.addEventListener(TimerEvent.TIMER, onKeepAliveTimer);
             _keepAliveTimer.start();
@@ -788,8 +804,8 @@ package com.mintdigital.hemlock.clients{
             _registration.username = _username;
             _registration.password = _password;
             
-            _registration.addEventListener(RegistrationEvent.ERRORS, onRegistrationErrors);
-            _registration.addEventListener(RegistrationEvent.COMPLETE, onRegistrationComplete);
+            _registration.addEventListener(RegistrationEvent.ERRORS,    onRegistrationErrors);
+            _registration.addEventListener(RegistrationEvent.COMPLETE,  onRegistrationComplete);
             
             _sessionStarted = false;
             _registration.start();
@@ -802,7 +818,7 @@ package com.mintdigital.hemlock.clients{
             bindExtension.resource = username || 'hemlock';
 
             bindIQ.addExtension(bindExtension);
-            bindIQ.callbackName = "handleBindResponse";
+            bindIQ.callbackName  = "handleBindResponse";
             bindIQ.callbackScope = this;
 
             _connection.sendStanza(bindIQ);
@@ -828,26 +844,6 @@ package com.mintdigital.hemlock.clients{
                 }
             }
         }
-        
-        public function dispatchEvent(event:HemlockEvent):void{
-            _dispatcher.dispatchEvent(event);
-        }
-        
-        public function dispatchAppEvent(eventType:String, eventOptions:Object = null):void{
-            // Convenience function for dispatching an AppEvent on the
-            // dispatcher. To dispatch other types of events, use
-            // dispatchEvent().
-            
-            Logger.debug('XMPPClient::dispatchAppEvent() : eventType = ' + eventType);
-            dispatchEvent(new AppEvent(eventType, eventOptions));
-        }
-        
-        public function notifyApp(notifType:String, notifData:Object = null):void
-        {
-            Logger.warn('DEPRECATED: XMPPClient::notifyApp(); use dispatchAppEvent() instead.');
-            dispatchAppEvent(notifType, notifData);
-        }
-        
         
         
         

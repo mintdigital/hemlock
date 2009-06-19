@@ -125,7 +125,7 @@ package com.mintdigital.hemlock.conn {
         //--------------------------------------
         
         private function handleStreamStart(node:XMLNode):void{
-            Logger.debug("XMPPConnection::handleStreamStart() " );
+            Logger.debug('XMPPConnection::handleStreamStart()');
             dispatchEvent(new StreamEvent(StreamEvent.START, {
                 bubbles:    true,
                 cancelable: true,
@@ -144,7 +144,7 @@ package com.mintdigital.hemlock.conn {
         }
         
         private function handleMessage(node:XMLNode) : void {
-            Logger.debug("XMPPConnection::handleMessage() " );
+            Logger.debug('XMPPConnection::handleMessage()');
             Logger.debug('- node.id = ' + node.attributes.id);
             
             var incomingPayloadType:String;
@@ -185,12 +185,12 @@ package com.mintdigital.hemlock.conn {
         }
 
         private function handleChallenge(node:XMLNode) : void {
-            Logger.debug("XMPPConnection::handleChallenge() " );
+            Logger.debug('XMPPConnection::handleChallenge()');
             dispatchEvent(new ChallengeEvent(ChallengeEvent.CHALLENGE, {
-                bubbles: true,
-                cancelable : true,
+                bubbles:    true,
+                cancelable: true,
                 connection: this,
-                node: node
+                node:       node
             }));
         }
         
@@ -333,9 +333,6 @@ package com.mintdigital.hemlock.conn {
                         
                 }
             }
-            
-            
-            
         }
         
         protected function onSocketClosed(e:Event):void {    
@@ -376,7 +373,6 @@ package com.mintdigital.hemlock.conn {
             return xmlData;
         }
         
-        
         private function containsOpenStreamTag(xml:String) : Boolean {
             var openStreamRegex:RegExp = new RegExp("<stream:stream");
             var resultObj:Object = openStreamRegex.exec(xml);
@@ -389,8 +385,6 @@ package com.mintdigital.hemlock.conn {
             return (resultObj != null);
         }
 
-
-        
         protected function openStreamTag() : String {
             return "<?xml version=\"1.0\"?><stream:stream to=\"" + server + 
                 "\" xmlns=\"jabber:client\" xmlns:stream=\"http://etherx.jabber.org/streams\" version=\"1.0\">";
@@ -399,26 +393,18 @@ package com.mintdigital.hemlock.conn {
         protected function closeStreamTag() : String {
             return "</stream:stream>";
         }
-        
+
+
+
         //--------------------------------------
         //  Properties
         //--------------------------------------
         
-        public function get port() : Number { 
-            return _port; 
-        }
+        public function get port():Number               { return _port; }
+        public function set port(value:Number):void     { _port = value; }
         
-        public function set port( arg:Number ) : void { 
-            _port = arg; 
-        }
-        
-        public function get server() : String { 
-            return _server; 
-        }
-        
-        public function set server( arg:String ) : void { 
-            _server = arg; 
-        }
+        public function get server():String             { return _server; }
+        public function set server(value:String):void   { _server = value; }
         
     } 
 }

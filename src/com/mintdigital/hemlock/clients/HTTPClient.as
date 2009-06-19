@@ -1,14 +1,16 @@
 package com.mintdigital.hemlock.clients{
     import com.mintdigital.hemlock.HemlockEnvironment;
     import com.mintdigital.hemlock.Logger;
+    
+    import flash.events.Event;
     import flash.net.URLLoader;
     import flash.net.URLLoaderDataFormat;
     import flash.net.URLRequest;
     import flash.net.URLRequestMethod;
     import flash.net.URLVariables;
-    import flash.events.Event;
     
     public class HTTPClient {
+
         private var _apiRoot:String;
         
         public function HTTPClient(apiRoot:String){
@@ -20,6 +22,8 @@ package com.mintdigital.hemlock.clients{
         // - Desired function call: get('/some/url', { onComplete: ..., onError: ... })
         // - Also do this with post()
         public function get(resource:String, listener:Function=null):void{
+            Logger.debug('HTTPClient::get() : resource = ' + resource);
+
             var request:URLRequest = new URLRequest();
             request.url = _apiRoot + resource;
 
@@ -38,6 +42,8 @@ package com.mintdigital.hemlock.clients{
         }
 
         public function post(resource:String, options:String):Object{
+            Logger.debug('HTTPClient::post() : resource = ' + resource);
+
             var variables:URLVariables = new URLVariables(options);
 
             var request:URLRequest = new URLRequest();
@@ -56,5 +62,6 @@ package com.mintdigital.hemlock.clients{
             
             return loader.data;
         }
+
     }
 }
