@@ -19,7 +19,7 @@ package com.mintdigital.drawingDemo.containers{
     [SWF(width="1000", height="665", backgroundColor="#CCCCCC")]
     public class DrawingDemoContainer extends HemlockContainer{
 
-        private const USE_ANONYMOUS_SIGNIN:Boolean = true;
+        private const USE_ANONYMOUS_SIGNIN:Boolean = false;
         private var _userJID:JID;
 
 
