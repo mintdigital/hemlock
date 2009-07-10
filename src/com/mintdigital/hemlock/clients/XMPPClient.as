@@ -225,7 +225,7 @@ package com.mintdigital.hemlock.clients{
         public function configureRoom(roomJID:JID, configOptions:Object = null):void{
             Logger.debug('XMPPClient::configureRoom() : roomJID = ' + roomJID);
             
-            var configIQ:IQ = new IQ(new JID(toJID.toBareJID()), 'set');
+            var configIQ:IQ = new IQ(new JID(roomJID.toBareJID()), 'set');
             var userExt:MUCOwnerExtension = new MUCOwnerExtension();
             configIQ.addExtension(userExt);
             
