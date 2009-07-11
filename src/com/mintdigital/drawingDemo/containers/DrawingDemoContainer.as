@@ -19,6 +19,29 @@ package com.mintdigital.drawingDemo.containers{
     [SWF(width="1000", height="665", backgroundColor="#CCCCCC")]
     public class DrawingDemoContainer extends HemlockContainer{
 
+        /*
+        To enable anonymous login:
+
+        1. Set USE_ANONYMOUS_SIGNIN to true.
+        2. Add the following to your ejabberd.cfg (inside ejabberd-2.0/conf):
+
+        {host_config, "localhost", [
+          {auth_method, anonymous},
+          {allow_multiple_connections, false},
+          {anonymous_protocol, sasl_anon},
+          {modules, [
+            {mod_muc, [
+              {default_room_options, [
+                {anonymous, false},
+                {public, false}
+              ]}
+            ]}
+          ]}
+        ]}.
+
+        You may need to change "localhost" to match your actual host.
+        */
+
         private const USE_ANONYMOUS_SIGNIN:Boolean = false;
         private var _userJID:JID;
 
