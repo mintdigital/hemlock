@@ -23,7 +23,8 @@ package com.mintdigital.drawingDemo.containers{
         To enable anonymous login:
 
         1. Set USE_ANONYMOUS_SIGNIN to true.
-        2. Add the following to your ejabberd.cfg (inside ejabberd-2.0/conf):
+        2. Add the following to your ejabberd.cfg (inside ejabberd-2.0/conf),
+           within the "AUTHENTICATION" section:
 
         {host_config, "localhost", [
           {auth_method, anonymous},
