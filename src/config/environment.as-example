@@ -1,4 +1,5 @@
 HemlockEnvironment.ENVIRONMENT  = HemlockEnvironment.ENVIRONMENT_DEVELOPMENT;
 HemlockEnvironment.SERVER       = 'localhost';
+HemlockEnvironment.SERVER_PORT  = 5222
 HemlockEnvironment.SOURCE_PATH  = '/PATH/TO/hemlock/src/';
 HemlockEnvironment._debug       = false;

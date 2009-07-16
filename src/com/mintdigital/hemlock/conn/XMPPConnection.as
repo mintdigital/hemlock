@@ -53,7 +53,7 @@ package com.mintdigital.hemlock.conn {
             _socket.addEventListener(IOErrorEvent.IO_ERROR, onIOError);
             _socket.addEventListener(SecurityErrorEvent.SECURITY_ERROR, onSecurityError);
             _socket.addEventListener(SocketDataEvent.SOCKET_DATA_RECEIVED, onDataReceived);
-            port = 5222;
+            port = HemlockEnvironment.SERVER_PORT;
         }
         
         public function connect() : Boolean {
