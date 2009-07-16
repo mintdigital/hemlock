@@ -138,6 +138,8 @@ package com.mintdigital.hemlock.controls{
             registerListener(overlay,   MouseEvent.MOUSE_OUT,   onMouseEvent);
             registerListener(overlay,   MouseEvent.MOUSE_UP,    onMouseEvent);
             registerListener(overlay,   MouseEvent.MOUSE_DOWN,  onMouseEvent);
+
+            // TODO: Instead register on button, not overlay, to allow setting mouseChildren=false
         }
         
         private function onMouseEvent(event:MouseEvent):void{
