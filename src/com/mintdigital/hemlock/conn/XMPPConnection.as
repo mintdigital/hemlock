@@ -37,9 +37,11 @@ package com.mintdigital.hemlock.conn {
         protected var _incompleteRawXML : String;
         protected var _server : String;
         protected var _port : Number;
+        protected var _ports : Array;
         protected var _active : Boolean;
         protected var _loggedIn : Boolean;
         protected var _pendingIQs : Object;
+        protected var _currentPort : Number
             
         public function XMPPConnection(){
             Security.loadPolicyFile('xmlsocket://'
@@ -53,22 +55,18 @@ package com.mintdigital.hemlock.conn {
             _socket.addEventListener(IOErrorEvent.IO_ERROR, onIOError);
             _socket.addEventListener(SecurityErrorEvent.SECURITY_ERROR, onSecurityError);
             _socket.addEventListener(SocketDataEvent.SOCKET_DATA_RECEIVED, onDataReceived);
-            port = HemlockEnvironment.SERVER_PORT;
+            _currentPort = 0;
+            ports = HemlockEnvironment.SERVER_PORTS;
         }
         
         public function connect() : Boolean {
-            try{
-                _active = false;
-                _loggedIn = false;
-                _incompleteRawXML = '';
-                _pendingIQs = new Object();
-
-                _socket.connect(server, port);
-                Logger.debug('XMPPConnection::connect : socket = ' + _socket);
-            }catch(error:SecurityError){
-                Logger.error('XMPPConnection::connect : Could not connect. Error = ' + error);
-                return false;
-            }
+            _active = false;
+            _loggedIn = false;
+            _incompleteRawXML = '';
+            _pendingIQs = new Object();
+            
+            _socket.connect(server, ports[_currentPort])
+            Logger.debug('XMPPConnection::connect : socket = ' + _socket);
             
             return true;
         }
@@ -262,6 +260,7 @@ package com.mintdigital.hemlock.conn {
         protected function onSocketConnected(ev:Event):void {
             Logger.debug("XMPPConnection::onSocketConnected()" );
             _active = true;
+            port = ports[_currentPort];
             send( openStreamTag() );
             dispatchEvent( new ConnectionSuccessEvent() );
         }
@@ -350,8 +349,14 @@ package com.mintdigital.hemlock.conn {
         {
             Logger.debug("There was a security error of type: " + event.type + "\nError: " + event.text);
             _active = false;
-            _loggedIn = false;            
-            dispatchEvent(event);
+            _loggedIn = false;        
+            _currentPort++
+            if(ports[_currentPort]){
+                connect();
+            }   
+            else{
+                dispatchEvent(event);
+            } 
         }
         
         
@@ -402,6 +407,9 @@ package com.mintdigital.hemlock.conn {
         
         public function get port():Number               { return _port; }
         public function set port(value:Number):void     { _port = value; }
+        
+        public function get ports():Array               { return _ports; }
+        public function set ports(value:Array):void     { _ports = value; }        
         
         public function get server():String             { return _server; }
         public function set server(value:String):void   { _server = value; }
