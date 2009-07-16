@@ -65,7 +65,7 @@ package com.mintdigital.hemlock.conn {
             _incompleteRawXML = '';
             _pendingIQs = new Object();
             
-            _socket.connect(server, ports[_currentPort])
+            _socket.connect(server, ports[_currentPort]);
             Logger.debug('XMPPConnection::connect : socket = ' + _socket);
             
             return true;
