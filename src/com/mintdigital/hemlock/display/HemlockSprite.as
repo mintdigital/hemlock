@@ -66,11 +66,35 @@ package com.mintdigital.hemlock.display{
             updateSize();
         }
         
-        public function show():void     { visible = true; }
-        public function hide():void     { visible = false; }
-        public function toggle():void   { visible = !visible; }
-            // See also the overridden `visible` setter for this class.
-        
+        public function show(options:Object = null):void{
+            // Supported options:
+            // - startListeners (default: true)
+
+            options = HashUtils.merge({ startListeners: true }, options);
+            if(options.startListeners){
+                visible = true;
+                    // See also the overridden `visible` setter.
+            }else{
+                super.visible = true;
+            }
+        }
+
+        public function hide(options:Object = null):void{
+            // Supported options:
+            // - stopListeners (default: true)
+
+            options = HashUtils.merge({ startListeners: true }, options);
+            if(options.stopListeners){
+                visible = false;
+                    // See also the overridden `visible` setter.
+            }else{
+                super.visible = false;
+            }
+        }
+
+        public function toggle():void{ visible = !visible; }
+            // See also the overridden `visible` setter.
+
         override public function addChild(child:DisplayObject):DisplayObject{
             super.addChild(child);
             updateSize();

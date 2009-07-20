@@ -69,7 +69,7 @@ package com.mintdigital.hemlock.display{
             target.stage.addChild(this);
         }
         
-        override public function show():void{
+        override public function show(options:Object = null):void{
             super.show();
             timeouts.hide = setTimeout(hide, options.secondsBeforeHide * 1000);
         }
