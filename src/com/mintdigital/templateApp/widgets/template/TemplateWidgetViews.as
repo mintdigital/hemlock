@@ -11,18 +11,18 @@ package com.mintdigital.templateApp.widgets.template{
 
     public class TemplateWidgetViews extends HemlockWidgetDelegate implements IDelegateViews{
 
-        // When creating your own Hemlock app:
+        //  When creating your own Hemlock app:
         //
-        // 1. Follow the initial instructions in `TemplateWidget.as`.
+        //  1.  Follow the initial instructions in `TemplateWidget.as`.
         //
-        // 2. Update the `createViews` function to create the views (e.g.,
-        //    backgrounds, controls) that you need to start with. Start by
-        //    building the `coords` object, then create the actual views.
+        //  2.  Update the `createViews` function to create the views (e.g.,
+        //      backgrounds, controls) that you need to start with. Start by
+        //      building the `coords` object, then create the actual views.
         //
-        // 3. In the `Helpers` section, write any other functions you'll need
-        //    for creating or updating views during run-time. These should
-        //    typically use the `internal` namespace so they can be used by
-        //    the events delegate (see `TemplateWidgetEvents.as`).
+        //  3.  In the `Helpers` section, write any other functions you'll
+        //      need for creating or updating views during run-time. These
+        //      should typically use the `internal` namespace so they can be
+        //      used by the events delegate (see `TemplateWidgetEvents.as`).
 
         public function TemplateWidgetViews(widget:HemlockWidget){
             super(widget);

@@ -6,22 +6,22 @@ package com.mintdigital.templateApp.widgets.template{
 
     public class TemplateWidgetEvents extends HemlockWidgetDelegate implements IDelegateEvents{
 
-        // When creating your own Hemlock app:
+        //  When creating your own Hemlock app:
         //
-        // 1. Follow the initial instructions in `TemplateWidget.as`.
+        //  1.  Follow the initial instructions in `TemplateWidget.as`.
         //
-        // 2. Update the `registerListeners` function to listen to events
-        //    either from views (i.e., controls that the user interacts with),
-        //    or from the network. If the container needs to handle network
-        //    data before widgets do (e.g., the container must first update
-        //    its model), the widget should listen to the container, which
-        //    handles and re-dispatches the event when ready. Otherwise, if
-        //    the container need not be involved, the widget can listen
-        //    directly to `widget.dispatcher`.
+        //  2.  Update the `registerListeners` function to listen to events
+        //      either from views (i.e., controls that the user interacts
+        //      with), or from the network. If the container needs to handle
+        //      network data before widgets do (e.g., the container must first
+        //      update its model), the widget should listen to the container,
+        //      which handles and re-dispatches the event when ready.
+        //      Otherwise, if the container need not be involved, the widget
+        //      can listen directly to `widget.dispatcher`.
         //
-        // 3. In the `Handlers` sections, implement all handlers used in
-        //    `registerListeners`. These handler functions are typically
-        //    `private`.
+        //  3.  In the `Handlers` sections, implement all handlers used in
+        //      `registerListeners`. These handler functions are typically
+        //      `private`.
 
         public function TemplateWidgetEvents(widget:HemlockWidget){
             super(widget);
