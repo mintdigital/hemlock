@@ -8,9 +8,11 @@ package com.mintdigital.templateApp.strategies{
     public class TemplateEventStrategy extends DataMessageEventStrategy implements IEventStrategy{
 
         // When creating your own Hemlock app:
-        // 1. Copy TemplateEventStrategy.as to your app's `strategies`
+        //
+        // 1. Copy `TemplateEventStrategy.as` to your app's `strategies`
         //    directory, rename the file, and update all mentions of
-        //    `TemplateEventStrategy` to match your new event class' name.
+        //    `TemplateEventStrategy` to match your new strategy's name.
+        //
         // 2. OPTIONAL: In most cases, just copying this constructor will do.
         //    However, you can override `getEventOptions` to transform event
         //    options based on the event type. See the example below, which

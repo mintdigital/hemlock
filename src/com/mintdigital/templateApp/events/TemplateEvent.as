@@ -5,15 +5,19 @@ package com.mintdigital.templateApp.events{
     public class TemplateEvent extends HemlockEvent{
 
         // When creating your own Hemlock app:
-        // 1. Copy TemplateEvent.as to your app's `events` directory, rename
+        //
+        // 1. Copy `TemplateEvent.as` to your app's `events` directory, rename
         //    the file, and update all mentions of `TemplateEvent` to match
-        //    your new event class' name.
+        //    your new event's name.
+        //
         // 2. Replace `TYPE_ONE`, etc. with the event types you plan to use.
         //    For example, if you're creating `GameEvent`, you might want to
         //    define `GameEvent.BEGIN`, `GameEvent.END`, and `GameEvent.STATE`
         //    (for periodically sending the state of the game to each user to
         //    ensure proper data syncing).
+        //
         // 3. Update the `TYPES` array to list your event types.
+        //
         // 4. Update the event's matching strategy (see
         //    `TemplateEventStrategy.as`) as needed.
 
