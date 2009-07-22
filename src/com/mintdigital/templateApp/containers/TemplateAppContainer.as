@@ -365,7 +365,8 @@ package com.mintdigital.templateApp.containers{
 
             // Join APP room at the same time
             client.joinRoom(new JID(
-                toJID.toString().replace(JID.TYPE_CHAT + '_', JID.TYPE_APP + '_') + '/' + client.username
+                toJID.toString().replace(JID.TYPE_CHAT + '_', JID.TYPE_APP + '_')
+                    + '/' + client.username
             ));
         }
 

@@ -71,6 +71,8 @@ package com.mintdigital.hemlock.display{
         
         override public function show(options:Object = null):void{
             super.show();
+
+            if(!options){ options = _options; }
             timeouts.hide = setTimeout(hide, options.secondsBeforeHide * 1000);
         }
         
