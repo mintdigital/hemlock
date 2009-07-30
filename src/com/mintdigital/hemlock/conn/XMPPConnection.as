@@ -271,6 +271,7 @@ package com.mintdigital.hemlock.conn {
             // Logger.debug('RAW XML: ' + rawXML);
             
             if (containsClosedStreamTag(rawXML)){
+                Logger.debug('... closed stream tag');
                 // TODO: Check for <stream:error> if duplicate login
                 // - If dup login, pass error string to disconnect()
                 // - Error string should propagate to container, which should recognize it and change to a user-friendly explanation
@@ -286,7 +287,7 @@ package com.mintdigital.hemlock.conn {
             }
             
             if (containsOpenStreamTag(rawXML)){
-                rawXML = rawXML.concat("</stream:stream>");
+                rawXML = rawXML.concat(closeStreamTag());
             }
 
             var xmlData:XMLDocument = stringToXML(rawXML,ev);
