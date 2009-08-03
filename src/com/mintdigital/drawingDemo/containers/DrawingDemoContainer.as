@@ -31,7 +31,7 @@ package com.mintdigital.drawingDemo.containers{
             2a. Inside your ejabberd.cfg (inside ejabberd-2.0/conf), add the
                 following within the "SERVED HOSTNAMES" section:
 
-                    {hosts, ["aluminium.local", "localhost", "drawing_demo.local"]}.
+                    {hosts, ["localhost", "drawing_demo.local"]}.
 
             2b. Inside your ejabberd.cfg, add the following within the
                 "AUTHENTICATION" section:
