@@ -22,25 +22,39 @@ package com.mintdigital.drawingDemo.containers{
         /*
         To enable anonymous login:
 
-        1. Set USE_ANONYMOUS_SIGNIN to true.
-        2. Add the following to your ejabberd.cfg (inside ejabberd-2.0/conf),
-           within the "AUTHENTICATION" section:
+        1.  Update your web server:
+            1a. Update /etc/hosts to include `127.0.0.1 localhost drawing_demo.local`
+                or similar.
+            1b. Restart your web server.
 
-        {host_config, "localhost", [
-          {auth_method, anonymous},
-          {allow_multiple_connections, false},
-          {anonymous_protocol, sasl_anon},
-          {modules, [
-            {mod_muc, [
-              {default_room_options, [
-                {anonymous, false},
-                {public, false}
-              ]}
-            ]}
-          ]}
-        ]}.
+        2.  Update your XMPP server (ejabberd):
+            2a. Inside your ejabberd.cfg (inside ejabberd-2.0/conf), add the
+                following within the "SERVED HOSTNAMES" section:
 
-        You may need to change "localhost" to match your actual host.
+                    {hosts, ["aluminium.local", "localhost", "drawing_demo.local"]}.
+
+            2b. Inside your ejabberd.cfg, add the following within the
+                "AUTHENTICATION" section:
+
+                    {host_config, "drawing_demo.local", [
+                      {auth_method, anonymous},
+                      {allow_multiple_connections, false},
+                      {anonymous_protocol, sasl_anon},
+                      {modules, [
+                        {mod_muc, [
+                          {default_room_options, [
+                            {anonymous, false},
+                            {public, false}
+                          ]}
+                        ]}
+                      ]}
+                    ]}.
+
+            2c. Restart: `ejabberdctl restart`
+
+        3.  Update ActionScript:
+            3a. In environment.as, set SERVER to 'drawing_demo.local'.
+            3b. Rebuild: `rake hemlock:build:drawingDemo`.
         */
 
         private const USE_ANONYMOUS_SIGNIN:Boolean = false;

@@ -41,7 +41,7 @@ package com.mintdigital.hemlock.conn {
         protected var _active : Boolean;
         protected var _loggedIn : Boolean;
         protected var _pendingIQs : Object;
-        protected var _currentPort : Number
+        protected var _currentPort : Number;
             
         public function XMPPConnection(){
             Security.loadPolicyFile('xmlsocket://'
@@ -350,12 +350,11 @@ package com.mintdigital.hemlock.conn {
         {
             Logger.debug("There was a security error of type: " + event.type + "\nError: " + event.text);
             _active = false;
-            _loggedIn = false;        
-            _currentPort++
+            _loggedIn = false;
+            _currentPort++;
             if(ports[_currentPort]){
                 connect();
-            }   
-            else{
+            }else{
                 dispatchEvent(event);
             } 
         }
