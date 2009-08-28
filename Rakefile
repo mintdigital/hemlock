@@ -18,6 +18,7 @@ namespace :hemlock do
     puts
     puts 'Example apps:'
     puts '- rake hemlock:build:drawingDemo  # Compiles DrawingDemoContainer.as'
+    puts '  * You can adapt this task to compile your own Hemlock apps.'
     puts
     puts 'Advanced:'
     puts '- rake hemlock:build:core         # Re-compiles HemlockCore.swc'
