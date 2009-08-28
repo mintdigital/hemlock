@@ -1,21 +1,21 @@
-SRC_DIR = File.join(File.dirname(__FILE__), '..', '..', 'src')
+TEST_SRC_DIR = File.join(File.dirname(__FILE__), '..', '..', 'src')
 
 namespace :hemlock do
   namespace :test do
-  
+
     desc 'Run tests'
     task :default => ["setup_test_dir", "generate_tests", "generate_package_suites", "generate_suite", "compile_tests", "run_tests"]
     task :with_debugger => ["setup_test_dir", "generate_tests", "generate_package_suites", "generate_suite", "compile_tests", "run_with_debugger"]
     
     desc 'Create test directories'
     task :setup_test_dir do
-      unless File.exists?(File.join(SRC_DIR, 'generated_tests'))
-        Dir.mkdir(File.join(SRC_DIR, 'generated_tests'))
-        Dir.mkdir(File.join(SRC_DIR, 'generated_tests/com'))
-        Dir.mkdir(File.join(SRC_DIR, 'generated_tests/com/mintdigital'))
+      unless File.exists?(File.join(TEST_SRC_DIR, 'generated_tests'))
+        Dir.mkdir(File.join(TEST_SRC_DIR, 'generated_tests'))
+        Dir.mkdir(File.join(TEST_SRC_DIR, 'generated_tests/com'))
+        Dir.mkdir(File.join(TEST_SRC_DIR, 'generated_tests/com/mintdigital'))
       end
     
-      Dir[File.join(SRC_DIR, 'tests/com/mintdigital/**')].each do |d|
+      Dir[File.join(TEST_SRC_DIR, 'tests/com/mintdigital/**')].each do |d|
         unless File.exists?(d.gsub(/tests/, "generated_tests"))
           Dir.mkdir(d.gsub(/tests/, "generated_tests"))
         end
@@ -24,7 +24,7 @@ namespace :hemlock do
   
     desc 'Generate test files'
     task :generate_tests do
-      tests = Dir[File.join(SRC_DIR, 'tests/com/mintdigital/**/*Test.as')].each do |file_path|
+      tests = Dir[File.join(TEST_SRC_DIR, 'tests/com/mintdigital/**/*Test.as')].each do |file_path|
         file_path = File.expand_path(file_path)
         
         package = File.basename(File.dirname(file_path))
@@ -54,7 +54,7 @@ namespace :hemlock do
   
     desc 'Generate package test suites'
     task :generate_package_suites do
-      suites = Dir[File.join(SRC_DIR, 'tests/com/mintdigital/**')].each do |dir|
+      suites = Dir[File.join(TEST_SRC_DIR, 'tests/com/mintdigital/**')].each do |dir|
         package = File.basename(dir)
         tests = Dir[dir + "/*Test.as"].collect{|f| File.basename(f)}
         emit_file_path = (dir + "/" + package.capitalize + "TestSuite.as").gsub(/tests/,"generated_tests")
@@ -92,8 +92,8 @@ namespace :hemlock do
     task :generate_suite do
       puts  "-"*80
       puts "Generating test suite..."
-      emit_file_path = File.join(SRC_DIR, 'allTests.as')
-      packages = Dir[File.join(SRC_DIR, 'generated_tests/com/mintdigital/**')].collect{|d| File.basename(d)}
+      emit_file_path = File.join(TEST_SRC_DIR, 'allTests.as')
+      packages = Dir[File.join(TEST_SRC_DIR, 'generated_tests/com/mintdigital/**')].collect{|d| File.basename(d)}
       suites = packages.collect{|p| p.capitalize + "TestSuite"}
     
       File.open(emit_file_path, "w") do |file|
@@ -138,19 +138,19 @@ namespace :hemlock do
         '-compiler.debug=true',
         '-compiler.fonts.managers=flash.fonts.AFEFontManager'
       ]
-      `#{ENV['FLEX_SDK_HOME']}/bin/mxmlc #{mxmlc_options.join(' ')} #{File.join(SRC_DIR, 'HemlockTestRunner.mxml')}`
+      `#{ENV['FLEX_SDK_HOME']}/bin/mxmlc #{mxmlc_options.join(' ')} #{File.join(TEST_SRC_DIR, 'HemlockTestRunner.mxml')}`
     end
 
     desc 'Open compiled tests'
     task :run_tests do
       puts 'Running test suite...'
-      `open #{File.join(SRC_DIR, 'HemlockTestRunner.swf')}`
+      `open #{File.join(TEST_SRC_DIR, 'HemlockTestRunner.swf')}`
     end  
   
     desc 'Debug compiled tests'
     task :run_with_debugger do
       puts 'Running test suite...'
-      `fdb #{File.join(SRC_DIR, 'HemlockTestRunner.swf')}`
+      `fdb #{File.join(TEST_SRC_DIR, 'HemlockTestRunner.swf')}`
     end
   end
 end
