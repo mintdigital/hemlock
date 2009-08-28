@@ -17,7 +17,6 @@ package com.mintdigital.hemlock.events{
         public static const ROOM_USER_LEAVE:String          = 'room_userLeave';     // Another user has left the room
         public static const ROOM_CONFIGURED:String          = 'room_configured';    // Final step of updating a room's configuration
 
-        // TODO: Phase these out; use PresenceEvent instead
         public static const PRESENCE_CREATE:String          = 'presence_create';
         public static const PRESENCE_UPDATE:String          = 'presence_update';
         
