@@ -1,7 +1,7 @@
-package com.mintdigital.templateApp.containers{
-    import com.mintdigital.templateApp.events.TemplateEvent;
-    import com.mintdigital.templateApp.strategies.TemplateEventStrategy;
-    import com.mintdigital.templateApp.widgets.template.TemplateWidget;
+package %%package_name%%.containers{
+    import %%package_name%%.events.%%event_name%%;
+    import %%package_name%%.strategies.%%strategy_name%%;
+    // import %%package_name%%.widgets.template.TemplateWidget;
 
     import com.mintdigital.hemlock.HemlockEnvironment;
     import com.mintdigital.hemlock.Logger;
@@ -19,13 +19,12 @@ package com.mintdigital.templateApp.containers{
     import com.mintdigital.hemlock.widgets.signin.SigninWidget;
 
     [SWF(width="1000", height="665", backgroundColor="#CCCCCC")]
-    public class TemplateAppContainer extends HemlockContainer{
+    public class %%container_name%% extends HemlockContainer{
 
         // When creating your own Hemlock app:
         //
-        //  1.  Copy `TemplateAppContainer.as` to your app's `containers`
-        //      directory, and update all mentions of `TemplateApp` to match
-        //      your app's name.
+        //  1.  Run `rake hemlock:generate:container[MyApp]`, changing `MyApp`
+        //      to your app's real name.
         //
         //  2.  Update the `registerListeners` function to listen to events
         //      from the network, and in the "Events > Handlers > App > Custom"
@@ -80,11 +79,11 @@ package com.mintdigital.templateApp.containers{
         //  Initializers
         //--------------------------------------
 
-        public function TemplateAppContainer(){
+        public function %%container_name%%(){
             initialize();
             client.addEventStrategies([
                 new RoomEventStrategy(),
-                new TemplateEventStrategy()
+                new %%strategy_name%%()
             ]);
 
             // Add background to prop open
@@ -113,7 +112,7 @@ package com.mintdigital.templateApp.containers{
         //--------------------------------------
 
         override public function registerListeners():void{
-            Logger.debug('TemplateAppContainer::registerListeners()');
+            Logger.debug('%%container_name%%::registerListeners()');
             super.registerListeners();
 
             // Register standard app listeners
@@ -122,8 +121,8 @@ package com.mintdigital.templateApp.containers{
             registerListener(dispatcher,    AppEvent.CONFIGURATION_COMPLETE,    onConfigurationComplete);
 
             // Register custom app listeners
-            // registerListener(dispatcher,    TemplateEvent.TYPE_ONE,     onTemplateTypeOne);
-            // registerListener(dispatcher,    TemplateEvent.TYPE_TWO,     onTemplateTypeTwo);
+            // registerListener(dispatcher,    %%event_name%%.TYPE_ONE,   on%%app_name%%TypeOne);
+            // registerListener(dispatcher,    %%event_name%%.TYPE_TWO,   on%%app_name%%TypeTwo);
         }
 
 
@@ -133,7 +132,7 @@ package com.mintdigital.templateApp.containers{
         //--------------------------------------
 
         private function onRoomJoined(event:AppEvent):void{
-            Logger.debug('TemplateAppContainer::onRoomJoined()');
+            Logger.debug('%%container_name%%::onRoomJoined()');
 
             var data:Object = event.options;
 
@@ -188,11 +187,11 @@ package com.mintdigital.templateApp.containers{
         //  Events > Handlers > App > Custom
         //--------------------------------------
 
-        private function onTemplateTypeOne(event:TemplateEvent):void{
+        private function on%%app_name%%TypeOne(event:%%event_name%%):void{
             // ...
         }
 
-        private function onTemplateTypeTwo(event:TemplateEvent):void{
+        private function on%%app_name%%TypeTwo(event:%%event_name%%):void{
             // ...
         }
 
@@ -327,7 +326,7 @@ package com.mintdigital.templateApp.containers{
         //--------------------------------------
 
         private function signInAnonymously():void{
-            Logger.debug('TemplateAppContainer::signInAnonymously()');
+            Logger.debug('%%container_name%%::signInAnonymously()');
 
             var username:String = ArrayUtils.rand([
                     // Colors
@@ -351,14 +350,14 @@ package com.mintdigital.templateApp.containers{
         }
 
         override public function createRoom(roomType:String):void{
-            Logger.debug("TemplateAppContainer::createRoom()");
+            Logger.debug("%%container_name%%::createRoom()");
 
             // Overridden to only create a CHAT room first
             client.createRoom(JID.TYPE_CHAT, domain);
         }
 
         override public function joinRoom(toJID:JID):void{
-            Logger.debug('TemplateAppContainer::joinRoom()');
+            Logger.debug('%%container_name%%::joinRoom()');
 
             // Join CHAT room
             super.joinRoom(toJID);

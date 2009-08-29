@@ -1,17 +1,16 @@
-package com.mintdigital.templateApp.strategies{
-    import com.mintdigital.templateApp.events.TemplateEvent;
+package %%package_name%%.strategies{
+    import %%package_name%%.events.%%event_name%%;
 
     import com.mintdigital.hemlock.data.JID;
     import com.mintdigital.hemlock.strategies.IEventStrategy;
     import com.mintdigital.hemlock.strategies.DataMessageEventStrategy;
 
-    public class TemplateEventStrategy extends DataMessageEventStrategy implements IEventStrategy{
+    public class %%strategy_name%% extends DataMessageEventStrategy implements IEventStrategy{
 
         //  When creating your own Hemlock app:
         //
-        //  1.  Copy `TemplateEventStrategy.as` to your app's `strategies`
-        //      directory, rename the file, and update all mentions of
-        //      `TemplateEventStrategy` to match your new strategy's name.
+        //  1.  Run `rake hemlock:generate:container[MyApp]`, changing `MyApp`
+        //      to your app's real name.
         //
         //  2.  OPTIONAL: In most cases, just copying this constructor will
         //      do. However, you can override `getEventOptions` to transform
@@ -19,17 +18,17 @@ package com.mintdigital.templateApp.strategies{
         //      which takes JID strings and converts them into actual JID
         //      objects.
 
-        public function TemplateEventStrategy(){
+        public function %%strategy_name%%(){
             super({
-                eventClass: TemplateEvent,
-                eventTypes: TemplateEvent.TYPES
+                eventClass: %%event_name%%,
+                eventTypes: %%event_name%%.TYPES
             });
         }
 
         /*
         override protected function getEventOptions(eventType:String, options:Object):Object{
             switch(eventType){
-                case TemplateEvent.TYPE_ONE:
+                case %%event_name%%.TYPE_ONE:
                     if(options.someJID){
                         // Convert from String to JID
                         options.someJID = new JID(options.someJID);
