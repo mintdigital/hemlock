@@ -37,10 +37,13 @@ namespace :hemlock do
 
       raise 'Usage: rake hemlock:generate:container[AppName]' unless args.container_key
 
+      container_key = args.container_key
+      container_key_downcase_first = container_key.sub(/^[A-Z]/) { |s| s.downcase }
+
       # Prepare substitutions for all files
       substitutions = {
-        :app_package => GENERATE_PACKAGE,
-        :container_key => args.container_key
+        :app_package    => GENERATE_PACKAGE,
+        :container_key  => container_key
       }
       substitutions[:container_class] = "#{substitutions[:container_key]}Container"
       substitutions[:event_class]     = "#{substitutions[:container_key]}Event"
@@ -66,8 +69,6 @@ namespace :hemlock do
       )
 
       # Generate event file
-      container_key_downcase_first =
-        substitutions[:container_key].sub(/^[A-Z]/) { |s| s.downcase }
       generate_file(
         File.join(GENERATE_TEMPLATE_DIR, 'events', 'TemplateEvent.as'),
         File.join(GENERATE_SRC_DIR, 'events', "#{substitutions[:event_class]}.as"),
@@ -84,7 +85,7 @@ namespace :hemlock do
       )
 
       # Show next steps
-      puts "Next, open #{container_filename} and follow its directions."
+      puts "\nNext, open #{container_filename} and follow its directions."
     end
 
     desc 'Generates a HemlockWidget'
@@ -106,11 +107,11 @@ namespace :hemlock do
 
       # Prepare substitutions
       substitutions = {
-        :app_package => GENERATE_PACKAGE,
-        :widget_key => args.widget_key
+        :app_package  => GENERATE_PACKAGE,
+        :widget_key   => widget_key
       }
       substitutions[:widget_package] =
-        [substitutions[:app_package], 'widgets', widget_key_downcase_first].join('.')
+        "#{substitutions[:app_package]}.widgets.#{widget_key_downcase_first}"
       substitutions[:widget_class]        = "#{substitutions[:widget_key]}Widget"
       substitutions[:widget_views_class]  = "#{substitutions[:widget_key]}WidgetViews"
       substitutions[:widget_events_class] = "#{substitutions[:widget_key]}WidgetEvents"
@@ -135,8 +136,8 @@ namespace :hemlock do
       # Generate widget files
       widget_dir_path = File.join(GENERATE_SRC_DIR, 'widgets', widget_key_downcase_first)
       [
-        ['TemplateWidget.as', :widget_class],
-        ['TemplateWidgetViews.as', :widget_views_class],
+        ['TemplateWidget.as',       :widget_class],
+        ['TemplateWidgetViews.as',  :widget_views_class],
         ['TemplateWidgetEvents.as', :widget_events_class]
       ].each do |widget_file_data|
         generate_file(
@@ -145,6 +146,10 @@ namespace :hemlock do
           substitutions
         )
       end
+
+      # Show next steps
+      widget_filename = File.join(widget_dir_path, "#{substitutions[:widget_class]}.as")
+      puts "\nNext, open #{widget_filename} and follow its directions."
     end
 
     desc 'Create source path'
