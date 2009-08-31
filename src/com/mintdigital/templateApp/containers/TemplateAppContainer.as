@@ -1,7 +1,7 @@
-package %%package_name%%.containers{
-    import %%package_name%%.events.%%event_name%%;
-    import %%package_name%%.strategies.%%strategy_name%%;
-    // import %%package_name%%.widgets.template.TemplateWidget;
+package %%app_package%%.containers{
+    import %%app_package%%.events.%%event_class%%;
+    import %%app_package%%.strategies.%%strategy_class%%;
+    // import %%app_package%%.widgets.template.TemplateWidget;
 
     import com.mintdigital.hemlock.HemlockEnvironment;
     import com.mintdigital.hemlock.Logger;
@@ -19,12 +19,12 @@ package %%package_name%%.containers{
     import com.mintdigital.hemlock.widgets.signin.SigninWidget;
 
     [SWF(width="1000", height="665", backgroundColor="#CCCCCC")]
-    public class %%container_name%% extends HemlockContainer{
+    public class %%container_class%% extends HemlockContainer{
 
         // When creating your own Hemlock app:
         //
-        //  1.  Run `rake hemlock:generate:container[MyApp]`, changing `MyApp`
-        //      to your app's real name.
+        //  1.  Run `rake hemlock:generate:container[MyContainer]`, changing
+        //      `MyContainer` to your container's real name.
         //
         //  2.  Update the `registerListeners` function to listen to events
         //      from the network, and in the "Events > Handlers > App > Custom"
@@ -79,11 +79,11 @@ package %%package_name%%.containers{
         //  Initializers
         //--------------------------------------
 
-        public function %%container_name%%(){
+        public function %%container_class%%(){
             initialize();
             client.addEventStrategies([
                 new RoomEventStrategy(),
-                new %%strategy_name%%()
+                new %%strategy_class%%()
             ]);
 
             // Add background to prop open
@@ -112,7 +112,7 @@ package %%package_name%%.containers{
         //--------------------------------------
 
         override public function registerListeners():void{
-            Logger.debug('%%container_name%%::registerListeners()');
+            Logger.debug('%%container_class%%::registerListeners()');
             super.registerListeners();
 
             // Register standard app listeners
@@ -121,8 +121,8 @@ package %%package_name%%.containers{
             registerListener(dispatcher,    AppEvent.CONFIGURATION_COMPLETE,    onConfigurationComplete);
 
             // Register custom app listeners
-            // registerListener(dispatcher,    %%event_name%%.TYPE_ONE,   on%%app_name%%TypeOne);
-            // registerListener(dispatcher,    %%event_name%%.TYPE_TWO,   on%%app_name%%TypeTwo);
+            // registerListener(dispatcher,    %%event_class%%.TYPE_ONE,   on%%container_key%%TypeOne);
+            // registerListener(dispatcher,    %%event_class%%.TYPE_TWO,   on%%container_key%%TypeTwo);
         }
 
 
@@ -132,7 +132,7 @@ package %%package_name%%.containers{
         //--------------------------------------
 
         private function onRoomJoined(event:AppEvent):void{
-            Logger.debug('%%container_name%%::onRoomJoined()');
+            Logger.debug('%%container_class%%::onRoomJoined()');
 
             var data:Object = event.options;
 
@@ -187,11 +187,11 @@ package %%package_name%%.containers{
         //  Events > Handlers > App > Custom
         //--------------------------------------
 
-        private function on%%app_name%%TypeOne(event:%%event_name%%):void{
+        private function on%%container_key%%TypeOne(event:%%event_class%%):void{
             // ...
         }
 
-        private function on%%app_name%%TypeTwo(event:%%event_name%%):void{
+        private function on%%container_key%%TypeTwo(event:%%event_class%%):void{
             // ...
         }
 
@@ -326,7 +326,7 @@ package %%package_name%%.containers{
         //--------------------------------------
 
         private function signInAnonymously():void{
-            Logger.debug('%%container_name%%::signInAnonymously()');
+            Logger.debug('%%container_class%%::signInAnonymously()');
 
             var username:String = ArrayUtils.rand([
                     // Colors
@@ -350,14 +350,14 @@ package %%package_name%%.containers{
         }
 
         override public function createRoom(roomType:String):void{
-            Logger.debug("%%container_name%%::createRoom()");
+            Logger.debug("%%container_class%%::createRoom()");
 
             // Overridden to only create a CHAT room first
             client.createRoom(JID.TYPE_CHAT, domain);
         }
 
         override public function joinRoom(toJID:JID):void{
-            Logger.debug('%%container_name%%::joinRoom()');
+            Logger.debug('%%container_class%%::joinRoom()');
 
             // Join CHAT room
             super.joinRoom(toJID);

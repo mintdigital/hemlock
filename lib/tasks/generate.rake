@@ -16,81 +16,114 @@ GENERATE_TEMPLATE_DIR = File.join(File.dirname(__FILE__), '..', '..', 'src', 'co
 
 
 # TODO: Move ActionScript generation to a gem?
+# TODO: Refactor to use mkdir_p in verbose mode to report changes
+
+
 
 namespace :hemlock do
   namespace :generate do
 
     desc 'Generates a HemlockContainer and associated events and strategies'
-    task :container, [:app_name] do |t, args|
+    task :container, [:container_key] do |t, args|
       # Usage:
       #
-      # rake hemlock:generate:container[Game]
-      # - Generates:
-      #   - GENERATE_SRC_DIR/containers/GameContainer.as
-      #   - GENERATE_SRC_DIR/events/GameEvent.as
-      #   - GENERATE_SRC_DIR/strategies/GameEventStrategy.as
+      #     rake hemlock:generate:container[Game]
+      #
+      # Generates:
+      #
+      #     GENERATE_SRC_DIR/containers/GameContainer.as
+      #     GENERATE_SRC_DIR/events/GameEvent.as
+      #     GENERATE_SRC_DIR/strategies/GameEventStrategy.as
 
-      raise 'Usage: rake hemlock:generate:container[AppName]' unless args.app_name
-
-      # Create directories
-      Rake::Task['hemlock:generate:source_directory'].execute
-      %w[containers events strategies].each do |dir_name|
-        dir = File.join(GENERATE_SRC_DIR, dir_name)
-        unless File.exist?(dir)
-          FileUtils.mkdir(dir)
-          puts "- Created #{dir}"
-        end
-      end
+      raise 'Usage: rake hemlock:generate:container[AppName]' unless args.container_key
 
       # Prepare substitutions for all files
       substitutions = {
-        :package_name => GENERATE_PACKAGE,
-        :app_name => args.app_name
+        :app_package => GENERATE_PACKAGE,
+        :container_key => args.container_key
       }
-      substitutions[:container_name]  = "#{substitutions[:app_name]}Container"
-      substitutions[:event_name]      = "#{substitutions[:app_name]}Event"
-      substitutions[:strategy_name]   = "#{substitutions[:app_name]}EventStrategy"
+      substitutions[:container_class] = "#{substitutions[:container_key]}Container"
+      substitutions[:event_class]     = "#{substitutions[:container_key]}Event"
+      substitutions[:strategy_class]  = "#{substitutions[:container_key]}EventStrategy"
+
+      # Create directories
+      Rake::Task['hemlock:generate:source_directory'].invoke
+      %w[containers events strategies].each do |dir_name|
+        dir_path = File.join(GENERATE_SRC_DIR, dir_name)
+        unless File.exist?(dir_path)
+          FileUtils.mkdir(dir_path)
+          puts "- Created #{dir_path}"
+        end
+      end
 
       # Generate container file
+      container_filename =
+        File.join(GENERATE_SRC_DIR, 'containers', "#{substitutions[:container_class]}.as")
       generate_file(
         File.join(GENERATE_TEMPLATE_DIR, 'containers', 'TemplateAppContainer.as'),
-        File.join(GENERATE_SRC_DIR, 'containers', "#{substitutions[:container_name]}.as"),
+        container_filename,
         substitutions
       )
 
       # Generate event file
-      app_name_downcase_first = substitutions[:app_name]
-      app_name_downcase_first[0,1] = app_name_downcase_first[0,1].downcase
+      container_key_downcase_first =
+        substitutions[:container_key].sub(/^[A-Z]/) { |s| s.downcase }
       generate_file(
         File.join(GENERATE_TEMPLATE_DIR, 'events', 'TemplateEvent.as'),
-        File.join(GENERATE_SRC_DIR, 'events', "#{substitutions[:event_name]}.as"),
+        File.join(GENERATE_SRC_DIR, 'events', "#{substitutions[:event_class]}.as"),
         substitutions.merge(
-          :app_name_downcase_first => app_name_downcase_first
+          :container_key_downcase_first => container_key_downcase_first
         )
       )
 
       # Generate strategy file
       generate_file(
         File.join(GENERATE_TEMPLATE_DIR, 'strategies', 'TemplateEventStrategy.as'),
-        File.join(GENERATE_SRC_DIR, 'strategies', "#{substitutions[:strategy_name]}.as"),
+        File.join(GENERATE_SRC_DIR, 'strategies', "#{substitutions[:strategy_class]}.as"),
         substitutions
       )
+
+      # Show next steps
+      puts "Next, open #{container_filename} and follow its directions."
     end
 
     desc 'Generates a HemlockWidget'
-    task :widget, [:name] do |t, args|
+    task :widget, [:widget_key] do |t, args|
       # Usage:
       #
-      # rake hemlock:generate:container Game
-      # - Generates:
-      #   - GENERATE_SRC_DIR/containers/GameContainer.as
-      #   - GENERATE_SRC_DIR/events/GameEvent.as
-      #   - GENERATE_SRC_DIR/strategies/GameEventStrategy.as
+      #     rake hemlock:generate:container[Game]
+      #
+      # Generates:
+      #
+      #     GENERATE_SRC_DIR/widgets/game/GameWidget.as
+      #     GENERATE_SRC_DIR/widgets/game/GameWidgetViews.as
+      #     GENERATE_SRC_DIR/widgets/game/GameWidgetEvents.as
 
-      raise 'Usage: rake hemlock:generate:widget[WidgetName]' unless args.name
+      raise 'Usage: rake hemlock:generate:widget[WidgetName]' unless args.widget_key
+
+      widget_key = args.widget_key
+      widget_key_downcase_first = widget_key.sub(/^[A-Z]/) { |s| s.downcase }
+
+      # Prepare substitutions
+      substitutions = {
+        :app_package => GENERATE_PACKAGE,
+        :widget_key => args.widget_key
+      }
+      substitutions[:widget_package] =
+        [substitutions[:app_package], 'widgets', widget_key_downcase_first].join('.')
+      substitutions[:widget_class]        = "#{substitutions[:widget_key]}Widget"
+      substitutions[:widget_views_class]  = "#{substitutions[:widget_key]}WidgetViews"
+      substitutions[:widget_events_class] = "#{substitutions[:widget_key]}WidgetEvents"
 
       # Create source path
-      Rake::Task['hemlock:generate:source_directory'].execute
+      Rake::Task['hemlock:generate:source_directory'].invoke
+      ['widgets', File.join('widgets', widget_key_downcase_first)].each do |dir_name|
+        dir_path = File.join(GENERATE_SRC_DIR, dir_name)
+        unless File.exist?(dir_path)
+          FileUtils.mkdir(dir_path)
+          puts "- Created #{dir_path}"
+        end
+      end
 
       # Generate widgets directory
       dir = File.join(GENERATE_SRC_DIR, 'widgets')
@@ -99,8 +132,19 @@ namespace :hemlock do
         puts "- Created #{dir}"
       end
 
-      # Generate widget file
-      # ...
+      # Generate widget files
+      widget_dir_path = File.join(GENERATE_SRC_DIR, 'widgets', widget_key_downcase_first)
+      [
+        ['TemplateWidget.as', :widget_class],
+        ['TemplateWidgetViews.as', :widget_views_class],
+        ['TemplateWidgetEvents.as', :widget_events_class]
+      ].each do |widget_file_data|
+        generate_file(
+          File.join(GENERATE_TEMPLATE_DIR, 'widgets', 'template', widget_file_data[0]),
+          File.join(widget_dir_path, "#{substitutions[widget_file_data[1]]}.as"),
+          substitutions
+        )
+      end
     end
 
     desc 'Create source path'

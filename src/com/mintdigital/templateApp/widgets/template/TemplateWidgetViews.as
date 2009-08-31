@@ -1,4 +1,4 @@
-package com.mintdigital.templateApp.widgets.template{
+package %%widget_package%%{
     import com.mintdigital.hemlock.Logger;
     import com.mintdigital.hemlock.display.HemlockSprite;
     import com.mintdigital.hemlock.utils.GraphicsUtils;
@@ -9,11 +9,11 @@ package com.mintdigital.templateApp.widgets.template{
 
     import flash.display.Shape;
 
-    public class TemplateWidgetViews extends HemlockWidgetDelegate implements IDelegateViews{
+    public class %%widget_views_class%% extends HemlockWidgetDelegate implements IDelegateViews{
 
         //  When creating your own Hemlock app:
         //
-        //  1.  Follow the initial instructions in `TemplateWidget.as`.
+        //  1.  Follow the initial instructions in `%%widget_class%%.as`.
         //
         //  2.  Update the `createViews` function to create the views (e.g.,
         //      backgrounds, controls) that you need to start with. Start by
@@ -22,9 +22,9 @@ package com.mintdigital.templateApp.widgets.template{
         //  3.  In the `Helpers` section, write any other functions you'll
         //      need for creating or updating views during run-time. These
         //      should typically use the `internal` namespace so they can be
-        //      used by the events delegate (see `TemplateWidgetEvents.as`).
+        //      used by the events delegate (see `%%widget_events_class%%.as`).
 
-        public function TemplateWidgetViews(widget:HemlockWidget){
+        public function %%widget_views_class%%(widget:HemlockWidget){
             super(widget);
         }
 

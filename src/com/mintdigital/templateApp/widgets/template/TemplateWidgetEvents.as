@@ -1,14 +1,16 @@
-package com.mintdigital.templateApp.widgets.template{
+package %%widget_package%%{
+    // import %%app_package%%.events.TemplateEvent;
+
     import com.mintdigital.hemlock.Logger;
     import com.mintdigital.hemlock.widgets.IDelegateEvents;
     import com.mintdigital.hemlock.widgets.HemlockWidget;
     import com.mintdigital.hemlock.widgets.HemlockWidgetDelegate;
 
-    public class TemplateWidgetEvents extends HemlockWidgetDelegate implements IDelegateEvents{
+    public class %%widget_events_class%% extends HemlockWidgetDelegate implements IDelegateEvents{
 
         //  When creating your own Hemlock app:
         //
-        //  1.  Follow the initial instructions in `TemplateWidget.as`.
+        //  1.  Follow the initial instructions in `%%widget_class%%.as`.
         //
         //  2.  Update the `registerListeners` function to listen to events
         //      either from views (i.e., controls that the user interacts
@@ -23,7 +25,7 @@ package com.mintdigital.templateApp.widgets.template{
         //      `registerListeners`. These handler functions are typically
         //      `private`.
 
-        public function TemplateWidgetEvents(widget:HemlockWidget){
+        public function %%widget_events_class%%(widget:HemlockWidget){
             super(widget);
         }
 
