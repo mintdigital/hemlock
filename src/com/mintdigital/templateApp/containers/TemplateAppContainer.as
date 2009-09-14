@@ -23,8 +23,8 @@ package %%app_package%%.containers{
 
         // When creating your own Hemlock app:
         //
-        //  1.  Run `rake hemlock:generate:container[MyContainer]`, changing
-        //      `MyContainer` to your container's real name.
+        //  1.  Run `rake hemlock:generate:container[%%container_key%%]`,
+        //      which generates `%%container_class%%.as` and supporting files.
         //
         //  2.  Update the `registerListeners` function to listen to events
         //      from the network, and in the "Events > Handlers > App > Custom"
@@ -38,10 +38,15 @@ package %%app_package%%.containers{
         //
         //      c.  Show/hide widgets.
         //
-        //  3.  Rename and update the `addTemplateWidget` function to
-        //      instantiate your own `TemplateWidget` (see
-        //      `widgets/template/TemplateWidget.as`). Implement and add any
-        //      other widgets as needed.
+        //  3.  Generate your first HemlockWidget:
+        //
+        //          `rake hemlock:generate:widget[Main]`
+        //
+        //      This generates `MainWidget.as` and supporting files.
+        //
+        //  4.  Rename this container's `addTemplateWidget` function to match
+        //      your widget (e.g., `addMainWidget`), and update it to
+        //      instantiate your widget. Generate any other widgets you need.
 
 
 

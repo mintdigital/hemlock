@@ -9,8 +9,8 @@ package %%app_package%%.strategies{
 
         //  When creating your own Hemlock app:
         //
-        //  1.  Run `rake hemlock:generate:container[MyContainer]`, changing
-        //      `MyContainer` to your container's real name.
+        //  1.  Run `rake hemlock:generate:container[%%container_key%%]`,
+        //      which generates `%%container_class%%.as` and others.
         //
         //  2.  OPTIONAL: In most cases, just the constructor will do.
         //      However, you can override `getEventOptions` to transform event

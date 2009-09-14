@@ -1,19 +1,11 @@
-### Change these: ###
-
 # ActionScript package for your app:
 GENERATE_PACKAGE = 'com.myOrganization.myApp'
-  # FIXME: After app is generated, determine package from dir structure
 
 # Directory where your app's ActionScript lives:
 GENERATE_SRC_DIR = File.join('flash', 'src', *(GENERATE_PACKAGE.split('.')))
-  # FIXME: After app is generated, determine package from dir structure
-
-
-
-### Do not change: ###
 
 # Directory where Hemlock templates live:
-GENERATE_TEMPLATE_DIR = File.join(File.dirname(__FILE__), '..', '..', 'src', 'com', 'mintdigital', 'templateApp')
+GENERATE_TEMPLATE_DIR = File.join(File.dirname(__FILE__), '..', '..', 'flash', 'src', 'com', 'mintdigital', 'templateApp')
 
 
 
@@ -76,13 +68,11 @@ namespace :hemlock do
       puts "- Created #{paths[:target][:template_dir]}"
 
       # Copy rake tasks
-      # TODO: Replace with a separate set of template .task files
-      # - Templates should have instructions on what to change
       File.copy(
         File.join(File.dirname(__FILE__), '..', '..', 'Rakefile'),
         paths[:target][:app_dir]
       )
-      %w[build deploy generate loaders start test].each do |filename|
+      %w[build deploy generate start test].each do |filename|
         File.copy(
           File.join(paths[:source][:tasks_dir], "#{filename}.rake"),
           paths[:target][:tasks_dir]
@@ -90,11 +80,21 @@ namespace :hemlock do
         puts "- Created #{File.join(paths[:target][:tasks_dir], filename)}.rake"
       end
 
+      # TODO: Prepare proper build.rake
+
+      # Update generated generate.rake
+      File.open(File.join(paths[:target][:tasks_dir], 'generate.rake'), 'w') do |file|
+        contents = File.open(File.join(paths[:source][:tasks_dir], 'generate.rake')).read
+        contents.gsub!(/#{GENERATE_PACKAGE.gsub(/\./, '\.')}/, package)
+        contents.gsub!(/#{GENERATE_PACKAGE.gsub(/\./, '/')}/, package.gsub(/\./, '/'))
+        file.write contents
+      end
+
       # Show next steps
       puts "\nNext:\n\n"
       puts "    cd #{paths[:target][:app_dir]}"
-      puts "    rake hemlock:generate:container[MyContainer]"
-      puts "    rake hemlock:generate:widget[MyWidget]"
+      puts '    rake hemlock:generate:container[Main] # Generates MainContainer.as'
+      puts '    rake hemlock:generate:widget[Main]    # Generates MainWidget.as'
     end
 
     desc 'Generates a HemlockContainer and associated events and strategies'
@@ -110,7 +110,7 @@ namespace :hemlock do
       #     GENERATE_SRC_DIR/strategies/GameEventStrategy.as
 
       unless args.container_key
-        raise 'Usage: rake hemlock:generate:container[MyContainer]' and return
+        raise 'Usage: rake hemlock:generate:container[Main] # Generates MainContainer.as' and return
       end
 
       container_key = args.container_key
@@ -177,7 +177,7 @@ namespace :hemlock do
       #     GENERATE_SRC_DIR/widgets/game/GameWidgetEvents.as
 
       unless args.widget_key
-        raise 'Usage: rake hemlock:generate:widget[MyWidget]' and return
+        raise 'Usage: rake hemlock:generate:widget[Main] # Generates MainWidget.as' and return
       end
 
       widget_key = args.widget_key

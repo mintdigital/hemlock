@@ -43,8 +43,8 @@ package %%widget_package%%{
             widget.registerListener(views.myView,   MouseEvent.CLICK,       onMyViewClick);
 
             // Register container/dispatcher listeners
-            widget.registerListener(container,      TemplateEvent.TYPE_ONE, onTemplateTypeOne);
-            widget.registerListener(container,      TemplateEvent.TYPE_TWO, onTemplateTypeTwo);
+            // widget.registerListener(container,      TemplateEvent.TYPE_ONE, onTemplateTypeOne);
+            // widget.registerListener(container,      TemplateEvent.TYPE_TWO, onTemplateTypeTwo);
         }
 
 
@@ -63,6 +63,7 @@ package %%widget_package%%{
         //  Handlers > App
         //--------------------------------------
 
+        /*
         internal function onTemplateTypeOne(event:TemplateEvent):void{
             // ...
         }
@@ -70,6 +71,7 @@ package %%widget_package%%{
         internal function onTemplateTypeTwo(event:TemplateEvent):void{
             // ...
         }
+        */
 
     }
 }

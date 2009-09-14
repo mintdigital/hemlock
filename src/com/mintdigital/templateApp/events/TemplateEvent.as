@@ -6,8 +6,8 @@ package %%app_package%%.events{
 
         //  When creating your own Hemlock app:
         //
-        //  1.  Run `rake hemlock:generate:container[MyContainer]`, changing
-        //      `MyContainer` to your container's real name.
+        //  1.  Run `rake hemlock:generate:container[%%container_key%%]`,
+        //      which generates `%%container_class%%.as` and others.
         //
         //  2.  Replace `TYPE_ONE`, etc. with the event types you plan to use.
         //      For example, if you're creating `GameEvent`, you might want to

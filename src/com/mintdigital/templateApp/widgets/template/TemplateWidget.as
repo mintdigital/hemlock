@@ -10,8 +10,8 @@ package %%widget_package%%{
 
         //  When creating your own Hemlock app:
         //
-        //  1.  Run `rake hemlock:generate:widget[MyWidget]`, changing `MyWidget`
-        //      to your widget's real name.
+        //  1.  Run `rake hemlock:generate:widget[%%widget_key%%]`,
+        //      which generates `%%widget_class%%.as` and supporting files.
         //
         //  2.  Update `%%widget_events_class%%.as` according to its instructions.
         //
