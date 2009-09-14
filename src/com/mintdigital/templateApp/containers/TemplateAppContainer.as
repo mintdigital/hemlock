@@ -47,6 +47,8 @@ package %%app_package%%.containers{
         //  4.  Rename this container's `addTemplateWidget` function to match
         //      your widget (e.g., `addMainWidget`), and update it to
         //      instantiate your widget. Generate any other widgets you need.
+        //
+        // 5.   Compile your app: `rake hemlock:build:app`
 
 
 

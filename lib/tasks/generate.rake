@@ -72,7 +72,7 @@ namespace :hemlock do
         File.join(File.dirname(__FILE__), '..', '..', 'Rakefile'),
         paths[:target][:app_dir]
       )
-      %w[build deploy generate start test].each do |filename|
+      %w[build core deploy generate loaders start test].each do |filename|
         File.copy(
           File.join(paths[:source][:tasks_dir], "#{filename}.rake"),
           paths[:target][:tasks_dir]
@@ -80,11 +80,11 @@ namespace :hemlock do
         puts "- Created #{File.join(paths[:target][:tasks_dir], filename)}.rake"
       end
 
-      # TODO: Prepare proper build.rake
-
       # Update generated generate.rake
-      File.open(File.join(paths[:target][:tasks_dir], 'generate.rake'), 'w') do |file|
-        contents = File.open(File.join(paths[:source][:tasks_dir], 'generate.rake')).read
+      generate_rake_file_path = File.join(paths[:target][:tasks_dir], 'generate.rake')
+      generate_rake_file_contents = File.open(generate_rake_file_path).read
+      File.open(generate_rake_file_path, 'w') do |file|
+        contents = generate_rake_file_contents
         contents.gsub!(/#{GENERATE_PACKAGE.gsub(/\./, '\.')}/, package)
         contents.gsub!(/#{GENERATE_PACKAGE.gsub(/\./, '/')}/, package.gsub(/\./, '/'))
         file.write contents
@@ -113,6 +113,8 @@ namespace :hemlock do
         raise 'Usage: rake hemlock:generate:container[Main] # Generates MainContainer.as' and return
       end
 
+      package = GENERATE_PACKAGE
+      app_name = package.split('.').last
       container_key = args.container_key
       container_key_downcase_first = container_key.sub(/^[A-Z]/) { |s| s.downcase }
 
@@ -159,6 +161,20 @@ namespace :hemlock do
         File.join(GENERATE_SRC_DIR, 'strategies', "#{substitutions[:strategy_class]}.as"),
         substitutions
       )
+
+      # Update generated build.rake
+      # TODO: Create a separate template build.rake for easier maintenance
+      build_rake_file_path = File.join('lib', 'tasks', 'build.rake')
+      build_rake_file_contents = File.open(build_rake_file_path).read
+      File.open(build_rake_file_path, 'w') do |file|
+        contents = build_rake_file_contents
+        contents.gsub!(/:drawingDemo/, ':app') # Creates hemlock:build:app task
+        contents.gsub!(/com\/mintdigital\/drawingDemo/, package.gsub(/\./, '/'))
+        contents.gsub!(/DrawingDemoContainer/, substitutions[:container_class])
+        contents.gsub!(/DrawingDemo/, app_name.sub(/^(.)/) { |s| s.upcase })
+        contents.gsub!(/cd src/, 'cd #{File.join(\'flash\', \'src\')}')
+        file.write contents
+      end
 
       # Show next steps
       puts "\nNext, open #{container_filename} and follow its directions."
