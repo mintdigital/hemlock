@@ -9,7 +9,9 @@ GENERATE_TEMPLATE_DIR = File.join(File.dirname(__FILE__), '..', '..', 'flash', '
 
 
 
-# TODO: Move ActionScript generation to a gem?
+# TODO: Move hemlock:generate:app to a gem/bin
+# - Instead of `rake hemlock:generate:app[com.foo.bar]`, should be able to run
+#   `hemlock com.foo.bar`
 # TODO: Refactor to use mkdir_p in verbose mode to report changes
 
 
@@ -40,14 +42,16 @@ namespace :hemlock do
           :core_swc     => File.join(File.dirname(__FILE__), '..', '..', 'bin', 'HemlockCore.swc'),
           :loaders_swc  => File.join(File.dirname(__FILE__), '..', '..', 'bin', 'HemlockLoaders.swc'),
           :tasks_dir    => File.join(File.dirname(__FILE__), '..', '..', 'lib', 'tasks'),
-          :template_dir => File.join(File.dirname(__FILE__), '..', '..', 'src', 'com', 'mintdigital', 'templateApp')
+          :template_dir => File.join(File.dirname(__FILE__), '..', '..', 'src', 'com', 'mintdigital', 'templateApp'),
+          :config_dir   => File.join(File.dirname(__FILE__), '..', '..', 'src', 'config')
         },
         :target => {
           :app_dir      => app_name,
           :bin_dir      => File.join(app_name, 'flash', 'bin'),
           :src_dir      => File.join(app_name, 'flash', 'src', *(package.split('.'))),
+          :tasks_dir    => File.join(app_name, 'lib', 'tasks'),
           :template_dir => File.join(app_name, 'flash', 'src', 'com', 'mintdigital', 'templateApp'),
-          :tasks_dir    => File.join(app_name, 'lib', 'tasks')
+          :config_dir   => File.join(app_name, 'flash', 'src', 'config')
         }
       }
 
@@ -66,6 +70,13 @@ namespace :hemlock do
         paths[:target][:template_dir]
       )
       puts "- Created #{paths[:target][:template_dir]}"
+
+      # Copy ActionScript environment file
+      File.copy(
+        File.join(paths[:source][:config_dir], 'environment.as-example'),
+        File.join(paths[:target][:config_dir], 'environment.as')
+      )
+      puts "- Created #{File.join(paths[:target][:config_dir], 'environment.as')}"
 
       # Copy rake tasks
       File.copy(

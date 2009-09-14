@@ -1,6 +1,18 @@
+// Your environment:
 HemlockEnvironment.ENVIRONMENT  = HemlockEnvironment.ENVIRONMENT_DEVELOPMENT;
+    // This value should be one of:
+    // - HemlockEnvironment.ENVIRONMENT_DEVELOPMENT
+    // - HemlockEnvironment.ENVIRONMENT_STAGING
+    // - HemlockEnvironment.ENVIRONMENT_PRODUCTION
+
+// Your server:
 HemlockEnvironment.SERVER       = 'localhost';
-// HemlockEnvironment.SERVER_PORTS = [5222, 80];
-// HemlockEnvironment.POLICY_PORT  = 8040;
-HemlockEnvironment.SOURCE_PATH  = '/PATH/TO/hemlock/src/';
+HemlockEnvironment.SERVER_PORTS = [5222, 80];
+
+// The port for serving your crossdomain.xml file:
+HemlockEnvironment.POLICY_PORT  = 843;
+
+// Set to true if DebugWidget should be visible:
 HemlockEnvironment._debug       = false;
+    // NOTE: This is separate from setting the debug flag for mxmlc, which
+    // allows Flash Player to show line numbers in error messages.
