@@ -7,7 +7,7 @@ namespace :hemlock do
     task :xiff do
       puts 'Downloading XIFF...'
       
-      hemlock_path = File.dirname(__FILE__)
+      hemlock_path = File.join(File.dirname(__FILE__), '..', '..')
       download_path = File.join(hemlock_path, 'tmp')
       local_source_path = File.join(hemlock_path, 'vendor')
       remote_source_uri = 'http://download.igniterealtime.org/xiff/xiff_3_0_0-beta1.zip'
