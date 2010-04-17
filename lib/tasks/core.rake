@@ -5,11 +5,18 @@ namespace :hemlock do
 
     task :manifest do
       manifest_filename = 'manifestCore.xml'
-
       xml = <<-EOS
 <?xml version="1.0"?>
 <componentPackage>
 EOS
+
+      includes = %w[
+        com/mintdigital/hemlock
+        com/adobe
+        com/dynamicflash
+        com/gsolo
+        com/pixelbreaker
+      ]
       excludes = ["handlers", "events", "assets", "views"]
         # TODO: Remove 'events' and 'views', since widgets should now use delegate classes instead
       excludeRegexes = [
@@ -19,17 +26,19 @@ EOS
       ]
 
       # Recursively include all the files from given namespaces
-      xml << ['com/mintdigital/hemlock', 'com/adobe', 'com/dynamicflash', 'com/gsolo', 'com/pixelbreaker'].map do |dir|
-         Dir["src/#{dir}/**/*.as"].map{|path| path.gsub("src/","").gsub(".as","").gsub("/",".") }.map do |klass|
-           if excludes.include?(klass.gsub(/.*\./,"")) || excludeRegexes.map{ |regex| klass =~ regex }.any?
-             ''
-           else
-  <<-EOS
-  <component id="#{klass}" class="#{klass}"/> 
-  EOS
-
-           end
-         end.join
+      xml << includes.map do |dir|
+        Dir["src/#{dir}/**/*.as"].
+          map { |path| path.gsub("src/","").gsub(".as","").gsub("/",".") }.
+          map do |klass|
+            if  excludes.include?(klass.gsub(/.*\./,"")) ||
+                excludeRegexes.map{ |regex| klass =~ regex }.any?
+              ''
+            else
+              <<-EOS
+<component id="#{klass}" class="#{klass}"/>
+EOS
+            end
+          end.join
       end.join
 
       xml << <<-EOS
@@ -39,7 +48,7 @@ EOS
       File.open("src/#{manifest_filename}","w+") do |file|
         file << xml
       end
-    end
+    end # task :manifest
 
     task :compile do
       namespace = 'http://hemlock.mintdigital.com'
@@ -58,6 +67,7 @@ EOS
       ]
 
       `#{ENV['FLEX_SDK_HOME']}/bin/compc #{compc_options.join(' ')}`
-    end
+    end # task :compile
+
   end # namespace :core
 end

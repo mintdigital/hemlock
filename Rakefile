@@ -23,5 +23,6 @@ namespace :hemlock do
     puts 'Advanced:'
     puts '- rake hemlock:build:core         # Re-compiles HemlockCore.swc'
     puts '- rake hemlock:build:loaders      # Re-compiles HemlockLoaders.swc'
+    puts '- rake hemlock:build:pixel        # Re-compiles HemlockPixel.swc'
   end
 end

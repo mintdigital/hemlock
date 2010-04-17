@@ -24,8 +24,9 @@ namespace :hemlock do
       ]
       mxmlc_options << '-compiler.debug=true' if args.debug
 
-      `cd src && #{ENV['FLEX_SDK_HOME']}/bin/mxmlc #{mxmlc_options.join(' ')} #{input_file}`
-      puts "Built #{output_file}"
+      working_dir = 'src'
+      `cd #{working_dir} && #{ENV['FLEX_SDK_HOME']}/bin/mxmlc #{mxmlc_options.join(' ')} #{input_file}`
+      puts "Built #{working_dir}/#{output_file}"
     end
 
     desc 'Build HemlockCore.swc'
@@ -33,5 +34,8 @@ namespace :hemlock do
 
     desc 'Build HemlockLoaders.swc'
     task :loaders => ['hemlock:loaders:build']
+
+    desc 'Build HemlockPixel.swc and HemlockPixel.swf'
+    task :pixel => ['hemlock:pixel:build']
   end
 end

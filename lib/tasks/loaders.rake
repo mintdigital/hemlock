@@ -36,7 +36,7 @@ EOS
     end
 
     task :compile do
-      namespace = 'http://hemlock-loaders.mintdigital.com'
+      namespace = 'http://loaders.hemlock.mintdigital.com'
       manifest_filename = 'src/manifestLoaders.xml'
       output = 'bin/HemlockLoaders.swc'
 
