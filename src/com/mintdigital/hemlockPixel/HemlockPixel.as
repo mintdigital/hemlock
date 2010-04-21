@@ -14,6 +14,7 @@ package com.mintdigital.hemlockPixel{
 
     import flash.events.Event;
     import flash.external.ExternalInterface;
+    import flash.utils.setTimeout;
 
     // For use with Hemlock JS: Build app logic and UIs with JS, and use
     // Hemlock AS (a.k.a. HemlockPixel) purely for Flash's socket connection
@@ -30,6 +31,20 @@ package com.mintdigital.hemlockPixel{
         private var _flashvars:Object;
         // private var _httpClient:HTTPClient;
         private var _jid:JID;
+
+        public const STATUS_CODES:Object = {
+            // These mirror Strophe.Status codes:
+            // http://code.stanziq.com/strophe/strophejs/doc/1.0.1/files/core-js.html#Strophe.Connection_Status_Constants
+            ERROR:          0,  // An error has occurred
+            CONNECTING:     1,  // The connection is currently being made
+            CONNFAIL:       2,  // The connection attempt failed
+            AUTHENTICATING: 3,  // The connection is authenticating
+            AUTHFAIL:       4,  // The authentication attempt failed
+            CONNECTED:      5,  // The connection has succeeded
+            DISCONNECTED:   6,  // The connection has been terminated
+            DISCONNECTING:  7,  // The connection is currently being terminated
+            ATTACHED:       8   // The connection has been attached
+        };
 
         public function HemlockPixel(options:Object = null){
             initialize();
@@ -138,24 +153,39 @@ package com.mintdigital.hemlockPixel{
         //--------------------------------------
 
         protected function onJSConnect(jsCallbackName:String):void{
-            Logger.debug('Connecting...');
-
             Logger.debug('Logging in with username=' +
                 client.username + ', password=' + client.password);
 
             // FIXME: Implement
 
-            var statusCode:int = 1, // FIXME: Implement
-                description:String = 'Connecting'; // FIXME: Implement
+            // FIXME: The following is for testing; delete it.
 
+            var statusCode:int,
+                description:String;
+
+            statusCode  = STATUS_CODES.CONNECTING;
+            description = 'Connecting...';
             JavaScript.run([
                 'function(){',
                     jsCallbackName, '(',
                         statusCode, ', "',
                         description.replace(new RegExp('"', 'gm'), '\\"'),
-                    '")',
+                    '"); ',
                 '}'
             ].join(''));
+
+            setTimeout(function():void{
+                statusCode  = STATUS_CODES.CONNECTED;
+                description = 'Connected';
+                JavaScript.run([
+                    'function(){',
+                        jsCallbackName, '(',
+                            statusCode, ', "',
+                            description.replace(new RegExp('"', 'gm'), '\\"'),
+                        '"); ',
+                    '}'
+                ].join(''));
+            }, 2000);
         }
 
         protected function onJSSendString(string:String):void{
