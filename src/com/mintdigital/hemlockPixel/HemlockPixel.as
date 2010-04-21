@@ -47,6 +47,8 @@ package com.mintdigital.hemlockPixel{
 
             registerListeners();
             startListeners();
+
+            registerJSListeners();
         }
 
         protected function initialize():void{
@@ -68,6 +70,12 @@ package com.mintdigital.hemlockPixel{
             // registerListener(dispatcher,    AppEvent.REGISTRATION_ERRORS,       onRegistrationErrors);
         }
 
+        public function registerJSListeners():void{
+            if(!ExternalInterface.available){ return; }
+
+            ExternalInterface.addCallback('sendString', onJSSendString);
+        }
+
 
 
         //--------------------------------------
@@ -81,6 +89,19 @@ package com.mintdigital.hemlockPixel{
 
         protected function onRegistrationErrors(event:AppEvent):void{}
         */
+
+
+
+        //--------------------------------------
+        //  Events > JS handlers
+        //--------------------------------------
+
+        protected function onJSSendString(string:String):void{
+            JavaScript.log('[AS] Received string: ' + string);
+
+            // Send directly to socket
+            // FIXME: Implement
+        }
 
 
 
