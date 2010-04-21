@@ -1,6 +1,6 @@
 package com.mintdigital.hemlockPixel{
     import com.mintdigital.hemlock.HemlockEnvironment;
-    // import com.mintdigital.hemlock.Logger;
+    import com.mintdigital.hemlock.Logger;
     import com.mintdigital.hemlock.clients.HTTPClient;
     import com.mintdigital.hemlock.clients.IClient;
     import com.mintdigital.hemlock.clients.XMPPClient;
@@ -13,6 +13,7 @@ package com.mintdigital.hemlockPixel{
     import com.mintdigital.hemlock.utils.JavaScript;
 
     import flash.events.Event;
+    import flash.external.ExternalInterface;
 
     // For use with Hemlock JS: Build app logic and UIs with JS, and use
     // Hemlock AS (a.k.a. HemlockPixel) purely for Flash's socket connection
@@ -33,6 +34,35 @@ package com.mintdigital.hemlockPixel{
         public function HemlockPixel(options:Object = null){
             initialize();
             _flashvars = this.loaderInfo.parameters;
+
+            Logger.addLogFunction(function(string:String):void{
+                // Use this to pretty-print HemlockPixel log strings. A simple
+                // variation is to pass `console.log` to HemlockPixel, but not
+                // all browsers support this function natively.
+                //
+                // Example usage:
+                //
+                //   JS:
+                //
+                //     MyApp.log = function(string){
+                //       $('#actionscript-output').append('<p>' + string + '</p>');
+                //     };
+                //     Hemlock.Bridge.create({
+                //       flashvars: {logFunction: 'MyApp.log'}
+                //     });
+                //
+                //   HTML:
+                //
+                //     <div id="actionscript-output">
+                //       <p>ActionScript output:</p>
+                //     </div>
+
+                JavaScript.run('function(){ ' +
+                    _flashvars.logFunction + '("' +
+                        string.replace(new RegExp('"', 'gm'), '\\"') +
+                    '"); }'
+                );
+            });
 
             httpClient = new HTTPClient(HemlockEnvironment.API_PATH);
 
@@ -97,7 +127,7 @@ package com.mintdigital.hemlockPixel{
         //--------------------------------------
 
         protected function onJSSendString(string:String):void{
-            JavaScript.log('[AS] Received string: ' + string);
+            Logger.debug('Received string: ' + string);
 
             // Send directly to socket
             // FIXME: Implement
