@@ -1,7 +1,7 @@
 package com.mintdigital.hemlockPixel{
     import com.mintdigital.hemlock.HemlockEnvironment;
     import com.mintdigital.hemlock.Logger;
-    import com.mintdigital.hemlock.clients.HTTPClient;
+    // import com.mintdigital.hemlock.clients.HTTPClient;
     import com.mintdigital.hemlock.clients.IClient;
     import com.mintdigital.hemlock.clients.XMPPClient;
     import com.mintdigital.hemlock.data.JID;
@@ -28,7 +28,7 @@ package com.mintdigital.hemlockPixel{
         private var _client:IClient;
         private var _dispatcher:HemlockDispatcher;
         private var _flashvars:Object;
-        private var _httpClient:HTTPClient;
+        // private var _httpClient:HTTPClient;
         private var _jid:JID;
 
         public function HemlockPixel(options:Object = null){
@@ -64,7 +64,7 @@ package com.mintdigital.hemlockPixel{
                 );
             });
 
-            httpClient = new HTTPClient(HemlockEnvironment.API_PATH);
+            // httpClient = new HTTPClient(HemlockEnvironment.API_PATH);
 
             client = new XMPPClient();
             client.addEventStrategies([
@@ -74,6 +74,14 @@ package com.mintdigital.hemlockPixel{
                 // event that is triggered by a DataMessage payload. This
                 // array acts as a stack; earlier strategies take precedence.
             ]);
+
+            // TODO: The following logic is hardcoded for now, but is
+            // app-specific. Refactor out into an app-agnostic client config
+            // function; apps should decide their own means of authentication.
+            (function():void{
+                client.username = flashvars.username;
+                client.password = flashvars.password;
+            })();
 
             registerListeners();
             startListeners();
@@ -98,11 +106,14 @@ package com.mintdigital.hemlockPixel{
             // Register dispatcher listeners
             // registerListener(dispatcher,    AppEvent.SESSION_CREATE_SUCCESS,    onSessionCreateSuccess);
             // registerListener(dispatcher,    AppEvent.REGISTRATION_ERRORS,       onRegistrationErrors);
+
+            // TODO: Listen directly to socket
         }
 
         public function registerJSListeners():void{
             if(!ExternalInterface.available){ return; }
 
+            ExternalInterface.addCallback('connect',    onJSConnect);
             ExternalInterface.addCallback('sendString', onJSSendString);
         }
 
@@ -126,11 +137,53 @@ package com.mintdigital.hemlockPixel{
         //  Events > JS handlers
         //--------------------------------------
 
+        protected function onJSConnect(jsCallbackName:String):void{
+            Logger.debug('Connecting...');
+
+            Logger.debug('Logging in with username=' +
+                client.username + ', password=' + client.password);
+
+            // FIXME: Implement
+
+            var statusCode:int = 1, // FIXME: Implement
+                description:String = 'Connecting'; // FIXME: Implement
+
+            JavaScript.run([
+                'function(){',
+                    jsCallbackName, '(',
+                        statusCode, ', "',
+                        description.replace(new RegExp('"', 'gm'), '\\"'),
+                    '")',
+                '}'
+            ].join(''));
+        }
+
         protected function onJSSendString(string:String):void{
             Logger.debug('Received string: ' + string);
 
             // Send directly to socket
             // FIXME: Implement
+
+            // FIXME: Testing; remove
+            (function():void{
+                // Send this stanza right back
+
+                import com.mintdigital.hemlock.utils.StringUtils;
+                import flash.utils.setTimeout;
+
+                var fakeRawSocketString:String = string,
+                    escapedSocketString:String = fakeRawSocketString.replace(
+                        new RegExp('"', 'gm'), '\\"');
+
+                JavaScript.run([
+                    'function(){',
+                        "$(Hemlock.Bridge).trigger(",
+                            "'hemlock:incoming', ",
+                            '"', escapedSocketString, '"',
+                        ");",
+                    '}'
+                ].join('').replace(new RegExp('"', 'gm'), '\"'));
+            })();
         }
 
 
@@ -254,10 +307,10 @@ package com.mintdigital.hemlockPixel{
         public function get flashvars():Object
             { return _flashvars; }
 
-        public function get httpClient():HTTPClient
-            { return _httpClient; }
-        public function set httpClient(httpClient:HTTPClient):void
-            { _httpClient = httpClient; }
+        // public function get httpClient():HTTPClient
+        //     { return _httpClient; }
+        // public function set httpClient(httpClient:HTTPClient):void
+        //     { _httpClient = httpClient; }
 
         public function get jid():JID
             { return _jid; }
