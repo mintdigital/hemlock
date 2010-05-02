@@ -3,7 +3,7 @@ package com.mintdigital.hemlock.vcard
     import com.mintdigital.hemlock.Logger;
     import com.mintdigital.hemlock.clients.IClient;
     import com.mintdigital.hemlock.clients.XMPPClient;
-    import com.mintdigital.hemlock.conn.XMPPConnection;
+    import com.mintdigital.hemlock.conn.IConnection;
     import com.mintdigital.hemlock.data.JID;
     import com.mintdigital.hemlock.events.VCardEvent;
 
@@ -67,7 +67,7 @@ package com.mintdigital.hemlock.vcard
         //flush the vcard cache every 6 hours
         private static var cacheFlushTimer:Timer = new Timer(21600000, 0);
         
-        public static function getVCard(con:XMPPConnection, client:IClient):VCard
+        public static function getVCard(conn:IConnection, client:IClient):VCard
         {
             Logger.debug("VCard::getVCard()");
 /*          if(!cacheFlushTimer.running)
@@ -78,7 +78,7 @@ package com.mintdigital.hemlock.vcard
                     cache = {};
                     for each(var cachedCard:VCard in tempCache)
                     {
-                        pushRequest(con, vcard);
+                        pushRequest(conn, vcard);
                     }
                 });
             }*/
@@ -93,12 +93,12 @@ package com.mintdigital.hemlock.vcard
             vcard.client = client;
 /*          cache[client.jid.toBareJID()] = vcard;*/
             
-            pushRequest(con, vcard);
+            pushRequest(conn, vcard);
 
             return vcard;
         }
         
-        private static function pushRequest(con:XMPPConnection, vcard:VCard):void
+        private static function pushRequest(conn:IConnection, vcard:VCard):void
         {
             Logger.debug("VCard::pushRequest");
             if(!requestTimer)
@@ -106,7 +106,7 @@ package com.mintdigital.hemlock.vcard
                 requestTimer = new Timer(1, 1);
                 requestTimer.addEventListener(TimerEvent.TIMER_COMPLETE, sendRequest);
             }
-            requestQueue.push({connection:con, card:vcard});
+            requestQueue.push({connection:conn, card:vcard});
             requestTimer.reset();
             requestTimer.start();
         }
@@ -117,7 +117,7 @@ package com.mintdigital.hemlock.vcard
             if(requestQueue.length == 0)
                 return;
             var req:Object = requestQueue.pop();
-            var con:XMPPConnection = req.connection;
+            var conn:IConnection = req.connection;
             var vcard:VCard = req.card;
             var client:IClient = vcard.client;  
             
@@ -127,13 +127,13 @@ package com.mintdigital.hemlock.vcard
             iq.callbackName = "handleVCard";
             iq.callbackScope = vcard;
             iq.addExtension(new VCardExtension());
-            Logger.debug("Let's see the con: " + con);
-            con.sendStanza(iq);
+            Logger.debug("Let's see the conn: " + conn);
+            conn.sendStanza(iq);
             requestTimer.reset();
             requestTimer.start();
         }
         
-        public function saveVCard(con:XMPPConnection, client:IClient):void
+        public function saveVCard(conn:IConnection, client:IClient):void
         {
             Logger.debug("VCard::saveVCard()");
             var iq:IQ = new IQ(null, IQ.SET_TYPE, XMPPStanza.generateID("save_vcard_"), null, this, _vCardSent);
@@ -449,7 +449,7 @@ package com.mintdigital.hemlock.vcard
             }
             
             iq.addExtension(vcardExt);
-            con.sendStanza(iq);
+            conn.sendStanza(iq);
         }
         
         public function _vCardSent(resultIQ:IQ):void

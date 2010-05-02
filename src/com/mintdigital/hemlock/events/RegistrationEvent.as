@@ -1,6 +1,6 @@
 package com.mintdigital.hemlock.events {    
     import flash.events.*;
-    import com.mintdigital.hemlock.conn.XMPPConnection;
+    import com.mintdigital.hemlock.conn.IConnection;
     import flash.xml.XMLNode;
     import org.jivesoftware.xiff.data.IQ;
     

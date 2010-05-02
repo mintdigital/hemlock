@@ -1,5 +1,5 @@
 package com.mintdigital.hemlock.events {    
-    import com.mintdigital.hemlock.conn.XMPPConnection;
+    import com.mintdigital.hemlock.conn.IConnection;
     import com.mintdigital.hemlock.events.HemlockEvent;
     
     import flash.events.Event;
@@ -8,7 +8,7 @@ package com.mintdigital.hemlock.events {
     public class FeaturesEvent extends HemlockEvent{
 
         public static const FEATURES:String = 'features';
-        protected var _connection:XMPPConnection;
+        protected var _connection:IConnection;
         protected var _node:XMLNode;
             
         public function FeaturesEvent(type:String, options:Object = null){
@@ -33,9 +33,9 @@ package com.mintdigital.hemlock.events {
         //  Properties
         //--------------------------------------
         
-        public function get connection():XMPPConnection { return _connection; }
+        public function get connection():IConnection{ return _connection; }
         
-        public function get data():String               { return _node.childNodes[0].nodeValue; }
+        public function get data():String           { return _node.childNodes[0].nodeValue; }
         
     }
 }

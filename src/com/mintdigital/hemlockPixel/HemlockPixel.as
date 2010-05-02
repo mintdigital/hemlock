@@ -3,7 +3,7 @@ package com.mintdigital.hemlockPixel{
     import com.mintdigital.hemlock.Logger;
     // import com.mintdigital.hemlock.clients.HTTPClient;
     import com.mintdigital.hemlock.clients.IClient;
-    import com.mintdigital.hemlock.clients.XMPPClient;
+    import com.mintdigital.hemlock.clients.XMPPClientLite;
     import com.mintdigital.hemlock.data.JID;
     import com.mintdigital.hemlock.display.HemlockSprite;
     import com.mintdigital.hemlock.events.AppEvent;
@@ -81,7 +81,7 @@ package com.mintdigital.hemlockPixel{
 
             // httpClient = new HTTPClient(HemlockEnvironment.API_PATH);
 
-            client = new XMPPClient();
+            client = new XMPPClientLite();
             client.addEventStrategies([
                 // new DataMessageEventStrategy(),
                 new MessageEventStrategy()

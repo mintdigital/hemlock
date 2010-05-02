@@ -31,7 +31,7 @@ package com.mintdigital.hemlock.conn {
     import flash.xml.XMLDocument;
     import flash.xml.XMLNode;
     
-    public class XMPPConnection extends EventDispatcher{
+    public class XMPPConnection extends EventDispatcher implements IConnection{
         
         protected var _socket : SocketConn;
         protected var _incompleteRawXML : String;
@@ -335,27 +335,26 @@ package com.mintdigital.hemlock.conn {
             }
         }
         
-        protected function onSocketClosed(e:Event):void {    
-            Logger.debug("XMPPConnection::onSocketClosed()" );
+        protected function onSocketClosed(ev:Event):void{
+            Logger.debug('XMPPConnection::onSocketClosed()');
             disconnect();
         }
         
-        protected function onIOError(event:IOErrorEvent):void
-        {
-            Logger.debug("XMPPConnection::onIOError() : " + event.text);
-            dispatchEvent(event);
+        protected function onIOError(ev:IOErrorEvent):void{
+            Logger.debug('XMPPConnection::onIOError() : ' + ev.text);
+            dispatchEvent(ev);
         }
         
-        protected function onSecurityError(event:SecurityErrorEvent):void
-        {
-            Logger.debug("There was a security error of type: " + event.type + "\nError: " + event.text);
+        protected function onSecurityError(ev:SecurityErrorEvent):void{
+            Logger.debug('There was a security error of type: ' + ev.type +
+                "\nError: " + ev.text);
             _active = false;
             _loggedIn = false;
             _currentPort++;
             if(ports[_currentPort]){
                 connect();
             }else{
-                dispatchEvent(event);
+                dispatchEvent(ev);
             } 
         }
         

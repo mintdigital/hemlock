@@ -1,5 +1,5 @@
 package com.mintdigital.hemlock.auth{
-    import com.mintdigital.hemlock.conn.XMPPConnection;
+    import com.mintdigital.hemlock.conn.IConnection;
     
     public class SASLAnonymousAuth extends SASLAuth{
         
@@ -20,7 +20,7 @@ package com.mintdigital.hemlock.auth{
         https://support.process-one.net/doc/display/MESSENGER/Anonymous+users+support
         */
         
-        public function SASLAnonymousAuth(connection:XMPPConnection){
+        public function SASLAnonymousAuth(connection:IConnection){
             super(connection);
         }
         

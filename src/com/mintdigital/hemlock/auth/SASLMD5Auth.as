@@ -1,7 +1,7 @@
 package com.mintdigital.hemlock.auth {
     import com.mintdigital.hemlock.HemlockEnvironment;
     import com.mintdigital.hemlock.Logger;
-    import com.mintdigital.hemlock.conn.XMPPConnection;
+    import com.mintdigital.hemlock.conn.IConnection;
     import com.mintdigital.hemlock.events.ChallengeEvent;
     
     import com.dynamicflash.util.Base64;
@@ -14,7 +14,7 @@ package com.mintdigital.hemlock.auth {
         private var _password:String;
         private var _firstChallengeHandled:Boolean;
         
-        public function SASLMD5Auth(connection:XMPPConnection, username:String = null, password:String = null){
+        public function SASLMD5Auth(connection:IConnection, username:String = null, password:String = null){
             super(connection);
             _username = username;
             _password = password;   

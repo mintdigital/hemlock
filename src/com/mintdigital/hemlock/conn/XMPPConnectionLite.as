@@ -13,6 +13,7 @@ package com.mintdigital.hemlock.conn {
     import com.mintdigital.hemlock.events.RegistrationEvent;
     import com.mintdigital.hemlock.events.SessionEvent;
     import com.mintdigital.hemlock.events.StreamEvent;
+    import com.mintdigital.hemlock.events.XMPPEvent;
 
     import org.jivesoftware.xiff.data.IQ;
     import org.jivesoftware.xiff.data.XMPPStanza;
@@ -31,7 +32,7 @@ package com.mintdigital.hemlock.conn {
     import flash.xml.XMLDocument;
     import flash.xml.XMLNode;
     
-    public class XMPPConnectionLite extends EventDispatcher{
+    public class XMPPConnectionLite extends EventDispatcher implements IConnection{
         
         protected var _socket : SocketConn;
         protected var _incompleteRawXML : String;
@@ -122,7 +123,7 @@ package com.mintdigital.hemlock.conn {
         //--------------------------------------
         //  Event dispatchers
         //--------------------------------------
-        private function handleRawData(rawXML:string):void{
+        private function handleRawData(rawXML:String):void{
             Logger.debug('XMPPConnectionLite::handleStreamStart()');
             dispatchEvent(new XMPPEvent("raw_xml", {
                 rawXML: rawXML
@@ -350,27 +351,26 @@ package com.mintdigital.hemlock.conn {
             }
         }
         
-        protected function onSocketClosed(e:Event):void {    
-            Logger.debug("XMPPConnectionLite::onSocketClosed()" );
+        protected function onSocketClosed(ev:Event):void{
+            Logger.debug('XMPPConnectionLite::onSocketClosed()');
             disconnect();
         }
         
-        protected function onIOError(event:IOErrorEvent):void
-        {
-            Logger.debug("XMPPConnectionLite::onIOError() : " + event.text);
-            dispatchEvent(event);
+        protected function onIOError(ev:IOErrorEvent):void{
+            Logger.debug('XMPPConnectionLite::onIOError() : ' + ev.text);
+            dispatchEvent(ev);
         }
         
-        protected function onSecurityError(event:SecurityErrorEvent):void
-        {
-            Logger.debug("There was a security error of type: " + event.type + "\nError: " + event.text);
+        protected function onSecurityError(ev:SecurityErrorEvent):void{
+            Logger.debug('There was a security error of type: ' + ev.type +
+                "\nError: " + ev.text);
             _active = false;
             _loggedIn = false;
             _currentPort++;
             if(ports[_currentPort]){
                 connect();
             }else{
-                dispatchEvent(event);
+                dispatchEvent(ev);
             } 
         }
         
