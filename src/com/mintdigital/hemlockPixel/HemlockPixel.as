@@ -31,6 +31,7 @@ package com.mintdigital.hemlockPixel{
         private var _flashvars:Object;
         // private var _httpClient:HTTPClient;
         private var _jid:JID;
+        private var _jsCallbackNames:Object = {};
 
         public const STATUS_CODES:Object = {
             // These mirror Strophe.Status codes:
@@ -72,11 +73,11 @@ package com.mintdigital.hemlockPixel{
                 //       <p>ActionScript output:</p>
                 //     </div>
 
-                JavaScript.run('function(){ ' +
-                    _flashvars.logFunction + '("' +
-                        string.replace(new RegExp('"', 'gm'), '\\"') +
+                JavaScript.run(['function(){ ',
+                    _flashvars.logFunction, '("',
+                        string.replace(new RegExp('"', 'gm'), '\\"'),
                     '"); }'
-                );
+                ].join(''));
             });
 
             // httpClient = new HTTPClient(HemlockEnvironment.API_PATH);
@@ -119,7 +120,7 @@ package com.mintdigital.hemlockPixel{
 
         override public function registerListeners():void{
             // Register dispatcher listeners
-            // registerListener(dispatcher,    AppEvent.SESSION_CREATE_SUCCESS,    onSessionCreateSuccess);
+            registerListener(dispatcher,    AppEvent.SESSION_CREATE_SUCCESS,    onSessionCreateSuccess);
             // registerListener(dispatcher,    AppEvent.REGISTRATION_ERRORS,       onRegistrationErrors);
 
             // TODO: Listen directly to socket
@@ -138,12 +139,28 @@ package com.mintdigital.hemlockPixel{
         //  Events > Standard handlers > App
         //--------------------------------------
 
-        /*
-        protected function onSessionCreateSuccess(event:AppEvent):void{
-            client.joinRoom(createRoomJID(event.options.jid.resource));
+        protected function onSessionCreateSuccess(ev:AppEvent):void{
+            client.joinRoom(createRoomJID(ev.options.jid.resource));
+
+            var statusCode:int          = STATUS_CODES.CONNECTED,
+                description:String      = 'Connected',
+                jsCallbackName:String   = jsCallbackNames.connect;
+
+            JavaScript.run([
+                'function(){',
+                    jsCallbackName, '(',
+                        statusCode, ', "',
+                        description.replace(new RegExp('"', 'gm'), '\\"'),
+                    '"); ',
+                '}'
+            ].join(''));
+
+            // TODO: client.joinRoom(new JID(roomID + '@' + domain + '/' + client.username));
+            // - Do this in the JS callback instead.
         }
 
-        protected function onRegistrationErrors(event:AppEvent):void{}
+        /*
+        protected function onRegistrationErrors(ev:AppEvent):void{}
         */
 
 
@@ -156,15 +173,11 @@ package com.mintdigital.hemlockPixel{
             Logger.debug('Logging in with username=' +
                 client.username + ', password=' + client.password);
 
-            // FIXME: Implement
+            _jsCallbackNames.connect = jsCallbackName;
 
-            // FIXME: The following is for testing; delete it.
+            var statusCode:int      = STATUS_CODES.CONNECTING,
+                description:String  = 'Connecting...';
 
-            var statusCode:int,
-                description:String;
-
-            statusCode  = STATUS_CODES.CONNECTING;
-            description = 'Connecting...';
             JavaScript.run([
                 'function(){',
                     jsCallbackName, '(',
@@ -174,18 +187,9 @@ package com.mintdigital.hemlockPixel{
                 '}'
             ].join(''));
 
-            setTimeout(function():void{
-                statusCode  = STATUS_CODES.CONNECTED;
-                description = 'Connected';
-                JavaScript.run([
-                    'function(){',
-                        jsCallbackName, '(',
-                            statusCode, ', "',
-                            description.replace(new RegExp('"', 'gm'), '\\"'),
-                        '"); ',
-                    '}'
-                ].join(''));
-            }, 2000);
+            client.username = flashvars.username;
+            client.password = flashvars.password;
+            client.connect();
         }
 
         protected function onJSSendString(string:String):void{
@@ -193,6 +197,8 @@ package com.mintdigital.hemlockPixel{
 
             // Send directly to socket
             // FIXME: Implement
+
+
 
             // FIXME: Testing; remove
             (function():void{
@@ -344,6 +350,9 @@ package com.mintdigital.hemlockPixel{
 
         public function get jid():JID
             { return _jid; }
+
+        public function get jsCallbackNames():Object
+            { return _jsCallbackNames; }
 
         public function get room():String
             { return _room + '@' + domain; }

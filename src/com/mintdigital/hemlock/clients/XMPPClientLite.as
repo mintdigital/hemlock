@@ -81,7 +81,7 @@ package com.mintdigital.hemlock.clients{
             _dispatcher = HemlockDispatcher.getInstance();
 
             _connection = new XMPPConnectionLite();
-            
+
             _connection.addEventListener(Event.CLOSE,                   onSocketClosed);
             _connection.addEventListener(ConnectionEvent.DESTROY,       onConnectionDestroy);
             _connection.addEventListener(FeaturesEvent.FEATURES,        onFeatures);
@@ -538,6 +538,7 @@ package com.mintdigital.hemlock.clients{
         }
 
         private function onLoginSuccess(evt:SessionEvent) : void {
+            Logger.debug('XMPPClientLite::onLoginSuccess');
             _loggedIn = true;
             _connection.sendOpenStreamTag();
             _connection.setPassThroughMode(true);
