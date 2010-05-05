@@ -7,8 +7,6 @@ package com.mintdigital.hemlockPixel{
     import com.mintdigital.hemlock.events.AppEvent;
     import com.mintdigital.hemlock.events.HemlockDispatcher;
     import com.mintdigital.hemlock.events.XMPPEvent;
-    // import com.mintdigital.hemlock.strategies.DataMessageEventStrategy;
-    import com.mintdigital.hemlock.strategies.MessageEventStrategy;
     import com.mintdigital.hemlock.utils.JavaScript;
 
     import flash.events.Event;
@@ -78,13 +76,6 @@ package com.mintdigital.hemlockPixel{
             });
 
             client = new XMPPClientLite();
-            client.addEventStrategies([
-                // new DataMessageEventStrategy(),
-                new MessageEventStrategy()
-                // App constructors should add a strategy for each custom
-                // event that is triggered by a DataMessage payload. This
-                // array acts as a stack; earlier strategies take precedence.
-            ]);
 
             // TODO: The following logic is hardcoded for now, but is
             // app-specific. Refactor out into an app-agnostic client config
