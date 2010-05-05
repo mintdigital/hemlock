@@ -291,13 +291,9 @@ package com.mintdigital.hemlock.conn {
             }
 
             var xmlData:XMLDocument = stringToXML(rawXML,ev);
+            if (xmlData == null){ return; }
             
-            if (xmlData == null){
-                return;
-            }
-            
-            for (var i:int = 0; i < xmlData.childNodes.length; i++)
-            {
+            for (var i:int = 0; i < xmlData.childNodes.length; i++){
                 var node:XMLNode = xmlData.childNodes[i];
                 Logger.debug("... handling " + node.nodeName);
                 switch (node.nodeName.toLowerCase()){
@@ -306,6 +302,9 @@ package com.mintdigital.hemlock.conn {
                         break;
                     case 'stream:error':
                         handleStreamError(node);
+                        break;
+                    case 'stream:features':
+                        handleFeatures(node);
                         break;
                     case "challenge":
                         handleChallenge(node);
@@ -316,17 +315,14 @@ package com.mintdigital.hemlock.conn {
                     case "failure":
                         handleFailure(node);
                         break;
-                    case "iq":
-                        handleIQ(node);
-                        break;
-                    case "stream:features":
-                        handleFeatures(node);
-                        break;
                     case "message":
                         handleMessage(node);
                         break;
                     case 'presence':
                         handlePresence(node);
+                        break;
+                    case 'iq':
+                        handleIQ(node);
                         break;
                     default:
                         break;

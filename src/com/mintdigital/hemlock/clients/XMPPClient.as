@@ -90,8 +90,8 @@ package com.mintdigital.hemlock.clients{
             _connection.addEventListener(PresenceEvent.UPDATE,          onPresenceUpdate);
             _connection.addEventListener(RegistrationEvent.COMPLETE,    onRegistrationComplete);
             _connection.addEventListener(RegistrationEvent.ERRORS,      onRegistrationErrors);
+            _connection.addEventListener(SessionEvent.CREATE_SUCCESS,   onSessionCreateSuccess);
             _connection.addEventListener(SessionEvent.CREATE_FAILURE,   onSessionCreateFailure);
-            _connection.addEventListener(SessionEvent.CREATE_SUCCESS,   onLoginSuccess);
             _connection.addEventListener(SessionEvent.DESTROY,          onSessionDestroy);
             _connection.addEventListener(StreamEvent.ERROR,             onStreamError);
             _connection.addEventListener(StreamEvent.START,             onStreamStart);
@@ -406,18 +406,17 @@ package com.mintdigital.hemlock.clients{
             var userExt:MUCOwnerExtension = new MUCOwnerExtension();
             customConfigureIQ.addExtension(userExt);
     
-            /*  customConfigureIQ.callbackName =  HemlockEnvironment.demo ? "handleConfigurationResponse" : "handleCustomConfigResponse";*/
             customConfigureIQ.callbackName  = "handleCustomConfigResponse";
             customConfigureIQ.callbackScope = this;
 
             _connection.sendStanza(customConfigureIQ);
         }
         
-        private function onMessageEvent(evt:MessageEvent):void{
-            Logger.debug('XMPPClient::onMessageEvent() : evt = ' + evt);
+        private function onMessageEvent(ev:MessageEvent):void{
+            Logger.debug('XMPPClient::onMessageEvent() : ev = ' + ev);
 
             for each(var strategy:* in _eventStrategies){
-                if(strategy.dispatchMatchingEvent(_dispatcher, evt)){ break; }
+                if(strategy.dispatchMatchingEvent(_dispatcher, ev)){ break; }
             }
         }
         
@@ -508,40 +507,41 @@ package com.mintdigital.hemlock.clients{
             }
         }
 
-        private function onSocketClosed(evt:Event) : void {
-            Logger.debug('XMPPClient::socketClosed()');
+        private function onSocketClosed(ev:Event):void{
+            Logger.debug('XMPPClient::onSocketClosed()');
         }
 
-        private function onIOError(evt:Event) : void {
+        private function onIOError(ev:Event):void{
             Logger.debug('XMPPClient::onIOError()');
         }
 
-        private function onSessionDestroy(ev:SessionEvent): void {
-            dispatchAppEvent(AppEvent.SESSION_DESTROY);
+        private function onSessionCreateSuccess(ev:SessionEvent):void{
+            Logger.debug('XMPPClient::onSessionCreateSuccess()');
+            _loggedIn = true;
+            _connection.sendOpenStreamTag();
         }
-    
-        private function onSessionCreateFailure(event:SessionEvent) : void {
-            Logger.debug("XMPPClient::onSessionCreateFailure() : event.type = " + event.type );
+
+        private function onSessionCreateFailure(ev:SessionEvent):void{
+            Logger.debug('XMPPClient::onSessionCreateFailure() : ev.type = ' + ev.type);
             Logger.debug("Login FAILED");
             _auth.stop();
             _keepAliveTimer.stop();
             _connection.disconnect();
             dispatchAppEvent(AppEvent.SESSION_CREATE_FAILURE);
         }
-        
-        private function onKeepAliveTimer(evt:Event) : void {
-            Logger.debug("XMPPClient::onKeepAliveTimer()");
+
+        private function onSessionDestroy(ev:SessionEvent):void{
+            dispatchAppEvent(AppEvent.SESSION_DESTROY);
+        }
+
+        private function onKeepAliveTimer(ev:Event):void{
+            Logger.debug('XMPPClient::onKeepAliveTimer()');
             _connection.sendKeepAlive();
             resetKeepAliveTimer();
         }
 
-        private function onLoginSuccess(evt:SessionEvent) : void {
-            _loggedIn = true;
-            _connection.sendOpenStreamTag();
-        }
-        
-        private function onRegistrationComplete(evt : RegistrationEvent) : void {
-            Logger.debug("XMPPClient::onRegistrationComplete");
+        private function onRegistrationComplete(ev:RegistrationEvent):void{
+            Logger.debug('XMPPClient::onRegistrationComplete()');
             _registering = false;
             _registration.removeEventListener(RegistrationEvent.ERRORS, onRegistrationErrors);
             _registration.removeEventListener(RegistrationEvent.COMPLETE, onRegistrationComplete);
@@ -550,16 +550,17 @@ package com.mintdigital.hemlock.clients{
             _connection.connect();
         }
         
-        private function onRegistrationErrors(evt : RegistrationEvent) : void {
-            Logger.debug("XMPPClient::onRegistrationErrors()");
+        private function onRegistrationErrors(ev:RegistrationEvent):void{
+            Logger.debug('XMPPClient::onRegistrationErrors()');
             dispatchAppEvent(AppEvent.REGISTRATION_ERRORS);
             _registering = false;
             _keepAliveTimer.stop();
             _connection.disconnect();
         }
 
-        private function onConnectionDestroy(evt : ConnectionEvent) : void {
+        private function onConnectionDestroy(ev:ConnectionEvent):void{
             dispatchAppEvent(AppEvent.CONNECTION_DESTROY);
+            _keepAliveTimer.stop();
         }
 
 
@@ -567,16 +568,7 @@ package com.mintdigital.hemlock.clients{
         //--------------------------------------
         //  Callbacks
         //--------------------------------------
-        
-        public function handleConfigurationResponse(packet:IQ):void {
-            Logger.debug("XMPPClient::handleConfigurationResponse()");
-            /*TODO - Perhaps get more specific here... That we get a result is indicitive of success, 
-                     we should watch for other types as well. */
-            if (packet.type == 'result') {
-                sendDiscoveryRequest();
-            }
-        }
-        
+
         public function handleCustomConfigResponse(packet:IQ):void {
             Logger.debug("XMPPClient::handleCustomConfigResponse()");
             

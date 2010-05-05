@@ -24,7 +24,7 @@ package com.mintdigital.hemlock.events{
         }
         
         override public function toString():String{
-              return formatHemlockEventToString('StreamEvent');
+            return formatHemlockEventToString('StreamEvent');
         }
         
         

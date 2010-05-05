@@ -73,7 +73,7 @@ package com.mintdigital.hemlock.vcard
 /*          if(!cacheFlushTimer.running)
             {
                 cacheFlushTimer.start();
-                cacheFlushTimer.addEventListener(TimerEvent.TIMER, function(evt:TimerEvent):void {
+                cacheFlushTimer.addEventListener(TimerEvent.TIMER, function(ev:TimerEvent):void {
                     var tempCache:Object = cache;
                     cache = {};
                     for each(var cachedCard:VCard in tempCache)
@@ -111,8 +111,7 @@ package com.mintdigital.hemlock.vcard
             requestTimer.start();
         }
         
-        private static function sendRequest(evt:TimerEvent):void
-        {
+        private static function sendRequest(ev:TimerEvent):void{
             Logger.debug("VCard::sendRequest()");
             if(requestQueue.length == 0)
                 return;

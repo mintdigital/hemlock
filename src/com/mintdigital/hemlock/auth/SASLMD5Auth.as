@@ -34,8 +34,8 @@ package com.mintdigital.hemlock.auth {
         //  Events > Handlers
         //--------------------------------------
         
-        private function handleFirstChallenge(evt:ChallengeEvent) : void {
-            var decoded_data:String = Base64.decode(evt.data)
+        private function handleFirstChallenge(ev:ChallengeEvent):void{
+            var decoded_data:String = Base64.decode(ev.data);
             Logger.debug("... " + decoded_data);
             
             var tuples:Array = decoded_data.split(",");
@@ -67,18 +67,18 @@ package com.mintdigital.hemlock.auth {
             _firstChallengeHandled = true;
         }
         
-        private function handleSecondChallenge(evt:ChallengeEvent) : void 
-        {
-            connection.send("<response xmlns='urn:ietf:params:xml:ns:xmpp-sasl' />")
+        private function handleSecondChallenge(ev:ChallengeEvent):void{
+            connection.send(
+                "<response xmlns='urn:ietf:params:xml:ns:xmpp-sasl' />");
         }
         
-        private function onChallenge(evt:ChallengeEvent) : void {
-            Logger.debug("SASLMD5Auth::onChallenge() " + evt.data);
-            if (!_firstChallengeHandled)
-                handleFirstChallenge(evt);
-            else
-                handleSecondChallenge(evt);
-            
+        private function onChallenge(ev:ChallengeEvent):void{
+            Logger.debug("SASLMD5Auth::onChallenge() " + ev.data);
+            if (!_firstChallengeHandled){
+                handleFirstChallenge(ev);
+            }else{
+                handleSecondChallenge(ev);
+            }
         }
         
         override public function stop() : void {

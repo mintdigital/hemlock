@@ -137,8 +137,7 @@ package tests.com.mintdigital.mocks {
 		public function get dispatcher():HemlockDispatcher {
 			return HemlockDispatcher.getInstance();
 		}
-		
-		public function handleConfigurationResponse(packet:IQ):void {};
+
 		public function handleRoomDisco(packet:IQ):void {};
 		public function handleUserDisco(packet:IQ):void {};
 	}

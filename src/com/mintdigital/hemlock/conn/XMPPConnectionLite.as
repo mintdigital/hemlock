@@ -123,9 +123,10 @@ package com.mintdigital.hemlock.conn {
         //--------------------------------------
         //  Event dispatchers
         //--------------------------------------
+
         private function handleRawData(rawXML:String):void{
-            Logger.debug('XMPPConnectionLite::handleStreamStart()');
-            dispatchEvent(new XMPPEvent("raw_xml", {
+            Logger.debug('XMPPConnectionLite::handleRawData()');
+            dispatchEvent(new XMPPEvent(XMPPEvent.RAW_XML, {
                 rawXML: rawXML
             }));
         }
@@ -207,10 +208,6 @@ package com.mintdigital.hemlock.conn {
             }));
         }
 
-        public function setPassThroughMode(mode:Boolean):void {
-            _passThroughMode = mode;
-        }
-        
         private function handleSuccess() : void {
             Logger.debug("XMPPConnectionLite::handleSuccess()");
             dispatchEvent(new SessionEvent(SessionEvent.CREATE_SUCCESS));
@@ -280,7 +277,7 @@ package com.mintdigital.hemlock.conn {
         protected function onDataReceived(ev:SocketDataEvent) : void {
             var rawXML:String = _incompleteRawXML + ev.data as String;
             
-            // Logger.debug('RAW XML: ' + rawXML);
+            Logger.debug('RAW INCOMING XML: ' + rawXML);
             
             if (containsClosedStreamTag(rawXML)){
                 Logger.debug('... closed stream tag');
@@ -302,51 +299,47 @@ package com.mintdigital.hemlock.conn {
                 rawXML = rawXML.concat(closeStreamTag());
             }
 
-            var xmlData:XMLDocument = stringToXML(rawXML,ev);
-            
-            if (xmlData == null){
+            if(_passThroughMode){
+                handleRawData(rawXML);
                 return;
             }
+
+            var xmlData:XMLDocument = stringToXML(rawXML,ev);
+            if(xmlData == null){ return; }
             
-            for (var i:int = 0; i < xmlData.childNodes.length; i++)
-            {
+            for (var i:int = 0; i < xmlData.childNodes.length; i++){
                 var node:XMLNode = xmlData.childNodes[i];
                 Logger.debug("... handling " + node.nodeName);
-                if ( _passThroughMode ) {
-                    handleRawData(rawXML);
-                }
-                else {
-                    switch (node.nodeName.toLowerCase()){
-                        case "stream:stream":
-                            handleStreamStart(node);
-                            break;
-                        case 'stream:error':
-                            handleStreamError(node);
-                            break;
-                        case "challenge":
-                            handleChallenge(node);
-                            break;
-                        case "success":
-                            handleSuccess();
-                            break;
-                        case "failure":
-                            handleFailure(node);
-                            break;
-                        case "iq":
-                            handleIQ(node);
-                            break;
-                        case "stream:features":
-                            handleFeatures(node);
-                            break;
-                        case "message":
-                            handleMessage(node);
-                            break;
-                        case 'presence':
-                            handlePresence(node);
-                            break;
-                        default:
-                            break;
-                    }
+                switch (node.nodeName.toLowerCase()){
+                    case "stream:stream":
+                        handleStreamStart(node);
+                        break;
+                    case 'stream:error':
+                        handleStreamError(node);
+                        break;
+                    case 'stream:features':
+                        handleFeatures(node);
+                        break;
+                    case "challenge":
+                        handleChallenge(node);
+                        break;
+                    case "success":
+                        handleSuccess();
+                        break;
+                    case "failure":
+                        handleFailure(node);
+                        break;
+                    case "message":
+                        handleMessage(node);
+                        break;
+                    case 'presence':
+                        handlePresence(node);
+                        break;
+                    case 'iq':
+                        handleIQ(node);
+                        break;
+                    default:
+                        break;
                 }
             }
         }
@@ -428,6 +421,11 @@ package com.mintdigital.hemlock.conn {
         
         public function get server():String             { return _server; }
         public function set server(value:String):void   { _server = value; }
+
+        public function get passThroughMode():Boolean
+            { return _passThroughMode; }
+        public function set passThroughMode(value:Boolean):void
+            { _passThroughMode = value; }
         
     } 
 }

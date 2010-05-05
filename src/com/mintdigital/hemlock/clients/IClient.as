@@ -37,7 +37,6 @@ package com.mintdigital.hemlock.clients{
         function get jid() : JID;
         function handleSessionResponse(packet:IQ):void;
         function handleBindResponse(packet:IQ) : void;
-        function handleConfigurationResponse(packet:IQ):void;
         function handleRoomDisco(packet:IQ):void;
         function handleUserDisco(packet:IQ):void;
         function handleRoleUpdate(packet:IQ):void;

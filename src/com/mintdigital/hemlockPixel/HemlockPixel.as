@@ -1,20 +1,18 @@
 package com.mintdigital.hemlockPixel{
     import com.mintdigital.hemlock.HemlockEnvironment;
     import com.mintdigital.hemlock.Logger;
-    // import com.mintdigital.hemlock.clients.HTTPClient;
-    import com.mintdigital.hemlock.clients.IClient;
     import com.mintdigital.hemlock.clients.XMPPClientLite;
     import com.mintdigital.hemlock.data.JID;
     import com.mintdigital.hemlock.display.HemlockSprite;
     import com.mintdigital.hemlock.events.AppEvent;
     import com.mintdigital.hemlock.events.HemlockDispatcher;
+    import com.mintdigital.hemlock.events.XMPPEvent;
     // import com.mintdigital.hemlock.strategies.DataMessageEventStrategy;
     import com.mintdigital.hemlock.strategies.MessageEventStrategy;
     import com.mintdigital.hemlock.utils.JavaScript;
 
     import flash.events.Event;
     import flash.external.ExternalInterface;
-    import flash.utils.setTimeout;
 
     // For use with Hemlock JS: Build app logic and UIs with JS, and use
     // Hemlock AS (a.k.a. HemlockPixel) purely for Flash's socket connection
@@ -26,10 +24,9 @@ package com.mintdigital.hemlockPixel{
 
     public class HemlockPixel extends HemlockSprite{
         protected var _room:String = JID.TYPE_SESSION;
-        private var _client:IClient;
+        private var _client:XMPPClientLite;
         private var _dispatcher:HemlockDispatcher;
         private var _flashvars:Object;
-        // private var _httpClient:HTTPClient;
         private var _jid:JID;
         private var _jsCallbackNames:Object = {};
 
@@ -76,11 +73,9 @@ package com.mintdigital.hemlockPixel{
                 JavaScript.run(['function(){ ',
                     _flashvars.logFunction, '("',
                         string.replace(new RegExp('"', 'gm'), '\\"'),
-                    '"); }'
-                ].join(''));
+                    '");',
+                '}'].join(''));
             });
-
-            // httpClient = new HTTPClient(HemlockEnvironment.API_PATH);
 
             client = new XMPPClientLite();
             client.addEventStrategies([
@@ -97,6 +92,8 @@ package com.mintdigital.hemlockPixel{
             (function():void{
                 client.username = flashvars.username;
                 client.password = flashvars.password;
+                client.server   = 'localhost';
+                // TODO: Set client.policyPort
             })();
 
             registerListeners();
@@ -120,10 +117,11 @@ package com.mintdigital.hemlockPixel{
 
         override public function registerListeners():void{
             // Register dispatcher listeners
-            registerListener(dispatcher,    AppEvent.SESSION_CREATE_SUCCESS,    onSessionCreateSuccess);
-            // registerListener(dispatcher,    AppEvent.REGISTRATION_ERRORS,       onRegistrationErrors);
-
-            // TODO: Listen directly to socket
+            registerListener(dispatcher, AppEvent.SESSION_CREATE_SUCCESS, onSessionCreateSuccess);
+            // registerListener(dispatcher, AppEvent.REGISTRATION_ERRORS, onRegistrationErrors);
+            registerListener(dispatcher, AppEvent.SESSION_DESTROY,      onSessionDestroy);
+            registerListener(dispatcher, AppEvent.CONNECTION_DESTROY,   onConnectionDestroy);
+            registerListener(dispatcher, XMPPEvent.RAW_XML, onXMPPRawXml);
         }
 
         public function registerJSListeners():void{
@@ -136,59 +134,48 @@ package com.mintdigital.hemlockPixel{
 
 
         //--------------------------------------
-        //  Events > Standard handlers > App
+        //  Events > Handlers > ActionScript
         //--------------------------------------
 
         protected function onSessionCreateSuccess(ev:AppEvent):void{
-            client.joinRoom(createRoomJID(ev.options.jid.resource));
+            Logger.debug('HemlockPixel::onSessionCreateSuccess()');
+            callJSCallbackConnect(STATUS_CODES.CONNECTED, 'Connected');
+        }
 
-            var statusCode:int          = STATUS_CODES.CONNECTED,
-                description:String      = 'Connected',
-                jsCallbackName:String   = jsCallbackNames.connect;
+        protected function onSessionDestroy(ev:AppEvent):void{
+            Logger.debug('HemlockPixel::onSessionDestroy()');
+            // Do nothing.
+        }
 
-            JavaScript.run([
-                'function(){',
-                    jsCallbackName, '(',
-                        statusCode, ', "',
-                        description.replace(new RegExp('"', 'gm'), '\\"'),
-                    '"); ',
-                '}'
-            ].join(''));
-
-            // TODO: client.joinRoom(new JID(roomID + '@' + domain + '/' + client.username));
-            // - Do this in the JS callback instead.
+        protected function onConnectionDestroy(ev:AppEvent):void{
+            Logger.debug('HemlockPixel::onConnectionDestroy()');
+            callJSCallbackConnect(STATUS_CODES.DISCONNECTED, 'Disconnected');
         }
 
         /*
         protected function onRegistrationErrors(ev:AppEvent):void{}
         */
 
+        protected function onXMPPRawXml(ev:XMPPEvent):void{
+            Logger.debug('HemlockPixel::onXMPPRawXml() : ev.type = ' + ev.type);
+            sendStringToJS(ev.options.rawXML);
+        }
+
 
 
         //--------------------------------------
-        //  Events > JS handlers
+        //  Events > Handlers > JavaScript
         //--------------------------------------
 
         protected function onJSConnect(jsCallbackName:String):void{
+            Logger.debug('HemlockPixel::onJSConnect() : jsCallbackName = ' +
+                jsCallbackName);
             Logger.debug('Logging in with username=' +
                 client.username + ', password=' + client.password);
 
             _jsCallbackNames.connect = jsCallbackName;
+            callJSCallbackConnect(STATUS_CODES.CONNECTING, 'Connecting...');
 
-            var statusCode:int      = STATUS_CODES.CONNECTING,
-                description:String  = 'Connecting...';
-
-            JavaScript.run([
-                'function(){',
-                    jsCallbackName, '(',
-                        statusCode, ', "',
-                        description.replace(new RegExp('"', 'gm'), '\\"'),
-                    '"); ',
-                '}'
-            ].join(''));
-
-            client.username = flashvars.username;
-            client.password = flashvars.password;
             client.connect();
         }
 
@@ -196,129 +183,36 @@ package com.mintdigital.hemlockPixel{
             Logger.debug('Received string: ' + string);
 
             // Send directly to socket
-            // FIXME: Implement
-
-
-
-            // FIXME: Testing; remove
-            (function():void{
-                // Send this stanza right back
-
-                import com.mintdigital.hemlock.utils.StringUtils;
-                import flash.utils.setTimeout;
-
-                var fakeRawSocketString:String = string,
-                    escapedSocketString:String = fakeRawSocketString.replace(
-                        new RegExp('"', 'gm'), '\\"');
-
-                JavaScript.run([
-                    'function(){',
-                        "$(Hemlock.Bridge).trigger(",
-                            "'hemlock:incoming', ",
-                            '"', escapedSocketString, '"',
-                        ");",
-                    '}'
-                ].join('').replace(new RegExp('"', 'gm'), '\"'));
-            })();
+            client.sendXML(string);
         }
 
 
 
         //--------------------------------------
-        //  Client helpers
+        //  JavaScript helpers
         //--------------------------------------
 
-        public function sendMessage(toJID:JID, messageBody:String):void{
-            client.sendMessage(toJID, messageBody);
+        protected function sendStringToJS(string:String):void{
+            Logger.debug('HemlockPixel::sendStringToJS()');
+
+            var escapedString:String =
+                    string.replace(new RegExp('"', 'gm'), '\\"');
+
+            JavaScript.run(['function(){',
+                "$(Hemlock.Bridge).trigger(",
+                    '"hemlock:incoming", ',
+                    '"', escapedString, '"',
+                ");",
+            '}'].join('').replace(new RegExp('"', 'gm'), '\"'));
         }
 
-        public function sendDataMessage(toJID:JID, payloadType:String, payload:*):void{
-            // Typical `payloadType` values should come from a HemlockEvent's
-            // constants, e.g., AppEvent.GAME_BEGIN. The value for `payload`
-            // should be an object, such as {"foo": "bar", "baz": 1}.
-            client.sendDataMessage(toJID, payloadType, payload || {});
-        }
-
-        public function sendDirectDataMessage(toJID:JID, payloadType:String, payload:*):void{
-            client.sendDirectDataMessage(toJID, payloadType, payload || {});
-        }
-
-        public function updateItem(roomJID:JID, updating:JID, opts:Object=null):void{
-            client.updateItem(roomJID, updating, opts);
-        }
-
-        public function sendPresence(toJID:JID, options:Object):void{
-            client.sendPresence(toJID, options);
-        }
-
-        public function signIn(username:String=null, password:String=null):void{
-            client.username = username;
-            client.password = password;
-            client.connect();
-        }
-
-        public function signUp(username:String=null, password:String=null):void{
-            client.username = username;
-            client.password = password;
-            client.registering = true;
-
-            // Announce start of registration. If you want to integrate with
-            // an API (e.g., to create a duplicate user in a separate
-            // database), have your HemlockPixel listen for this event.
-            dispatcher.dispatchEvent(new AppEvent(AppEvent.REGISTRATION_START));
-
-            client.connect();
-        }
-
-        /* If unique actions need to take place on a per app
-           basis, override this method within the app's HemlockPixel.
-           Do make sure that you call super.logout() or client.logout()
-           from the override. */
-        public function logout():void{
-            client.logout();
-        }
-
-        public function createRoom(roomType:String):void{
-            client.createRoom(roomType, domain);
-        }
-
-        public function joinRoom(toJID:JID):void{
-            client.joinRoom(new JID(toJID.toString() + '/' + client.username));
-        }
-
-        public function leaveRoom(toJID:JID):void{
-            client.leaveRoom(toJID);
-        }
-
-        public function configureRoom(toJID:JID, configOptions:Object=null):void{
-            client.configureRoom(toJID, configOptions || {});
-        }
-
-        /*
-        public function discoRooms():void{
-            Logger.debug("HemlockPixel::discoRooms()");
-            client.discoRooms();
-        }
-
-        public function discoUsers(roomJID:JID):void{
-            Logger.debug("HemlockPixel::discoUsers()");
-            client.discoUsers(roomJID);
-        }
-
-        public function updatePrivacyList(fromJID:JID, stanzaName:String, action:String, options:Object = null):void{
-            Logger.debug('HemlockPixel::updatePrivacyList()');
-            client.updatePrivacyList(fromJID, stanzaName, action, options);
-        }
-        */
-
-
-
-        //--------------------------------------
-        //  Private helpers
-        //--------------------------------------
-
-        private function createRoomJID(username:String):JID{
-            return new JID(room + '/' + username);
+        protected function callJSCallbackConnect(statusCode:int, description:String):void{
+            JavaScript.run(['function(){',
+                jsCallbackNames.connect, '(',
+                    statusCode, ', "',
+                    description.replace(new RegExp('"', 'gm'), '\\"'),
+                '"); ',
+            '}'].join(''));
         }
 
 
@@ -327,9 +221,9 @@ package com.mintdigital.hemlockPixel{
         //  Properties
         //--------------------------------------
 
-        public function get client():IClient
+        public function get client():XMPPClientLite
             { return _client; }
-        public function set client(client:IClient):void
+        public function set client(client:XMPPClientLite):void
             { _client = client; }
 
         public function get dispatcher():HemlockDispatcher{
@@ -342,11 +236,6 @@ package com.mintdigital.hemlockPixel{
 
         public function get flashvars():Object
             { return _flashvars; }
-
-        // public function get httpClient():HTTPClient
-        //     { return _httpClient; }
-        // public function set httpClient(httpClient:HTTPClient):void
-        //     { _httpClient = httpClient; }
 
         public function get jid():JID
             { return _jid; }

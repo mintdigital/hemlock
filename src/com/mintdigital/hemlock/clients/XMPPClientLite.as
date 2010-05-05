@@ -26,6 +26,7 @@ package com.mintdigital.hemlock.clients{
     import com.mintdigital.hemlock.events.SessionEvent;
     import com.mintdigital.hemlock.events.StreamEvent;
     import com.mintdigital.hemlock.events.VCardEvent;
+    import com.mintdigital.hemlock.events.XMPPEvent;
     import com.mintdigital.hemlock.utils.HashUtils;
     import com.mintdigital.hemlock.vcard.VCard;
 
@@ -90,11 +91,12 @@ package com.mintdigital.hemlock.clients{
             _connection.addEventListener(PresenceEvent.UPDATE,          onPresenceUpdate);
             _connection.addEventListener(RegistrationEvent.COMPLETE,    onRegistrationComplete);
             _connection.addEventListener(RegistrationEvent.ERRORS,      onRegistrationErrors);
+            _connection.addEventListener(SessionEvent.CREATE_SUCCESS,   onSessionCreateSuccess);
             _connection.addEventListener(SessionEvent.CREATE_FAILURE,   onSessionCreateFailure);
-            _connection.addEventListener(SessionEvent.CREATE_SUCCESS,   onLoginSuccess);
             _connection.addEventListener(SessionEvent.DESTROY,          onSessionDestroy);
             _connection.addEventListener(StreamEvent.ERROR,             onStreamError);
             _connection.addEventListener(StreamEvent.START,             onStreamStart);
+            _connection.addEventListener(XMPPEvent.RAW_XML,             onXMPPRawXML);
             
             ExtensionClassRegistry.register(BindExtension);
             ExtensionClassRegistry.register(RegisterExtension);
@@ -115,7 +117,7 @@ package com.mintdigital.hemlock.clients{
         }
         
         public function connect():void {
-            _connection.setPassThroughMode(false);
+            _connection.passThroughMode = false;
             server = HemlockEnvironment.SERVER;
             start();
         }
@@ -151,7 +153,7 @@ package com.mintdigital.hemlock.clients{
         
         private function disconnect():void {
             Logger.debug("XMPPClientLite::disconnect()");
-            _connection.setPassThroughMode(false);
+            _connection.passThroughMode = false;
 
             _auth.stop();
             _keepAliveTimer.stop();
@@ -241,7 +243,7 @@ package com.mintdigital.hemlock.clients{
             Logger.warn('DEPRECATED: XMPPClientLite::configureChatRoom(); use configureRoom() instead.');
             configureRoom(toJID, configOptions);
         }
-        
+
         public function discoRooms():void{
             Logger.debug('XMPPClientLite::discoRooms()');
             
@@ -268,7 +270,12 @@ package com.mintdigital.hemlock.clients{
             
             _connection.sendStanza(discoIQ);
         }
-        
+
+        public function sendXML(string:String):void{
+            // Send raw data
+            _connection.send(string);
+        }
+
         public function sendMessage(toJID:JID, messageBody:String) : void {
             var message:Message = new Message({
                 recipient:  toJID,
@@ -277,7 +284,7 @@ package com.mintdigital.hemlock.clients{
             });
             _connection.sendStanza(message);
         }
-        
+
         public function sendDataMessage(toJID:JID, payloadType:String, payload:*=null):void{
             var dataMessage:DataMessage = new DataMessage(payloadType, payload || {}, {
                 recipient:  toJID,
@@ -285,7 +292,7 @@ package com.mintdigital.hemlock.clients{
             });
             _connection.sendStanza(dataMessage);
         }
-        
+
         //TODO - maybe refactor these into 1 method
         public function sendDirectDataMessage(toJID:JID, payloadType:String, payload:*=null):void{
             var dataMessage:DataMessage = new DataMessage(payloadType, payload || {}, {
@@ -309,14 +316,14 @@ package com.mintdigital.hemlock.clients{
                 );
             _connection.sendStanza(presence);
         }
-        
+
         public function sendDiscoveryRequest(toJID:JID=null):void {
             Logger.debug("XMPPClientLite::sendDiscoveryRequest()");
 
             if(!toJID){ toJID = sessionJID(); }
             sendDataMessage(toJID, AppEvent.ROOM_CONFIGURED);
         }
-        
+
         public function updatePrivacyList(fromJID:JID, stanzaName:String, action:String, options:Object = null):void{
             // stanzaName: "message", "iq", "presence-in", or "presence-out"
             // action: "allow" or "deny"
@@ -375,7 +382,12 @@ package com.mintdigital.hemlock.clients{
         //--------------------------------------
         //  Events > Handlers
         //--------------------------------------
-        
+
+        private function onXMPPRawXML(ev:XMPPEvent):void{
+            Logger.debug('XMPPClientLite::onXMPPRawXML');
+            _dispatcher.dispatchEvent(ev);
+        }
+
         private function onPresenceUpdate(e:PresenceEvent):void {
             Logger.debug("XMPPClientLite::onPresenceUpdate()");
 
@@ -397,7 +409,7 @@ package com.mintdigital.hemlock.clients{
                     presenceStatus:     e.presence.status,
                     presenceRealJID:    e.presence.realJID.toString(),
                     presenceAffiliation:e.presence.affiliation
-                });            
+                });
             }
         }
 
@@ -408,18 +420,17 @@ package com.mintdigital.hemlock.clients{
             var userExt:MUCOwnerExtension = new MUCOwnerExtension();
             customConfigureIQ.addExtension(userExt);
     
-            /*  customConfigureIQ.callbackName =  HemlockEnvironment.demo ? "handleConfigurationResponse" : "handleCustomConfigResponse";*/
             customConfigureIQ.callbackName  = "handleCustomConfigResponse";
             customConfigureIQ.callbackScope = this;
 
             _connection.sendStanza(customConfigureIQ);
         }
         
-        private function onMessageEvent(evt:MessageEvent):void{
-            Logger.debug('XMPPClientLite::onMessageEvent() : evt = ' + evt);
+        private function onMessageEvent(ev:MessageEvent):void{
+            Logger.debug('XMPPClientLite::onMessageEvent() : ev = ' + ev);
 
             for each(var strategy:* in _eventStrategies){
-                if(strategy.dispatchMatchingEvent(_dispatcher, evt)){ break; }
+                if(strategy.dispatchMatchingEvent(_dispatcher, ev)){ break; }
             }
         }
         
@@ -510,42 +521,41 @@ package com.mintdigital.hemlock.clients{
             }
         }
 
-        private function onSocketClosed(evt:Event) : void {
-            Logger.debug('XMPPClientLite::socketClosed()');
+        private function onSocketClosed(ev:Event):void{
+            Logger.debug('XMPPClientLite::onSocketClosed()');
         }
 
-        private function onIOError(evt:Event) : void {
+        private function onIOError(ev:Event):void{
             Logger.debug('XMPPClientLite::onIOError()');
         }
 
-        private function onSessionDestroy(ev:SessionEvent): void {
-            dispatchAppEvent(AppEvent.SESSION_DESTROY);
+        private function onSessionCreateSuccess(ev:SessionEvent):void{
+            Logger.debug('XMPPClientLite::onSessionCreateSuccess()');
+            _loggedIn = true;
+            _connection.sendOpenStreamTag();
         }
-    
-        private function onSessionCreateFailure(event:SessionEvent) : void {
-            Logger.debug("XMPPClientLite::onSessionCreateFailure() : event.type = " + event.type );
+
+        private function onSessionCreateFailure(ev:SessionEvent):void{
+            Logger.debug('XMPPClientLite::onSessionCreateFailure() : ev.type = ' + ev.type);
             Logger.debug("Login FAILED");
             _auth.stop();
             _keepAliveTimer.stop();
             _connection.disconnect();
             dispatchAppEvent(AppEvent.SESSION_CREATE_FAILURE);
         }
-        
-        private function onKeepAliveTimer(evt:Event) : void {
-            Logger.debug("XMPPClientLite::onKeepAliveTimer()");
+
+        private function onSessionDestroy(ev:SessionEvent):void{
+            dispatchAppEvent(AppEvent.SESSION_DESTROY);
+        }
+
+        private function onKeepAliveTimer(ev:Event):void{
+            Logger.debug('XMPPClientLite::onKeepAliveTimer()');
             _connection.sendKeepAlive();
             resetKeepAliveTimer();
         }
 
-        private function onLoginSuccess(evt:SessionEvent) : void {
-            Logger.debug('XMPPClientLite::onLoginSuccess');
-            _loggedIn = true;
-            _connection.sendOpenStreamTag();
-            _connection.setPassThroughMode(true);
-        }
-        
-        private function onRegistrationComplete(evt : RegistrationEvent) : void {
-            Logger.debug("XMPPClientLite::onRegistrationComplete");
+        private function onRegistrationComplete(ev:RegistrationEvent):void{
+            Logger.debug('XMPPClientLite::onRegistrationComplete()');
             _registering = false;
             _registration.removeEventListener(RegistrationEvent.ERRORS, onRegistrationErrors);
             _registration.removeEventListener(RegistrationEvent.COMPLETE, onRegistrationComplete);
@@ -553,17 +563,18 @@ package com.mintdigital.hemlock.clients{
             _connection.disconnect();
             _connection.connect();
         }
-        
-        private function onRegistrationErrors(evt : RegistrationEvent) : void {
-            Logger.debug("XMPPClientLite::onRegistrationErrors()");
+
+        private function onRegistrationErrors(ev:RegistrationEvent):void{
+            Logger.debug('XMPPClientLite::onRegistrationErrors()');
             dispatchAppEvent(AppEvent.REGISTRATION_ERRORS);
             _registering = false;
             _keepAliveTimer.stop();
             _connection.disconnect();
         }
 
-        private function onConnectionDestroy(evt : ConnectionEvent) : void {
+        private function onConnectionDestroy(ev:ConnectionEvent):void{
             dispatchAppEvent(AppEvent.CONNECTION_DESTROY);
+            _keepAliveTimer.stop();
         }
 
 
@@ -571,16 +582,7 @@ package com.mintdigital.hemlock.clients{
         //--------------------------------------
         //  Callbacks
         //--------------------------------------
-        
-        public function handleConfigurationResponse(packet:IQ):void {
-            Logger.debug("XMPPClientLite::handleConfigurationResponse()");
-            /*TODO - Perhaps get more specific here... That we get a result is indicitive of success, 
-                     we should watch for other types as well. */
-            if (packet.type == 'result') {
-                sendDiscoveryRequest();
-            }
-        }
-        
+
         public function handleCustomConfigResponse(packet:IQ):void {
             Logger.debug("XMPPClientLite::handleCustomConfigResponse()");
             
@@ -622,9 +624,12 @@ package com.mintdigital.hemlock.clients{
             Logger.debug("XMPPClientLite::handleSessionResponse()");
             _sessionStarted = true;
             
+            // From here on, pass everything directly from socket to app:
+            _connection.passThroughMode = true;
+
             dispatchAppEvent(AppEvent.SESSION_CREATE_SUCCESS, {
-                from: _username,
-                jid: _jid
+                from:   _username,
+                jid:    _jid
             });
             
             dispatchAppEvent(AppEvent.PRESENCE_CREATE, {
@@ -632,11 +637,11 @@ package com.mintdigital.hemlock.clients{
                 presenceType:   PresenceEvent.STATUS_AVAILABLE
             });
             
-            _vCard = VCard.getVCard(_connection, this);
-            _vCard.addEventListener(VCardEvent.AVATAR_LOADED, onVCardEvent);
-            _vCard.addEventListener(VCardEvent.LOADED, onVCardEvent);
-            _vCard.addEventListener(VCardEvent.SAVED, onVCardEvent);
-            _vCard.addEventListener(VCardEvent.ERROR, onVCardEvent);
+            // _vCard = VCard.getVCard(_connection, this);
+            // _vCard.addEventListener(VCardEvent.AVATAR_LOADED, onVCardEvent);
+            // _vCard.addEventListener(VCardEvent.LOADED, onVCardEvent);
+            // _vCard.addEventListener(VCardEvent.SAVED, onVCardEvent);
+            // _vCard.addEventListener(VCardEvent.ERROR, onVCardEvent);
         }
     
         public function handleBindResponse(packet:IQ) : void {
@@ -819,7 +824,8 @@ package com.mintdigital.hemlock.clients{
             Logger.debug("XMPPClientLite::establishSession()");
             var bindIQ:IQ = new IQ(null, IQ.SET_TYPE),
                 bindExtension:BindExtension = new BindExtension();
-            bindExtension.resource = username || 'hemlock';
+            // bindExtension.resource = username || 'hemlock';
+            bindExtension.resource = 'hemlockPixel';
 
             bindIQ.addExtension(bindExtension);
             bindIQ.callbackName  = "handleBindResponse";
@@ -837,7 +843,9 @@ package com.mintdigital.hemlock.clients{
             //         <mechanism>...</mechanism>
             //     </mechanisms>
             // </stream:features>
-            
+
+            Logger.debug('XMPPClientLite::handleStreamFeaturesNode()');
+
             for each(var featureNode:XMLNode in featuresNode.childNodes){
                 switch(featureNode.nodeName){
                     case 'mechanisms':
