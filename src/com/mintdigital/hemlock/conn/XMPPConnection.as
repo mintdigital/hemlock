@@ -38,14 +38,17 @@ package com.mintdigital.hemlock.conn {
         protected var _server : String;
         protected var _port : Number;
         protected var _ports : Array;
+        protected var _policyPort:Number;
         protected var _active : Boolean;
         protected var _loggedIn : Boolean;
         protected var _pendingIQs : Object;
         protected var _currentPort : Number;
             
-        public function XMPPConnection(){
-            Security.loadPolicyFile('xmlsocket://'
-                + HemlockEnvironment.SERVER + ':' + HemlockEnvironment.POLICY_PORT);
+        public function XMPPConnection(args:Object){
+            _server     = args.server || HemlockEnvironment.SERVER;
+            _policyPort = args.policyPort || HemlockEnvironment.POLICY_PORT;
+            Security.loadPolicyFile(
+                'xmlsocket://' + _server + ':' + _policyPort);
 
             super();
             
@@ -80,7 +83,7 @@ package com.mintdigital.hemlock.conn {
         }
         
         public function send(data:*) : void {
-            Logger.debug("Sending..." + data);
+            Logger.debug('Sending to socket: ' + data);
             _socket.sendString(data);
         }
         
@@ -405,6 +408,9 @@ package com.mintdigital.hemlock.conn {
         
         public function get ports():Array               { return _ports; }
         public function set ports(value:Array):void     { _ports = value; }        
+
+        public function get policyPort():Number             { return _policyPort; }
+        public function set policyPort(value:Number):void   { _policyPort = value; }
         
         public function get server():String             { return _server; }
         public function set server(value:String):void   { _server = value; }

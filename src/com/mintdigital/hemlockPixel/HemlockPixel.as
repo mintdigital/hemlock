@@ -25,6 +25,8 @@ package com.mintdigital.hemlockPixel{
         private var _client:XMPPClientLite;
         private var _dispatcher:HemlockDispatcher;
         private var _flashvars:Object;
+        private var _host:String;
+        private var _mucHost:String;
         private var _jid:JID;
         private var _jsCallbackNames:Object = {};
 
@@ -59,7 +61,13 @@ package com.mintdigital.hemlockPixel{
                 //       $('#actionscript-output').append('<p>' + string + '</p>');
                 //     };
                 //     Hemlock.Bridge.create({
-                //       flashvars: {logFunction: 'MyApp.log'}
+                //       flashvars: {
+                //          username:       'me',
+                //          password:       'secret',
+                //          host:           'localhost',
+                //          mucHost:        'conference.localhost',
+                //          logFunction:    'MyApp.log'
+                //       }
                 //     });
                 //
                 //   HTML:
@@ -75,17 +83,14 @@ package com.mintdigital.hemlockPixel{
                 '}'].join(''));
             });
 
-            client = new XMPPClientLite();
-
-            // TODO: The following logic is hardcoded for now, but is
-            // app-specific. Refactor out into an app-agnostic client config
-            // function; apps should decide their own means of authentication.
-            (function():void{
-                client.username = flashvars.username;
-                client.password = flashvars.password;
-                client.server   = 'localhost';
-                // TODO: Set client.policyPort
-            })();
+            client = new XMPPClientLite({
+                username:   flashvars.username,
+                password:   flashvars.password,
+                server:     flashvars.host ||
+                                HemlockEnvironment.SERVER,
+                policyPort: flashvars.policyPort ||
+                                HemlockEnvironment.POLICY_PORT
+            });
 
             registerListeners();
             startListeners();
@@ -171,7 +176,7 @@ package com.mintdigital.hemlockPixel{
         }
 
         protected function onJSSendString(string:String):void{
-            Logger.debug('Received string: ' + string);
+            Logger.debug('Received from JS: ' + string);
 
             // Send directly to socket
             client.sendXML(string);
@@ -222,20 +227,20 @@ package com.mintdigital.hemlockPixel{
             return _dispatcher;
         }
 
-        public function get domain():String
-            { return 'conference.' + HemlockEnvironment.SERVER; }
+        public function get host():String               { return _host; }
+        public function set host(value:String):void     { _host = value; }
 
-        public function get flashvars():Object
-            { return _flashvars; }
+        public function get mucHost():String            { return _mucHost; }
+        public function set mucHost(value:String):void  { _mucHost = value; }
 
-        public function get jid():JID
-            { return _jid; }
+        public function get flashvars():Object{ return _flashvars; }
+
+        public function get jid():JID{ return _jid; }
 
         public function get jsCallbackNames():Object
             { return _jsCallbackNames; }
 
-        public function get room():String
-            { return _room + '@' + domain; }
+        public function get room():String{ return _room + '@' + mucHost; }
 
     }
 }

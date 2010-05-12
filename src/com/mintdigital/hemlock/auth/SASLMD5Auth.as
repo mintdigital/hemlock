@@ -12,12 +12,14 @@ package com.mintdigital.hemlock.auth {
 
         private var _username:String;
         private var _password:String;
+        private var _server:String;
         private var _firstChallengeHandled:Boolean;
         
-        public function SASLMD5Auth(connection:IConnection, username:String = null, password:String = null){
-            super(connection);
-            _username = username;
-            _password = password;   
+        public function SASLMD5Auth(args:Object){
+            super(args.connection);
+            _username   = args.username;
+            _password   = args.password;
+            _server     = args.server || HemlockEnvironment.SERVER;
         }
         
         override public function start():void{
@@ -110,8 +112,8 @@ package com.mintdigital.hemlock.auth {
             password = "TEST_PASSWORD";
             var res:String = responseValue(
                 username,
-                HemlockEnvironment.SERVER,
-                'xmpp/' + HemlockEnvironment.SERVER,
+                server,
+                'xmpp/' + server,
                 password,
                 "2365057907",
                 "4da1f5911223553007f3548ea3",
@@ -159,16 +161,16 @@ package com.mintdigital.hemlock.auth {
             
             var tuples:Array = [
                 "username=" + quoted(username),
-                "realm=" + quoted(HemlockEnvironment.SERVER),
+                "realm=" + quoted(server),
                 "nonce=" + quoted(nonce),
                 "cnonce=" + quoted(cnonce),
                 "nc=00000001",
                 "qop=auth",
-                'digest-uri=' + quoted('xmpp/' + HemlockEnvironment.SERVER),
+                'digest-uri=' + quoted('xmpp/' + server),
                 "response=" + responseValue(
                     username,
-                    HemlockEnvironment.SERVER,
-                    'xmpp/' + HemlockEnvironment.SERVER,
+                    server,
+                    'xmpp/' + server,
                     password,
                     nonce,
                     cnonce,
@@ -201,5 +203,8 @@ package com.mintdigital.hemlock.auth {
         public function get password():String           { return _password; }
         public function set password(value:String):void { _password = value; }
         
+        public function get server():String             { return _server; }
+        public function set server(value:String):void   { _server = value; }
+
     }
 }

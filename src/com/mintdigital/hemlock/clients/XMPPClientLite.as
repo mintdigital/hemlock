@@ -74,14 +74,16 @@ package com.mintdigital.hemlock.clients{
 
         private var _dispatcher:HemlockDispatcher;
             
-        public function XMPPClientLite(server:String = null, username:String = null, password:String = null){
-            _username = username;
-            _password = password;
-            _server = server;
-            _loggedIn = false;
+        public function XMPPClientLite(args:Object){
+            _username   = args.username;
+            _password   = args.password;
+            _server     = args.server;
+            _loggedIn   = false;
             _dispatcher = HemlockDispatcher.getInstance();
-
-            _connection = new XMPPConnectionLite();
+            _connection = new XMPPConnectionLite({
+                server:     args.server || HemlockEnvironment.SERVER,
+                policyPort: args.policyPort || HemlockEnvironment.POLICY_PORT
+            });
 
             _connection.addEventListener(Event.CLOSE,                   onSocketClosed);
             _connection.addEventListener(ConnectionEvent.DESTROY,       onConnectionDestroy);
@@ -118,7 +120,9 @@ package com.mintdigital.hemlock.clients{
         
         public function connect():void {
             _connection.passThroughMode = false;
-            server = HemlockEnvironment.SERVER;
+            if(!server){
+                server = HemlockEnvironment.SERVER;
+            }
             start();
         }
         
@@ -801,7 +805,12 @@ package com.mintdigital.hemlock.clients{
             if(mechanism == SASLAuth.MECHANISM_ANONYMOUS){
                 _auth = new SASLAnonymousAuth(_connection);
             }else{
-                _auth = new SASLMD5Auth(_connection, username, password);
+                _auth = new SASLMD5Auth({
+                    connection: _connection,
+                    username:   username,
+                    password:   password,
+                    server:     server
+                });
             }
             _sessionStarted = false;
             _auth.start();
@@ -871,7 +880,13 @@ package com.mintdigital.hemlock.clients{
         
         public function get server():String             { return _server; }
         public function set server(value:String):void   { _server = value; }
-        
+            // TODO: Rename to `host`
+
+        private function get domain():String    { return 'conference.' + server; }
+            // TODO: Rename to `mucHost`
+
+        private function get domainJID():JID    { return new JID(domain); }
+
         public function get registering():Boolean           { return _registering; }
         public function set registering(value:Boolean):void { _registering = value; }
         
@@ -880,10 +895,6 @@ package com.mintdigital.hemlock.clients{
         public function get avatar():ByteArray  { return _vCard.avatar; }
         
         private function get timestamp():String { return (new Date()).getTime().toString(); }
-        
-        private function get domain():String    { return 'conference.' + HemlockEnvironment.SERVER; }
-        
-        private function get domainJID():JID    { return new JID(domain); }
         
     } 
 }
