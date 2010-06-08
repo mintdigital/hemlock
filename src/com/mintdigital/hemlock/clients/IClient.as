@@ -13,13 +13,9 @@ package com.mintdigital.hemlock.clients{
         function addEventStrategies(strategies:Array) : void;
         function logout():void;
         function createRoom(roomType:String, domain:String, key:String=null):void;
-        function createChatRoom(roomType:String, domain:String, key:String=null):void; // TODO: Remove; deprecated
         function joinRoom(roomJID:JID):void;
-        function joinChatRoom(roomJID:JID):void; // TODO: Remove; deprecated
         function leaveRoom(roomJID:JID):void;
-        function leaveChatRoom(roomJID:JID):void; // TODO: Remove; deprecated
         function configureRoom(roomJID:JID, configOptions:Object=null):void;
-        function configureChatRoom(roomJID:JID, configOptions:Object=null):void; // TODO: Remove; deprecated
         function updateItem(roomJID:JID, updating:JID, opts:Object=null):void;
         function sendMessage(toJID:JID, messageBody:String) : void;
         function sendDataMessage(toJID:JID, payloadType:String, payload:*=null) : void;

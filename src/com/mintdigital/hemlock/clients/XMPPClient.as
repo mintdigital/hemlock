@@ -173,12 +173,7 @@ package com.mintdigital.hemlock.clients{
             presence.addExtension(mucExtension);
             _connection.sendStanza(presence);
         }
-        
-        public function createChatRoom(roomType:String, domain:String, key:String=null):void {
-            Logger.warn('DEPRECATED: XMPPClient::createChatRoom(); use createRoom() instead.');
-            createRoom(roomType, domain, key);
-        }
-        
+
         public function joinRoom(roomJID:JID):void{
             Logger.debug('XMPPClient::joinRoom() : roomJID = ' + roomJID);
 
@@ -189,24 +184,14 @@ package com.mintdigital.hemlock.clients{
             presence.addExtension(mucExtension);
             _connection.sendStanza(presence);
         }
-        
-        public function joinChatRoom(toJID:JID):void {
-            Logger.warn('DEPRECATED: XMPPClient::joinChatRoom(); use joinRoom() instead.');
-            joinRoom(toJID);
-        }
-        
+
         public function leaveRoom(roomJID:JID):void{
             Logger.debug('XMPPClient::leaveRoom() : roomJID = ' + roomJID);
             
             var presence:Presence = new Presence(roomJID, _jid, Presence.UNAVAILABLE_TYPE);
             _connection.sendStanza(presence);
         }
-        
-        public function leaveChatRoom(toJID:JID):void {
-            Logger.warn('DEPRECATED: XMPPClient::leaveChatRoom(); use leaveRoom() instead.');
-            leaveRoom(toJID);
-        }
-        
+
         public function updateItem(roomJID:JID, updating:JID, opts:Object=null):void {
             Logger.debug("XMPPClient::updateAffiliation()");
             
@@ -240,12 +225,7 @@ package com.mintdigital.hemlock.clients{
 
             _connection.sendStanza(configIQ);
         }
-        
-        public function configureChatRoom(toJID:JID, configOptions:Object=null):void {
-            Logger.warn('DEPRECATED: XMPPClient::configureChatRoom(); use configureRoom() instead.');
-            configureRoom(toJID, configOptions);
-        }
-        
+
         public function discoRooms():void{
             Logger.debug('XMPPClient::discoRooms()');
             
