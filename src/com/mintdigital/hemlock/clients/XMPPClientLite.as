@@ -230,21 +230,16 @@ package com.mintdigital.hemlock.clients{
 
         public function discoRooms():void{
             Logger.debug('XMPPClientLite::discoRooms()');
-            
+
             var discoIQ:IQ = new IQ(domainJID, IQ.GET_TYPE);
-            
+
             discoIQ.addExtension(new ItemDiscoExtension());
             discoIQ.callbackName = "handleRoomDisco";
             discoIQ.callbackScope = this;
-            
+
             _connection.sendStanza(discoIQ);
         }
-        
-        public function discoChatRooms():void {
-            Logger.warn('DEPRECATED: XMPPClientLite::discoChatRooms(); use discoRooms() instead.');
-            discoRooms();
-        }
-        
+
         public function discoUsers(toJID:JID):void {
             var discoIQ:IQ = new IQ(toJID, IQ.GET_TYPE);
             

@@ -37,7 +37,6 @@ package com.mintdigital.hemlock.clients{
         function handleUserDisco(packet:IQ):void;
         function handleRoleUpdate(packet:IQ):void;
         function discoRooms():void;
-        function discoChatRooms():void; // TODO: Remove; deprecated
         function discoUsers(toJID:JID):void;
         function updatePrivacyList(fromJID:JID, stanzaName:String, action:String, options:Object = null):void;
     }

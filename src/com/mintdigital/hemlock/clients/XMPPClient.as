@@ -237,12 +237,7 @@ package com.mintdigital.hemlock.clients{
             
             _connection.sendStanza(discoIQ);
         }
-        
-        public function discoChatRooms():void {
-            Logger.warn('DEPRECATED: XMPPClient::discoChatRooms(); use discoRooms() instead.');
-            discoRooms();
-        }
-        
+
         public function discoUsers(toJID:JID):void {
             var discoIQ:IQ = new IQ(toJID, IQ.GET_TYPE);
             
