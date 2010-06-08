@@ -113,17 +113,21 @@ package com.mintdigital.hemlockPixel{
 
         override public function registerListeners():void{
             // Register dispatcher listeners
-            registerListener(dispatcher, AppEvent.SESSION_CREATE_SUCCESS, onSessionCreateSuccess);
-            // registerListener(dispatcher, AppEvent.REGISTRATION_ERRORS, onRegistrationErrors);
-            registerListener(dispatcher, AppEvent.SESSION_DESTROY,      onSessionDestroy);
-            registerListener(dispatcher, AppEvent.CONNECTION_DESTROY,   onConnectionDestroy);
-            registerListener(dispatcher, XMPPEvent.RAW_XML, onXMPPRawXml);
+            registerListener(dispatcher, AppEvent.SESSION_CREATE_SUCCESS,
+                onSessionCreateSuccess);
+            registerListener(dispatcher, AppEvent.SESSION_DESTROY,
+                onSessionDestroy);
+            registerListener(dispatcher, AppEvent.CONNECTION_DESTROY,
+                onConnectionDestroy);
+            registerListener(dispatcher, XMPPEvent.RAW_XML,
+                onXMPPRawXml);
         }
 
         public function registerJSListeners():void{
             if(!ExternalInterface.available){ return; }
 
             ExternalInterface.addCallback('connect',    onJSConnect);
+            ExternalInterface.addCallback('disconnect', onJSDisconnect);
             ExternalInterface.addCallback('sendString', onJSSendString);
         }
 
@@ -148,10 +152,6 @@ package com.mintdigital.hemlockPixel{
             callJSCallbackConnect(STATUS_CODES.DISCONNECTED, 'Disconnected');
         }
 
-        /*
-        protected function onRegistrationErrors(ev:AppEvent):void{}
-        */
-
         protected function onXMPPRawXml(ev:XMPPEvent):void{
             Logger.debug('HemlockPixel::onXMPPRawXml() : ev.type = ' + ev.type);
             sendStringToJS(ev.options.rawXML);
@@ -164,8 +164,8 @@ package com.mintdigital.hemlockPixel{
         //--------------------------------------
 
         protected function onJSConnect(jsCallbackName:String):void{
-            Logger.debug('HemlockPixel::onJSConnect() : jsCallbackName = ' +
-                jsCallbackName);
+            Logger.debug('HemlockPixel::onJSConnect() : ' +
+                'jsCallbackName = ' + jsCallbackName);
             Logger.debug('Logging in with username=' +
                 client.username + ', password=' + client.password);
 
@@ -173,6 +173,16 @@ package com.mintdigital.hemlockPixel{
             callJSCallbackConnect(STATUS_CODES.CONNECTING, 'Connecting...');
 
             client.connect();
+        }
+
+        protected function onJSDisconnect():void{
+            Logger.debug('HemlockPixel::onJSDisconnect()');
+
+            // Uses the same callback as `onJSConnect`.
+
+            callJSCallbackConnect(
+                STATUS_CODES.DISCONNECTING, 'Disconnecting...');
+            client.disconnect();
         }
 
         protected function onJSSendString(string:String):void{

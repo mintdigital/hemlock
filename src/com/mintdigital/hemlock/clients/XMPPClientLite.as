@@ -155,14 +155,14 @@ package com.mintdigital.hemlock.clients{
             }
         }
         
-        private function disconnect():void {
-            Logger.debug("XMPPClientLite::disconnect()");
+        public function disconnect():void{
+            Logger.debug('XMPPClientLite::disconnect()');
             _connection.passThroughMode = false;
 
             _auth.stop();
             _keepAliveTimer.stop();
             _connection.disconnect();
-            _loggedIn = false;
+            _loggedIn   = false;
             _loggingOut = false;
         }
 
