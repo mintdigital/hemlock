@@ -302,14 +302,14 @@ package com.mintdigital.hemlock.conn {
                 rawXML = rawXML.concat(closeStreamTag());
             }
 
+            var xmlData:XMLDocument = stringToXML(rawXML,ev);
+            if(xmlData == null){ return; }
+
             if(_passThroughMode){
                 handleRawData(rawXML);
                 return;
             }
 
-            var xmlData:XMLDocument = stringToXML(rawXML,ev);
-            if(xmlData == null){ return; }
-            
             for (var i:int = 0; i < xmlData.childNodes.length; i++){
                 var node:XMLNode = xmlData.childNodes[i];
                 Logger.debug("... handling " + node.nodeName);
