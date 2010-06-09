@@ -58,7 +58,8 @@ package com.mintdigital.hemlockPixel{
                 //   JS:
                 //
                 //     MyApp.log = function(string){
-                //       $('#actionscript-output').append('<p>' + string + '</p>');
+                //       jQuery('#actionscript-output').
+                //          append('<p>' + string + '</p>');
                 //     };
                 //     Hemlock.Bridge.create({
                 //       flashvars: {
@@ -139,7 +140,7 @@ package com.mintdigital.hemlockPixel{
 
         protected function onSessionCreateSuccess(ev:AppEvent):void{
             Logger.debug('HemlockPixel::onSessionCreateSuccess()');
-            callJSCallbackConnect(STATUS_CODES.CONNECTED, 'Connected');
+            callJSConnectCallback(STATUS_CODES.CONNECTED, 'Connected');
         }
 
         protected function onSessionDestroy(ev:AppEvent):void{
@@ -149,7 +150,7 @@ package com.mintdigital.hemlockPixel{
 
         protected function onConnectionDestroy(ev:AppEvent):void{
             Logger.debug('HemlockPixel::onConnectionDestroy()');
-            callJSCallbackConnect(STATUS_CODES.DISCONNECTED, 'Disconnected');
+            callJSConnectCallback(STATUS_CODES.DISCONNECTED, 'Disconnected');
         }
 
         protected function onXMPPRawXml(ev:XMPPEvent):void{
@@ -170,7 +171,7 @@ package com.mintdigital.hemlockPixel{
                 client.username + ', password=' + client.password);
 
             _jsCallbackNames.connect = jsCallbackName;
-            callJSCallbackConnect(STATUS_CODES.CONNECTING, 'Connecting...');
+            callJSConnectCallback(STATUS_CODES.CONNECTING, 'Connecting...');
 
             client.connect();
         }
@@ -180,7 +181,7 @@ package com.mintdigital.hemlockPixel{
 
             // Uses the same callback as `onJSConnect`.
 
-            callJSCallbackConnect(
+            callJSConnectCallback(
                 STATUS_CODES.DISCONNECTING, 'Disconnecting...');
             client.disconnect();
         }
@@ -205,14 +206,14 @@ package com.mintdigital.hemlockPixel{
                     string.replace(new RegExp('"', 'gm'), '\\"');
 
             JavaScript.run(['function(){',
-                "$(Hemlock.Bridge).trigger(",
-                    '"hemlock:incoming", ',
+                "jQuery(Hemlock.Bridge).trigger(",
+                    '"incoming.hemlock", ',
                     '"', escapedString, '"',
                 ");",
             '}'].join('').replace(new RegExp('"', 'gm'), '\"'));
         }
 
-        protected function callJSCallbackConnect(statusCode:int, description:String):void{
+        protected function callJSConnectCallback(statusCode:int, description:String):void{
             JavaScript.run(['function(){',
                 jsCallbackNames.connect, '(',
                     statusCode, ', "',
