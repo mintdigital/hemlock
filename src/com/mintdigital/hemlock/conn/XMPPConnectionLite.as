@@ -152,36 +152,7 @@ package com.mintdigital.hemlock.conn {
                 connection: this
             }));
         }
-        
-        private function handleMessage(node:XMLNode) : void {
-            Logger.debug('XMPPConnectionLite::handleMessage()');
-            Logger.debug('- node.id = ' + node.attributes.id);
-            
-            var incomingPayloadType:String;
-            
-            if (node.attributes.id) {
-                incomingPayloadType = node.attributes.id.split(Message.PAYLOAD_TYPE_DELIMITER)[0];
-            };
-            
-            var message:Message = new Message({
-                payloadType: incomingPayloadType
-                    // Preserve payloadType from original node's ID
-            });
 
-            // Populate the Message with the incoming data
-            Logger.debug('XMPPConnectionLite::handleMessage() : before message.deserialize(node)');
-            if( !message.deserialize( node ) ) {
-                throw new SerializationException();
-            }
-            Logger.debug('XMPPConnectionLite::handleMessage() : after message.deserialize(node)');
-            
-            dispatchEvent(new MessageEvent(MessageEvent.CHAT_MESSAGE, {
-                to:             new JID(node.attributes.to),
-                from:           new JID(node.attributes.from),
-                xmppMessage:    message
-            }));
-        }
-        
         private function handlePresence(node:XMLNode):void{
             Logger.debug('XMPPConnectionLite::handlePresence() ' + node);
             var presence:Presence = new Presence();
@@ -234,8 +205,7 @@ package com.mintdigital.hemlock.conn {
             }));
         }
         
-        protected function handleIQ( node:XMLNode ): void
-        {
+        protected function handleIQ(node:XMLNode):void{
             var iq:IQ = new IQ();
             if( !iq.deserialize( node ) ) {
                 throw new SerializationException();
@@ -331,9 +301,6 @@ package com.mintdigital.hemlock.conn {
                         break;
                     case "failure":
                         handleFailure(node);
-                        break;
-                    case "message":
-                        handleMessage(node);
                         break;
                     case 'presence':
                         handlePresence(node);

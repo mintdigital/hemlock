@@ -89,7 +89,6 @@ package com.mintdigital.hemlock.clients{
             _connection.addEventListener(ConnectionEvent.DESTROY,       onConnectionDestroy);
             _connection.addEventListener(FeaturesEvent.FEATURES,        onFeatures);
             _connection.addEventListener(IOErrorEvent.IO_ERROR,         onIOError);
-            _connection.addEventListener(MessageEvent.CHAT_MESSAGE,     onMessageEvent);
             _connection.addEventListener(PresenceEvent.UPDATE,          onPresenceUpdate);
             _connection.addEventListener(RegistrationEvent.COMPLETE,    onRegistrationComplete);
             _connection.addEventListener(RegistrationEvent.ERRORS,      onRegistrationErrors);
@@ -404,15 +403,7 @@ package com.mintdigital.hemlock.clients{
 
             _connection.sendStanza(customConfigureIQ);
         }
-        
-        private function onMessageEvent(ev:MessageEvent):void{
-            Logger.debug('XMPPClientLite::onMessageEvent() : ev = ' + ev);
 
-            for each(var strategy:* in _eventStrategies){
-                if(strategy.dispatchMatchingEvent(_dispatcher, ev)){ break; }
-            }
-        }
-        
         private function onVCardEvent(e:VCardEvent):void {
             Logger.debug("XMPPClientLite::onVCardEvent()");
             
