@@ -50,8 +50,8 @@ package com.mintdigital.hemlockPixel{
 
             Logger.addLogFunction(function(string:String):void{
                 // Use this to pretty-print HemlockPixel log strings. A simple
-                // variation is to pass `console.log` to HemlockPixel, but not
-                // all browsers support this function natively.
+                // variation is to pass `console.log` instead of `MyApp.log`,
+                // but not all browsers support this function natively.
                 //
                 // Example usage:
                 //
@@ -93,9 +93,11 @@ package com.mintdigital.hemlockPixel{
                                 HemlockEnvironment.POLICY_PORT
             });
 
+            // Handle internal ActionScript events
             registerListeners();
             startListeners();
 
+            // Handle JavaScript-triggered events
             registerJSListeners();
         }
 
@@ -125,7 +127,11 @@ package com.mintdigital.hemlockPixel{
         }
 
         public function registerJSListeners():void{
-            if(!ExternalInterface.available){ return; }
+            Logger.debug('HemlockPixel::registerJSListeners()');
+            if(!ExternalInterface.available){
+                Logger.debug('- !ExternalInterface.available');
+                return;
+            }
 
             ExternalInterface.addCallback('connect',    onJSConnect);
             ExternalInterface.addCallback('disconnect', onJSDisconnect);
