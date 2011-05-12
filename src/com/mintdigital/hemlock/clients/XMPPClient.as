@@ -5,6 +5,7 @@ package com.mintdigital.hemlock.clients{
     import com.mintdigital.hemlock.auth.SASLAnonymousAuth;
     import com.mintdigital.hemlock.auth.SASLAuth;
     import com.mintdigital.hemlock.auth.SASLMD5Auth;
+    import com.mintdigital.hemlock.auth.SASLPlainAuth;
     import com.mintdigital.hemlock.clients.IClient;
     import com.mintdigital.hemlock.conn.XMPPConnection;
     import com.mintdigital.hemlock.data.DataMessage;
@@ -762,16 +763,27 @@ package com.mintdigital.hemlock.clients{
             
             Logger.debug('XMPPClient::authenticate() : mechanism = ' + mechanism);
             
-            if(mechanism == SASLAuth.MECHANISM_ANONYMOUS){
-                _auth = new SASLAnonymousAuth(_connection);
-            }else{
-                _auth = new SASLMD5Auth({
-                    connection: _connection,
-                    username:   username,
-                    password:   password,
-                    server:     server
-                });
+            switch(mechanism){
+                case SASLAuth.MECHANISM_ANONYMOUS:
+                    _auth = new SASLAnonymousAuth(_connection);
+                    break;
+                case SASLAuth.MECHANISM_PLAIN:
+                    _auth = new SASLPlainAuth({
+                        connection: _connection,
+                        username:   username,
+                        password:   password,
+                        server:     server
+                    });
+                    break;
+                default:
+                    _auth = new SASLMD5Auth({
+                        connection: _connection,
+                        username:   username,
+                        password:   password,
+                        server:     server
+                    });
             }
+
             _sessionStarted = false;
             _auth.start();
         }

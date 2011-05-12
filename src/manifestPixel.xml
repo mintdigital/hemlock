@@ -4,6 +4,7 @@
 <component id="com.mintdigital.hemlock.auth.SASLAnonymousAuth" class="com.mintdigital.hemlock.auth.SASLAnonymousAuth"/>
 <component id="com.mintdigital.hemlock.auth.SASLAuth" class="com.mintdigital.hemlock.auth.SASLAuth"/>
 <component id="com.mintdigital.hemlock.auth.SASLMD5Auth" class="com.mintdigital.hemlock.auth.SASLMD5Auth"/>
+<component id="com.mintdigital.hemlock.auth.SASLPlainAuth" class="com.mintdigital.hemlock.auth.SASLPlainAuth"/>
 <component id="com.mintdigital.hemlock.clients.HTTPClient" class="com.mintdigital.hemlock.clients.HTTPClient"/>
 <component id="com.mintdigital.hemlock.clients.IClient" class="com.mintdigital.hemlock.clients.IClient"/>
 <component id="com.mintdigital.hemlock.clients.XMPPClient" class="com.mintdigital.hemlock.clients.XMPPClient"/>

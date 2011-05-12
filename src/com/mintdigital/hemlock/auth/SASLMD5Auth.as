@@ -70,8 +70,7 @@ package com.mintdigital.hemlock.auth {
         }
         
         private function handleSecondChallenge(ev:ChallengeEvent):void{
-            connection.send(
-                "<response xmlns='urn:ietf:params:xml:ns:xmpp-sasl' />");
+            connection.send("<response xmlns='" + SASLAuth.XMLNS + "' />");
         }
         
         private function onChallenge(ev:ChallengeEvent):void{
@@ -94,8 +93,8 @@ package com.mintdigital.hemlock.auth {
         //--------------------------------------
         
         private function authRequest() : String {
-            return "<auth xmlns='urn:ietf:params:xml:ns:xmpp-sasl' mechanism='"
-                + SASLAuth.MECHANISM_DIGEST_MD5 + "'/>";
+            return "<auth xmlns='" + SASLAuth.XMLNS + "' mechanism='" +
+                    SASLAuth.MECHANISM_DIGEST_MD5 + "'/>";
         }
         
         private function h(value:String) : String {
@@ -144,7 +143,8 @@ package com.mintdigital.hemlock.auth {
         }
         
         private function responseXML(nonce:String) : String {
-            return "<response xmlns=\"urn:ietf:params:xml:ns:xmpp-sasl\">" + Base64.encode(responseString(nonce)) + "</response>"
+            return "<response xmlns='" + SASLAuth.XMLNS + "'>" +
+                    Base64.encode(responseString(nonce)) + "</response>";
         }
         
         private function responseString(nonce:String) : String

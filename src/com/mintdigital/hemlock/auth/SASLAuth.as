@@ -5,6 +5,7 @@ package com.mintdigital.hemlock.auth{
         public static const MECHANISM_ANONYMOUS:String  = 'ANONYMOUS';
         public static const MECHANISM_DIGEST_MD5:String = 'DIGEST-MD5';
         public static const MECHANISM_PLAIN:String      = 'PLAIN';
+        public static const XMLNS:String = 'urn:ietf:params:xml:ns:xmpp-sasl';
         private var _connection:IConnection;
         
         public function SASLAuth(connection:IConnection){

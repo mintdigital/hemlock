@@ -1,5 +1,6 @@
 package com.mintdigital.hemlock.auth{
     import com.mintdigital.hemlock.conn.IConnection;
+    import com.mintdigital.hemlock.Logger;
     
     public class SASLAnonymousAuth extends SASLAuth{
         
@@ -25,12 +26,14 @@ package com.mintdigital.hemlock.auth{
         }
         
         override public function start():void{
+            Logger.debug('SASLAnonymousAuth::start()');
+
             connection.send(authRequest());
         }
 
         protected function authRequest():String{
-            return "<auth xmlns='urn:ietf:params:xml:ns:xmpp-sasl' mechanism='"
-                + SASLAuth.MECHANISM_ANONYMOUS + "'/>";
+            return "<auth xmlns='" + SASLAuth.XMLNS + "' mechanism='" +
+                    SASLAuth.MECHANISM_ANONYMOUS + "'/>";
         }
         
     }
