@@ -1,9 +1,9 @@
 package com.mintdigital.hemlock.auth{
     import com.mintdigital.hemlock.conn.IConnection;
     import com.mintdigital.hemlock.Logger;
-    
+
     public class SASLAnonymousAuth extends SASLAuth{
-        
+
         /*
         To add support for anonymous login to your Hemlock app:
 
@@ -16,15 +16,15 @@ package com.mintdigital.hemlock.auth{
             {host_config, "public.example.org", [{auth_method, [anonymous]},
                                                  {anonymous_protocol, sasl_anon}]}.
         5. Restart ejabberd (`ejabberdctl restart`).
-        
+
         More documentation here, under "SASL anonymous":
         https://support.process-one.net/doc/display/MESSENGER/Anonymous+users+support
         */
-        
+
         public function SASLAnonymousAuth(connection:IConnection){
             super(connection);
         }
-        
+
         override public function start():void{
             Logger.debug('SASLAnonymousAuth::start()');
 
@@ -35,6 +35,6 @@ package com.mintdigital.hemlock.auth{
             return "<auth xmlns='" + SASLAuth.XMLNS + "' mechanism='" +
                     SASLAuth.MECHANISM_ANONYMOUS + "'/>";
         }
-        
+
     }
 }

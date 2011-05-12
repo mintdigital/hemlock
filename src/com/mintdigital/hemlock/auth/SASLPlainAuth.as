@@ -4,9 +4,9 @@ package com.mintdigital.hemlock.auth{
     import com.mintdigital.hemlock.Logger;
 
     import com.dynamicflash.util.Base64;
-    
+
     public class SASLPlainAuth extends SASLAuth{
-        
+
         /*
         For use with `PLAIN` authentication, in which the username and
         password are transmitted insecurely with Base64.
@@ -15,7 +15,7 @@ package com.mintdigital.hemlock.auth{
         and the XMPP server forces `PLAIN` authentication instead of something
         secure.
         */
-        
+
         private var _username:String;
         private var _password:String;
         private var _server:String;
@@ -26,10 +26,10 @@ package com.mintdigital.hemlock.auth{
             _password   = args.password;
             _server     = args.server || HemlockEnvironment.SERVER;
         }
-        
+
         override public function start():void{
             Logger.debug('SASLPlainAuth::start()');
-            
+
             connection.send(authRequest());
         }
 
@@ -42,6 +42,6 @@ package com.mintdigital.hemlock.auth{
             return "<auth xmlns='" + SASLAuth.XMLNS + "' mechanism='" +
                     SASLAuth.MECHANISM_PLAIN + "'>" + auth + "</auth>";
         }
-        
+
     }
 }
