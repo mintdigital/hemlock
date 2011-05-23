@@ -59,6 +59,7 @@ package com.mintdigital.hemlock.clients{
         private var _lastSent:int = 0;
         private var _username:String;
         private var _password:String;
+        private var _resource:String; // JID resource
         private var _server:String;
         private var _loggedIn:Boolean;
         private var _sessionStarted:Boolean;
@@ -78,6 +79,7 @@ package com.mintdigital.hemlock.clients{
         public function XMPPClientLite(args:Object){
             _username   = args.username;
             _password   = args.password;
+            _resource   = args.resource || 'hemlockPixel';
             _server     = args.server;
             _loggedIn   = false;
             _dispatcher = HemlockDispatcher.getInstance();
@@ -811,8 +813,8 @@ package com.mintdigital.hemlock.clients{
             Logger.debug("XMPPClientLite::establishSession()");
             var bindIQ:IQ = new IQ(null, IQ.SET_TYPE),
                 bindExtension:BindExtension = new BindExtension();
-            // bindExtension.resource = username || 'hemlock';
-            bindExtension.resource = 'hemlockPixel';
+
+            bindExtension.resource = resource;
 
             bindIQ.addExtension(bindExtension);
             bindIQ.callbackName  = "handleBindResponse";
@@ -850,13 +852,16 @@ package com.mintdigital.hemlock.clients{
         //  Properties
         //--------------------------------------
         
-        public function get username():String           { return _username; }
+        public function get username():String           { return _username;  }
         public function set username(value:String):void { _username = value; }
         
-        public function get password():String           { return _password; }
+        public function get password():String           { return _password;  }
         public function set password(value:String):void { _password = value; }
         
-        public function get server():String             { return _server; }
+        public function get resource():String           { return _resource;  }
+        public function set resource(value:String):void { _resource = value; }
+
+        public function get server():String             { return _server;  }
         public function set server(value:String):void   { _server = value; }
             // TODO: Rename to `host`
 
@@ -865,7 +870,7 @@ package com.mintdigital.hemlock.clients{
 
         private function get domainJID():JID    { return new JID(domain); }
 
-        public function get registering():Boolean           { return _registering; }
+        public function get registering():Boolean           { return _registering;  }
         public function set registering(value:Boolean):void { _registering = value; }
         
         public function get jid():JID           { return _jid; }

@@ -87,6 +87,7 @@ package com.mintdigital.hemlockPixel{
             client = new XMPPClientLite({
                 username:   flashvars.username,
                 password:   flashvars.password,
+                resource:   flashvars.resource,
                 server:     flashvars.host ||
                                 HemlockEnvironment.SERVER,
                 policyPort: flashvars.policyPort ||
