@@ -495,6 +495,7 @@ package com.mintdigital.hemlock.clients{
 
         private function onIOError(ev:Event):void{
             Logger.debug('XMPPClient::onIOError()');
+            dispatchAppEvent(AppEvent.IO_ERROR);
         }
 
         private function onSessionCreateSuccess(ev:SessionEvent):void{

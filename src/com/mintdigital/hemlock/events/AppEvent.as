@@ -33,6 +33,7 @@ package com.mintdigital.hemlock.events{
         public static const DISCOVERY_USERS_FOUND:String    = 'discovery_itemsFound';
         
         public static const CONNECTION_DESTROY:String       = 'connection_destroy';
+        public static const IO_ERROR:String                 = 'io_error';
         public static const STREAM_ERROR:String             = 'stream_error';
 
         public static const SESSION_CREATE_SUCCESS:String   = 'session_createSuccess';

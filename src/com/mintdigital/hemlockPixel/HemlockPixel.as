@@ -123,6 +123,8 @@ package com.mintdigital.hemlockPixel{
                 onSessionDestroy);
             registerListener(dispatcher, AppEvent.CONNECTION_DESTROY,
                 onConnectionDestroy);
+            registerListener(dispatcher, AppEvent.IO_ERROR,
+                onIOError);
             registerListener(dispatcher, XMPPEvent.RAW_XML,
                 onXMPPRawXml);
         }
@@ -158,6 +160,11 @@ package com.mintdigital.hemlockPixel{
         protected function onConnectionDestroy(ev:AppEvent):void{
             Logger.debug('HemlockPixel::onConnectionDestroy()');
             callJSConnectCallback(STATUS_CODES.DISCONNECTED, 'Disconnected');
+        }
+
+        protected function onIOError(ev:AppEvent):void{
+            Logger.debug('HemlockPixel::onIOError()');
+            callJSConnectCallback(STATUS_CODES.ERROR, 'IO error');
         }
 
         protected function onXMPPRawXml(ev:XMPPEvent):void{

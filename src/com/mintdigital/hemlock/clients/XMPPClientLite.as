@@ -500,6 +500,7 @@ package com.mintdigital.hemlock.clients{
 
         private function onIOError(ev:Event):void{
             Logger.debug('XMPPClientLite::onIOError()');
+            dispatchAppEvent(AppEvent.IO_ERROR);
         }
 
         private function onSessionCreateSuccess(ev:SessionEvent):void{
