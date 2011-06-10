@@ -100,6 +100,9 @@ package com.mintdigital.hemlockPixel{
 
             // Handle JavaScript-triggered events
             registerJSListeners();
+
+            // Notify JavaScript that the ActionScript is ready
+            triggerLoadedJSEvent();
         }
 
         protected function initialize():void{
@@ -212,6 +215,14 @@ package com.mintdigital.hemlockPixel{
         //--------------------------------------
         //  JavaScript helpers
         //--------------------------------------
+
+        protected function triggerLoadedJSEvent():void{
+            Logger.debug('HemlockPixel::triggerLoadedJSEvent()');
+
+            JavaScript.run(["function(){",
+                "jQuery(Hemlock.Bridge).trigger('load.hemlock');",
+            "}"].join(''));
+        }
 
         protected function sendStringToJS(string:String):void{
             Logger.debug('HemlockPixel::sendStringToJS()');
