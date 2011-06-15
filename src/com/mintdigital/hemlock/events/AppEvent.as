@@ -34,6 +34,7 @@ package com.mintdigital.hemlock.events{
         
         public static const CONNECTION_DESTROY:String       = 'connection_destroy';
         public static const IO_ERROR:String                 = 'io_error';
+        public static const SECURITY_ERROR:String           = 'security_error';
         public static const STREAM_ERROR:String             = 'stream_error';
 
         public static const SESSION_CREATE_SUCCESS:String   = 'session_createSuccess';

@@ -58,9 +58,11 @@ package com.mintdigital.hemlock.conn {
             _socket.addEventListener(Event.CLOSE, onSocketClosed);
             _socket.addEventListener(Event.CONNECT, onSocketConnected);
             _socket.addEventListener(IOErrorEvent.IO_ERROR, onIOError);
-            _socket.addEventListener(SecurityErrorEvent.SECURITY_ERROR, onSecurityError);
-            _socket.addEventListener(SocketDataEvent.SOCKET_DATA_RECEIVED, onDataReceived);
-            _currentPort = 0;
+            _socket.addEventListener(SecurityErrorEvent.SECURITY_ERROR,
+                                        onSecurityError);
+            _socket.addEventListener(SocketDataEvent.SOCKET_DATA_RECEIVED,
+                                        onDataReceived);
+            _currentPort = 0; // Index in `ports`
             ports = HemlockEnvironment.SERVER_PORTS;
         }
         
@@ -329,7 +331,7 @@ package com.mintdigital.hemlock.conn {
 
             _active = false;
             _loggedIn = false;
-            _currentPort++;
+            _currentPort++; // Try next supported port, if any
             if(ports[_currentPort]){
                 connect();
             }else{

@@ -128,6 +128,8 @@ package com.mintdigital.hemlockPixel{
                 onConnectionDestroy);
             registerListener(dispatcher, AppEvent.IO_ERROR,
                 onIOError);
+            registerListener(dispatcher, AppEvent.SECURITY_ERROR,
+                onSecurityError);
             registerListener(dispatcher, XMPPEvent.RAW_XML,
                 onXMPPRawXml);
         }
@@ -168,6 +170,11 @@ package com.mintdigital.hemlockPixel{
         protected function onIOError(ev:AppEvent):void{
             Logger.debug('HemlockPixel::onIOError()');
             callJSConnectCallback(STATUS_CODES.ERROR, 'IO error');
+        }
+
+        protected function onSecurityError(ev:AppEvent):void{
+            Logger.debug('HemlockPixel::onIOError()');
+            callJSConnectCallback(STATUS_CODES.CONNFAIL, 'Security error');
         }
 
         protected function onXMPPRawXml(ev:XMPPEvent):void{

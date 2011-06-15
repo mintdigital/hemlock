@@ -47,6 +47,7 @@ package com.mintdigital.hemlock.clients{
 
     import flash.events.Event;
     import flash.events.IOErrorEvent;
+    import flash.events.SecurityErrorEvent;
     import flash.events.TimerEvent;
     import flash.utils.ByteArray;
     import flash.utils.Timer;
@@ -95,6 +96,7 @@ package com.mintdigital.hemlock.clients{
             _connection.addEventListener(PresenceEvent.UPDATE,          onPresenceUpdate);
             _connection.addEventListener(RegistrationEvent.COMPLETE,    onRegistrationComplete);
             _connection.addEventListener(RegistrationEvent.ERRORS,      onRegistrationErrors);
+            _connection.addEventListener(SecurityErrorEvent.SECURITY_ERROR, onSecurityError);
             _connection.addEventListener(SessionEvent.CREATE_SUCCESS,   onSessionCreateSuccess);
             _connection.addEventListener(SessionEvent.CREATE_FAILURE,   onSessionCreateFailure);
             _connection.addEventListener(SessionEvent.DESTROY,          onSessionDestroy);
@@ -501,6 +503,11 @@ package com.mintdigital.hemlock.clients{
         private function onIOError(ev:Event):void{
             Logger.debug('XMPPClientLite::onIOError()');
             dispatchAppEvent(AppEvent.IO_ERROR);
+        }
+
+        private function onSecurityError(ev:SecurityErrorEvent):void{
+            Logger.debug('XMPPClientLite::onSecurityError()');
+            dispatchAppEvent(AppEvent.SECURITY_ERROR);
         }
 
         private function onSessionCreateSuccess(ev:SessionEvent):void{

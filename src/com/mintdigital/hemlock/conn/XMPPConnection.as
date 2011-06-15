@@ -349,7 +349,7 @@ package com.mintdigital.hemlock.conn {
 
             _active = false;
             _loggedIn = false;
-            _currentPort++;
+            _currentPort++; // Try next supported port, if any
             if(ports[_currentPort]){
                 connect();
             }else{
