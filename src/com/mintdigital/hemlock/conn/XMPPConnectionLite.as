@@ -325,8 +325,8 @@ package com.mintdigital.hemlock.conn {
         }
         
         protected function onSecurityError(ev:SecurityErrorEvent):void{
-            Logger.debug('There was a security error of type: ' + ev.type +
-                "\nError: " + ev.text);
+            Logger.debug('XMPPConnectionLite::onSecurityError() : ' + ev.text);
+
             _active = false;
             _loggedIn = false;
             _currentPort++;
