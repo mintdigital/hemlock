@@ -31,9 +31,9 @@ package com.mintdigital.hemlock.conn {
     import flash.system.Security;
     import flash.xml.XMLDocument;
     import flash.xml.XMLNode;
-    
+
     public class XMPPConnectionLite extends EventDispatcher implements IConnection{
-        
+
         protected var _socket : SocketConn;
         protected var _incompleteRawXML : String;
         protected var _server : String;
@@ -53,7 +53,7 @@ package com.mintdigital.hemlock.conn {
                 'xmlsocket://' + _server + ':' + _policyPort);
 
             super();
-            
+
             _socket = new SocketConn();
             _socket.addEventListener(Event.CLOSE, onSocketClosed);
             _socket.addEventListener(Event.CONNECT, onSocketConnected);
@@ -65,19 +65,19 @@ package com.mintdigital.hemlock.conn {
             _currentPort = 0; // Index in `ports`
             ports = HemlockEnvironment.SERVER_PORTS;
         }
-        
+
         public function connect() : Boolean {
             _active = false;
             _loggedIn = false;
             _incompleteRawXML = '';
             _pendingIQs = new Object();
-            
+
             _socket.connect(server, ports[_currentPort]);
             Logger.debug('XMPPConnectionLite::connect : socket = ' + _socket);
-            
+
             return true;
         }
-        
+
         public function disconnect() : Boolean {
             Logger.debug("XMPPConnectionLite::disconnect()");
             _active = false;
@@ -85,26 +85,24 @@ package com.mintdigital.hemlock.conn {
             dispatchEvent(new ConnectionEvent(ConnectionEvent.DESTROY));
             return true;
         }
-        
+
         public function send(data:*) : void {
             Logger.debug('Sending to socket: ' + data);
             _socket.sendString(data);
         }
-        
-        public function sendKeepAlive():void
-        {
+
+        public function sendKeepAlive():void {
             if( _active ) {
                 _socket.sendString(" ");
             }
         }
-        
+
         public function sendOpenStreamTag() : void {
             Logger.debug("XMPPConnectionLite::sendOpenStreamTag()");
             send( openStreamTag() );
         }
-        
-        public function sendStanza( stanza:XMPPStanza ):void
-        {
+
+        public function sendStanza( stanza:XMPPStanza ):void {
             Logger.debug("XMPPConnectionLite::sendStanza()");
             if ( _active ) {
                 if ( stanza is IQ ) {
@@ -124,7 +122,7 @@ package com.mintdigital.hemlock.conn {
                 }
             }
         }
-        
+
         //--------------------------------------
         //  Event dispatchers
         //--------------------------------------
@@ -145,7 +143,7 @@ package com.mintdigital.hemlock.conn {
                 node:       node
             }));
         }
-        
+
         private function handleStreamError(node:XMLNode):void{
             Logger.debug('XMPPConnectionLite::handleStreamError()');
             dispatchEvent(new StreamEvent(StreamEvent.ERROR, {
@@ -158,7 +156,7 @@ package com.mintdigital.hemlock.conn {
         private function handlePresence(node:XMLNode):void{
             Logger.debug('XMPPConnectionLite::handlePresence() ' + node);
             var presence:Presence = new Presence();
-            
+
             if (!presence.deserialize(node)){
                 throw new SerializationException();
             }
@@ -176,7 +174,7 @@ package com.mintdigital.hemlock.conn {
                 node:       node
             }));
         }
-        
+
         public function handleRegisterResponse(packet:IQ):void {
             Logger.debug("XMPPConnectionLite::handleRegisterResponse()");
             dispatchEvent(new RegistrationEvent(RegistrationEvent.REGISTERING, {
@@ -188,7 +186,7 @@ package com.mintdigital.hemlock.conn {
             Logger.debug("XMPPConnectionLite::handleSuccess()");
             dispatchEvent(new SessionEvent(SessionEvent.CREATE_SUCCESS));
         }
-        
+
         private function handleFailure(node:XMLNode) : void {
             Logger.debug("XMPPConnectionLite::handleFailure()");
             for ( var i:int = 0; i < node.childNodes.length; i++ ) {
@@ -196,7 +194,7 @@ package com.mintdigital.hemlock.conn {
             };
             dispatchEvent(new SessionEvent(SessionEvent.CREATE_FAILURE));
         }
-        
+
         private function handleFeatures(node:XMLNode) : void {
             Logger.debug('XMPPConnectionLite::handleFeatures()');
             dispatchEvent(new FeaturesEvent(FeaturesEvent.FEATURES, {
@@ -206,7 +204,7 @@ package com.mintdigital.hemlock.conn {
                 node:       node
             }));
         }
-        
+
         protected function handleIQ(node:XMLNode):void{
             var iq:IQ = new IQ();
             if( !iq.deserialize( node ) ) {
@@ -223,7 +221,7 @@ package com.mintdigital.hemlock.conn {
                     if ( callbackInfo.methodScope && callbackInfo.methodName ) {
                         callbackInfo.methodScope[callbackInfo.methodName].apply( callbackInfo.methodScope, [iq] );
                     }
-                    if (callbackInfo.func != null) { 
+                    if (callbackInfo.func != null) {
                         callbackInfo.func( iq );
                     }
                     _pendingIQs[iq.id] = null;
@@ -234,13 +232,13 @@ package com.mintdigital.hemlock.conn {
                 }
             }
         }
-        
-        
-        
+
+
+
         //--------------------------------------
         //  Events > Handlers
         //--------------------------------------
-        
+
         protected function onSocketConnected(ev:Event):void {
             Logger.debug("XMPPConnectionLite::onSocketConnected()" );
             _active = true;
@@ -251,9 +249,9 @@ package com.mintdigital.hemlock.conn {
 
         protected function onDataReceived(ev:SocketDataEvent) : void {
             var rawXML:String = _incompleteRawXML + ev.data as String;
-            
+
             Logger.debug('RAW INCOMING XML: ' + rawXML);
-            
+
             if (containsClosedStreamTag(rawXML)){
                 Logger.debug('... closed stream tag');
                 // TODO: Check for <stream:error> if duplicate login
@@ -269,7 +267,7 @@ package com.mintdigital.hemlock.conn {
                 _socket.close();
                 return;
             }
-            
+
             if (containsOpenStreamTag(rawXML)){
                 rawXML = rawXML.concat(closeStreamTag());
             }
@@ -315,17 +313,17 @@ package com.mintdigital.hemlock.conn {
                 }
             }
         }
-        
+
         protected function onSocketClosed(ev:Event):void{
             Logger.debug('XMPPConnectionLite::onSocketClosed()');
             disconnect();
         }
-        
+
         protected function onIOError(ev:IOErrorEvent):void{
             Logger.debug('XMPPConnectionLite::onIOError() : ' + ev.text);
             dispatchEvent(ev);
         }
-        
+
         protected function onSecurityError(ev:SecurityErrorEvent):void{
             Logger.debug('XMPPConnectionLite::onSecurityError() : ' + ev.text);
 
@@ -336,14 +334,14 @@ package com.mintdigital.hemlock.conn {
                 connect();
             }else{
                 dispatchEvent(ev);
-            } 
+            }
         }
-        
-        
+
+
         //--------------------------------------
         //  Internal helpers
-        //--------------------------------------        
-        
+        //--------------------------------------
+
         private function stringToXML(rawXML:String, ev:SocketDataEvent) : XMLDocument {
             var xmlData:XMLDocument = new XMLDocument();
             xmlData.ignoreWhite = true;
@@ -357,13 +355,13 @@ package com.mintdigital.hemlock.conn {
             }
             return xmlData;
         }
-        
+
         private function containsOpenStreamTag(xml:String) : Boolean {
             var openStreamRegex:RegExp = new RegExp("<stream:stream");
             var resultObj:Object = openStreamRegex.exec(xml);
             return (resultObj != null);
         }
-        
+
         private function containsClosedStreamTag(xml:String) : Boolean {
             var closeStreamRegex:RegExp = new RegExp("<\/stream:stream");
             var resultObj:Object = closeStreamRegex.exec(xml);
@@ -371,10 +369,10 @@ package com.mintdigital.hemlock.conn {
         }
 
         protected function openStreamTag() : String {
-            return "<?xml version=\"1.0\"?><stream:stream to=\"" + server + 
+            return "<?xml version=\"1.0\"?><stream:stream to=\"" + server +
                 "\" xmlns=\"jabber:client\" xmlns:stream=\"http://etherx.jabber.org/streams\" version=\"1.0\">";
         }
-        
+
         protected function closeStreamTag() : String {
             return "</stream:stream>";
         }
@@ -384,12 +382,12 @@ package com.mintdigital.hemlock.conn {
         //--------------------------------------
         //  Properties
         //--------------------------------------
-        
+
         public function get port():Number               { return _port; }
         public function set port(value:Number):void     { _port = value; }
-        
+
         public function get ports():Array               { return _ports; }
-        public function set ports(value:Array):void     { _ports = value; }        
+        public function set ports(value:Array):void     { _ports = value; }
 
         public function get policyPort():Number             { return _policyPort; }
         public function set policyPort(value:Number):void   { _policyPort = value; }
@@ -402,6 +400,6 @@ package com.mintdigital.hemlock.conn {
             { return _passThroughMode; }
         public function set passThroughMode(value:Boolean):void
             { _passThroughMode = value; }
-        
-    } 
+
+    }
 }
