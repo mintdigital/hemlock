@@ -1,4 +1,7 @@
 namespace :hemlock do
+  desc 'Download all dependencies'
+  task :download => ['hemlock:download:all']
+
   namespace :download do
     desc 'Download all dependencies'
     task :all => ['hemlock:download:xiff']
