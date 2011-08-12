@@ -30,20 +30,19 @@ package com.mintdigital.hemlock.widgets.roomList {
         private var _configOptions:Object = {};
         private var _toJID:JID;
         protected static var _defaultOptions:Object = {
+            maxParticipants:        0, // 0: Unlimited participants
             headerColor:            0x000000,
             roomTitleColor:         0x000000,
             roomMetaColor:          0x000000,
             strings: {
-                allRooms:           'Current games',
-                    // TODO: Clarify text when UI can differentiate between
-                    //       games in progress and not in progress
-                newRoomButton:      'Start a new game',
-                noRooms:            'No games yet',
-                newRoomLabel:       'Game details:',
-                createRoomButton:   'Start my game!',
-                joinRoomButton:     'Join game',
-                participant:        'player',
-                participants:       'players'
+                allRooms:           'Current rooms',
+                newRoomButton:      'Start a new room',
+                noRooms:            'No rooms yet',
+                newRoomLabel:       'Room details:',
+                createRoomButton:   'Create my room!',
+                joinRoomButton:     'Join room',
+                participant:        'person',
+                participants:       'people'
             }
         };
         
@@ -76,11 +75,13 @@ package com.mintdigital.hemlock.widgets.roomList {
                     // still be in the room list.
                     currentItems.push(item.jid);
                     
-                    // If this is a new item, create a display object
-                    // and track the room in rooms.
-                    if (HashUtils.keys(rooms).indexOf(item.jid) == -1) {
+                    if(HashUtils.keys(rooms).indexOf(item.jid) >= 0){
+                        // Room exists; update it
+                        delegates.views.updateListItem(item.jid, item.name);
+                    }else{
+                        // Room is new; create its view and add to `rooms`
                         rooms[item.jid] = item.name;
-                        listItem = delegates.views.addListItem(item.name, item.jid);
+                        listItem = delegates.views.addListItem(item.jid, item.name);
                     }
                 }
             }
@@ -98,6 +99,7 @@ package com.mintdigital.hemlock.widgets.roomList {
                     }
                 }
             })();
+            
             return currentItems;
         }
         
@@ -109,11 +111,11 @@ package com.mintdigital.hemlock.widgets.roomList {
             }
             _configOptions['muc#roomconfig_publicroom'] = [1]; // Makes room publicly visible
             // TODO: Randomize room name if blank
-            container.configureChatRoom(_toJID, _configOptions);
+            container.configureRoom(_toJID, _configOptions);
             
             // Update UI
             // TODO: Allow button disabling; needs testing
-            // views.configFormCompleteButton.disable({ label: 'Creating game...' });
+            // views.configFormCompleteButton.disable({ label: 'Creating...' });
             // views.configFormCancelButton.disable();
             hideConfigForm();
         }

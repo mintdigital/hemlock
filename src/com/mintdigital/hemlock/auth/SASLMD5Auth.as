@@ -1,9 +1,8 @@
 package com.mintdigital.hemlock.auth {
     import com.mintdigital.hemlock.HemlockEnvironment;
-    import com.mintdigital.hemlock.conn.XMPPConnection;
-    import com.mintdigital.hemlock.events.ChallengeEvent;
-    
     import com.mintdigital.hemlock.Logger;
+    import com.mintdigital.hemlock.conn.IConnection;
+    import com.mintdigital.hemlock.events.ChallengeEvent;
     
     import com.dynamicflash.util.Base64;
     
@@ -13,12 +12,14 @@ package com.mintdigital.hemlock.auth {
 
         private var _username:String;
         private var _password:String;
+        private var _server:String;
         private var _firstChallengeHandled:Boolean;
         
-        public function SASLMD5Auth(connection:XMPPConnection, username:String = null, password:String = null){
-            super(connection);
-            _username = username;
-            _password = password;   
+        public function SASLMD5Auth(args:Object){
+            super(args.connection);
+            _username   = args.username;
+            _password   = args.password;
+            _server     = args.server || HemlockEnvironment.SERVER;
         }
         
         override public function start():void{
@@ -35,8 +36,8 @@ package com.mintdigital.hemlock.auth {
         //  Events > Handlers
         //--------------------------------------
         
-        private function handleFirstChallenge(evt:ChallengeEvent) : void {
-            var decoded_data:String = Base64.decode(evt.data)
+        private function handleFirstChallenge(ev:ChallengeEvent):void{
+            var decoded_data:String = Base64.decode(ev.data);
             Logger.debug("... " + decoded_data);
             
             var tuples:Array = decoded_data.split(",");
@@ -68,18 +69,17 @@ package com.mintdigital.hemlock.auth {
             _firstChallengeHandled = true;
         }
         
-        private function handleSecondChallenge(evt:ChallengeEvent) : void 
-        {
-            connection.send("<response xmlns='urn:ietf:params:xml:ns:xmpp-sasl' />")
+        private function handleSecondChallenge(ev:ChallengeEvent):void{
+            connection.send("<response xmlns='" + SASLAuth.XMLNS + "' />");
         }
         
-        private function onChallenge(evt:ChallengeEvent) : void {
-            Logger.debug("SASLMD5Auth::onChallenge() " + evt.data);
-            if (!_firstChallengeHandled)
-                handleFirstChallenge(evt);
-            else
-                handleSecondChallenge(evt);
-            
+        private function onChallenge(ev:ChallengeEvent):void{
+            Logger.debug("SASLMD5Auth::onChallenge() " + ev.data);
+            if (!_firstChallengeHandled){
+                handleFirstChallenge(ev);
+            }else{
+                handleSecondChallenge(ev);
+            }
         }
         
         override public function stop() : void {
@@ -93,8 +93,8 @@ package com.mintdigital.hemlock.auth {
         //--------------------------------------
         
         private function authRequest() : String {
-            return "<auth xmlns='urn:ietf:params:xml:ns:xmpp-sasl' mechanism='"
-                + SASLAuth.MECHANISM_DIGEST_MD5 + "'/>";
+            return "<auth xmlns='" + SASLAuth.XMLNS + "' mechanism='" +
+                    SASLAuth.MECHANISM_DIGEST_MD5 + "'/>";
         }
         
         private function h(value:String) : String {
@@ -106,13 +106,13 @@ package com.mintdigital.hemlock.auth {
         }
 
         public function test() : void {
-            Logger.debug("SASLMD5Auth::test() " );    
+            Logger.debug("SASLMD5Auth::test()");
             username = "TEST_USERNAME";
             password = "TEST_PASSWORD";
             var res:String = responseValue(
                 username,
-                HemlockEnvironment.SERVER,
-                'xmpp/' + HemlockEnvironment.SERVER,
+                server,
+                'xmpp/' + server,
                 password,
                 "2365057907",
                 "4da1f5911223553007f3548ea3",
@@ -143,33 +143,34 @@ package com.mintdigital.hemlock.auth {
         }
         
         private function responseXML(nonce:String) : String {
-            return "<response xmlns=\"urn:ietf:params:xml:ns:xmpp-sasl\">" + Base64.encode(responseString(nonce)) + "</response>"
+            return "<response xmlns='" + SASLAuth.XMLNS + "'>" +
+                    Base64.encode(responseString(nonce)) + "</response>";
         }
         
         private function responseString(nonce:String) : String
         {
             var cnonce:String = hh((new Date()).toString());
             
-            Logger.debug("generating response with:  " );
-            Logger.debug("username: " + username);
-            Logger.debug("password: " + password);
-            Logger.debug("nonce: " + nonce);
-            Logger.debug("cnonce: " + cnonce);
+            Logger.debug("Generating response with:");
+            Logger.debug("- username: " + username);
+            Logger.debug("- password: " + password);
+            Logger.debug("- nonce: "    + nonce);
+            Logger.debug("- cnonce: "   + cnonce);
             
             
             
             var tuples:Array = [
                 "username=" + quoted(username),
-                "realm=" + quoted(HemlockEnvironment.SERVER),
+                "realm=" + quoted(server),
                 "nonce=" + quoted(nonce),
                 "cnonce=" + quoted(cnonce),
                 "nc=00000001",
                 "qop=auth",
-                'digest-uri=' + quoted('xmpp/' + HemlockEnvironment.SERVER),
+                'digest-uri=' + quoted('xmpp/' + server),
                 "response=" + responseValue(
                     username,
-                    HemlockEnvironment.SERVER,
-                    'xmpp/' + HemlockEnvironment.SERVER,
+                    server,
+                    'xmpp/' + server,
                     password,
                     nonce,
                     cnonce,
@@ -202,5 +203,8 @@ package com.mintdigital.hemlock.auth {
         public function get password():String           { return _password; }
         public function set password(value:String):void { _password = value; }
         
+        public function get server():String             { return _server; }
+        public function set server(value:String):void   { _server = value; }
+
     }
 }

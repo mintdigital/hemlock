@@ -17,7 +17,8 @@ package com.mintdigital.hemlock{
         
         public static var ENVIRONMENT:String;
         public static var SERVER:String;
-        public static var POLICY_PORT:String = '8040';
+        public static var SERVER_PORTS:Array = [5222];
+        public static var POLICY_PORT:uint = 843;
         public static var SOURCE_PATH:String;
         public static var _debug:Boolean;
         public static var SKIN:*;

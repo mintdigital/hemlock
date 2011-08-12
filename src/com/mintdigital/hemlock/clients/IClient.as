@@ -12,10 +12,10 @@ package com.mintdigital.hemlock.clients{
         function connect() : void;
         function addEventStrategies(strategies:Array) : void;
         function logout():void;
-        function joinChatRoom(toJID:JID) : void;
-        function leaveChatRoom(toJID:JID):void;
-        function createChatRoom(roomType:String, domain:String, key:String=null) : void;
-        function configureChatRoom(toJID:JID, configOptions:Object=null):void;
+        function createRoom(roomType:String, domain:String, key:String=null):void;
+        function joinRoom(roomJID:JID):void;
+        function leaveRoom(roomJID:JID):void;
+        function configureRoom(roomJID:JID, configOptions:Object=null):void;
         function updateItem(roomJID:JID, updating:JID, opts:Object=null):void;
         function sendMessage(toJID:JID, messageBody:String) : void;
         function sendDataMessage(toJID:JID, payloadType:String, payload:*=null) : void;
@@ -33,11 +33,10 @@ package com.mintdigital.hemlock.clients{
         function get jid() : JID;
         function handleSessionResponse(packet:IQ):void;
         function handleBindResponse(packet:IQ) : void;
-        function handleConfigurationResponse(packet:IQ):void;
         function handleRoomDisco(packet:IQ):void;
         function handleUserDisco(packet:IQ):void;
         function handleRoleUpdate(packet:IQ):void;
-        function discoChatRooms():void;
+        function discoRooms():void;
         function discoUsers(toJID:JID):void;
         function updatePrivacyList(fromJID:JID, stanzaName:String, action:String, options:Object = null):void;
     }

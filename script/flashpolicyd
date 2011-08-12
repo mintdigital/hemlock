@@ -1,0 +1,68 @@
+#!/usr/bin/env ruby
+require 'rubygems'
+require 'bundler'
+Bundler.setup
+
+require 'eventmachine'
+require 'simple-daemon'
+require 'logger'
+
+
+
+# Usage:
+# `./script/flashpolicyd.rb start ./public/crossdomain.xml 843`
+#
+# Test (three methods):
+# `telnet localhost 843`
+# `nc -z localhost 843`
+# `perl -e 'printf "<policy-file-request/>%c",0' | nc 127.0.0.1 843`
+
+if ARGV[0] == 'start' && ARGV[1].nil?
+  puts "Usage: #{$0} (start|stop|restart) <file> [port]"
+end
+
+RAILS_ROOT   = "#{File.dirname(__FILE__)}/../.."
+LOG_PATH     = "#{RAILS_ROOT}/log/flashpolicyd.log"
+LOGGER       = Logger.new(LOG_PATH)
+DEFAULT_PORT = 843
+
+
+
+module FlashPolicy
+  module Server
+    POLICY = File.open(ARGV[1]) { |f| f.read } if ARGV[1]
+    NULL   = [0].pack('c')
+
+    def receive_data(data)
+      LOGGER.info "Receiving: #{data}"
+      if data.chomp == "<policy-file-request/>#{NULL}"
+        LOGGER.info "Sending: #{POLICY + NULL}"
+        send_data(POLICY + NULL)
+      end
+    end
+  end
+end
+
+
+
+class FlashPolicyDaemon < SimpleDaemon::Base
+  SimpleDaemon::WORKING_DIRECTORY = "#{RAILS_ROOT}/log"
+
+  def self.start
+    EM.run do
+      host = '0.0.0.0'
+      port = ARGV[2] || DEFAULT_PORT
+      EM.start_server(host, port, FlashPolicy::Server)
+      LOGGER.info "Started policy daemon: host=#{host}, port=#{port}"
+    end
+  end
+
+  def self.stop
+    EM.stop_server
+    LOGGER.info 'Stopped policy daemon'
+  end
+end
+
+
+
+FlashPolicyDaemon.daemonize if $0 == __FILE__

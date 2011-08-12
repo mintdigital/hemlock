@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!--
+Hemlock
+http://hemlock-kills.com
+http://github.com/mintdigital/hemlock
+
+Copyright 2011 Mint Digital
+MIT License
+
+With inspiration from:
+- http://jquery.com/
+- http://code.stanziq.com/strophe/
+-->
+
+<head>
+  <meta charset="utf8" />
+  <title>Hemlock Tests &gt; Raw Data &gt; Chat</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      padding: 0 1em;
+        background: #ddd;
+        background: -webkit-gradient(linear, left top, left bottom, from(#f9f9f9), to(#999));
+        background:    -moz-linear-gradient(top, #f9f9f9, #999);
+        background: -webkit-linear-gradient(top, #f9f9f9, #999);
+      background:           linear-gradient(top, #f9f9f9, #999);
+      font-family: "Gill Sans", Helvetica, Arial, sans-serif;
+      overflow-x: hidden;
+    }
+    a, span.control {
+      color: #00c;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    a:visited {
+      color: #006;
+    }
+    h1 {
+      margin: 0;
+      padding: 0.5em 0 0;
+    }
+    h1, p, label {
+      color: #333;
+      text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+    }
+    div.error {
+      padding: 0.5em;
+      background: #c00;
+      border: 2px solid #900;
+      color: #fff;
+    }
+    p#status,
+    div#actionscript-output,
+    div#hemlock-pixel { /* Only hide the no-Flash content, not the object. */
+      display: none;
+    }
+    #hemlock-pixel { /* Moves both no-Flash and Flash content out of flow */
+      position: absolute;
+      width: 1px;
+      height: 1px;
+    }
+    p#status {
+      position: absolute;
+      right: 0;
+      top: 0;
+      margin: 0;
+      padding: 0.5em 1em;
+      background: rgba(0, 0, 0, 0.05);
+        -moz-border-radius-bottomleft:     0.5em;
+        -webkit-border-bottom-left-radius: 0.5em;
+      border-bottom-left-radius:           0.5em;
+        -moz-box-shadow:    inset 0 0.25em 1em rgba(0, 0, 0, 0.1);
+        -webkit-box-shadow: inset 0 0.25em 1em rgba(0, 0, 0, 0.1);
+      box-shadow:           inset 0 0.25em 1em rgba(0, 0, 0, 0.1);
+      border-left: 1px solid rgba(0, 0, 0, 0.01);
+      border-bottom: 1px solid #fff;
+    }
+    form {
+      margin: 0.5em 0;
+    }
+    form fieldset {
+      padding: 0;
+      border: 0;
+    }
+    form fieldset ol,
+    form fieldset ol li {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    form fieldset ol li label:after {
+      content: ":";
+    }
+    form div.submit {
+      display: inline;
+    }
+    form.signin fieldset ol li label {
+      float: left;
+      width: 7.5em;
+    }
+    form.send {
+      visibility: hidden; /* Hide, but reserve its space */
+    }
+    form.send fieldset,
+    form.send fieldset ol,
+    form.send fieldset ol li {
+      display: inline;
+    }
+    form.send fieldset ol li input {
+      width: 8em;
+    }
+    div#actionscript-output {
+      height: 20em;
+      margin: 1em auto;
+      padding: 1em;
+      overflow: auto;
+        background: #000;
+        background: -webkit-gradient(linear, left top, left bottom, from(#333), color-stop(0.5, #191919), color-stop(0.5, #131313), to(#000));
+        background:    -moz-linear-gradient(top, #333, #191919 50%, #131313 50%, #000);
+        background: -webkit-linear-gradient(top, #333, #191919 50%, #131313 50%, #000);
+      background:           linear-gradient(top, #333, #191919 50%, #131313 50%, #000);
+      border: 1px solid;
+      border-color: #999 #fff #fff #999;
+        -moz-box-shadow:    inset 0 5px 20px #000, -1px -2px 2px rgba(0, 0, 0, 0.25), 1px 2px 2px rgba(255, 255, 255, 0.25);
+        -webkit-box-shadow: inset 0 5px 20px #000, -1px -2px 2px rgba(0, 0, 0, 0.25), 1px 2px 2px rgba(255, 255, 255, 0.25);
+      box-shadow:           inset 0 5px 20px #000, -1px -2px 2px rgba(0, 0, 0, 0.25), 1px 2px 2px rgba(255, 255, 255, 0.25);
+      font-family: Courier, monospace;
+    }
+    div#actionscript-output :first-child {
+      font-weight: bold;
+    }
+    div#actionscript-output p {
+      margin: 0 0 0.5em;
+      color: #0f0;
+      text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+    }
+    div#actionscript-output p span.count {
+      opacity: 0.5;
+      font-style: italic;
+    }
+    p#footer a {
+      margin: 0 0.5em 0 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Hemlock Tests &gt; Raw Data &gt; Chat</h1>
+
+  <noscript>
+    <div class="error">This demo requires JavaScript.</div>
+  </noscript>
+
+  <p id="status">Loading...</p>
+  <p id="connection-adapter"></p>
+
+  <p>
+    Demonstrates sending and receiving arbitrary text with a specific user.
+  </p>
+  <div id="hemlock-pixel">
+    <!--
+      Some browsers on some systems require that this div is within the
+      visible viewport (e.g., above the fold). Otherwise, HemlockPixel.swf
+      may download but not actually run.
+    -->
+    Hemlock requires Flash 9.0.28 or later.
+  </div>
+
+  <form class="connection-adapter">
+    <fieldset>
+      <ol>
+        <li>
+          <label for="connection-adapter-name">Connection adapter</label>
+          <select id="connection-adapter-name" name="connection-adapter[name]">
+            <!-- <option value="WebSocket">WebSocket (not yet implemented)</option> -->
+            <option value="HemlockPixel">HemlockPixel (Flash)</option>
+            <option value="Strophe">Strophe (BOSH)</option>
+          </select>
+        </li>
+      </ol>
+    </fieldset>
+  </form>
+
+  <form class="signin">
+    <fieldset>
+      <ol>
+        <li>
+          <label for="signin-username">Username</label>
+          <input type="text" id="signin-username"
+            name="signin[username]" value="sherlockhemlock" />
+        </li>
+        <li>
+          <label for="signin-password">Password</label>
+          <input type="text" id="signin-password"
+            name="signin[password]" value="ronronron" />
+        </li>
+        <li>
+          <label for="signin-other-jid">Other user&rsquo;s JID</label>
+          <input type="text" id="signin-other-jid"
+            name="signin[other-jid]" value="ron@localhost/washburne" />
+            <!-- TODO: Remove last part of JID? -->
+        </li>
+        <!--
+        <li class="room">
+          <label for="signin-room">Room</label>
+          <input type="text" id="signin-room"
+            name="signin[room]" value="someroom" />
+        </li>
+        -->
+        <li>
+          <label for="signin-host">Host</label>
+          <input type="text" id="signin-host"
+            name="signin[host]" value="localhost" />
+        </li>
+        <!--
+        <li>
+          <label for="signin-muc-host">MUC Host</label>
+          <input type="text" id="signin-muc-host"
+            name="signin[muc-host]" value="conference.localhost" />
+        </li>
+        -->
+      </ol>
+    </fieldset>
+    <div class="submit">
+      <button type="submit">Sign in</button>
+    </div>
+  </form>
+
+  <form class="send text">
+    <fieldset>
+      <ol>
+        <li>
+          <label for="send-text">Text:</label>
+          <input type="text" id="send-text" name="send-text" value="Hi!" />
+        </li>
+      </ol>
+    </fieldset>
+    <div class="submit">
+      <button type="submit">Send</button>
+    </div>
+  </form>
+
+  <form class="send move">
+    <fieldset>
+      <ol>
+        <li>
+          <label for="move-loc-from">Move from</label>
+          <input type="text" id="send-move-loc-from"
+            name="send-move[loc-from]" value="10,10" />
+        </li>
+        <li>
+          <label for="move-loc-to">to</label>
+          <input type="text" id="move-loc-to"
+            name="send-move[loc-to]" value="20,20" />
+        </li>
+      </ol>
+    </fieldset>
+    <div class="submit">
+      <button type="submit">Send your move</button>
+    </div>
+  </form>
+
+  <!-- Hemlock.ConnectionAdapters.HemlockPixel only: -->
+  <div id="actionscript-output">
+    <p>ActionScript output</p>
+    <p>===================</p>
+  </div>
+
+  <p id="footer">
+    <a href="http://hemlock-kills.com">Hemlock</a>
+    <a href="http://github.com/mintdigital/hemlock">Source code on GitHub</a>
+  </p>
+
+  <!--
+    Use your favorite asset bundling system to
+    combine these and reduce HTTP requests.
+  -->
+  <script src="/javascripts/json2-20101117.js"></script>
+  <script src="/javascripts/jquery-1.3.2.js"></script>
+  <script src="/javascripts/strophe-1.0.1.js"></script>
+  <script src="/javascripts/swfobject-2.2.min.js"></script>
+  <script src="/javascripts/hemlock/core.js"></script>
+  <script src="/javascripts/hemlock/handler.js"></script>
+  <script src="/javascripts/hemlock/bridge.js"></script>
+  <script src="/javascripts/hemlock/connection.js"></script>
+  <script src="/javascripts/hemlock/connection-adapters/hemlock-pixel.js"></script>
+  <script src="/javascripts/hemlock/connection-adapters/strophe.js"></script>
+  <script src="/javascripts/hemlock/privatize.js"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>

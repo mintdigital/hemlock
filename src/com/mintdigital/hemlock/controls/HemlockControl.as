@@ -29,12 +29,8 @@ package com.mintdigital.hemlock.controls{
         
         /*
         // TODO: Add disable()/enable() support for controls
-        // - To do this, we need to rethink the event listening flow. Right
-        //   now, widgets add listeners to controls, so when we call disable()
-        //   or enable() on that control, it needs to know how to find all
-        //   listeners that the widget has attached, disable them, and be able
-        //   to re-enable them.
-        //   - Call registerListener() on the control instead of the widget?
+        // - Call registerListener() on the control instead of the widget;
+        //   see HemlockButton
         public function disable():void{
             stopListeners();
             alpha = 0.5;

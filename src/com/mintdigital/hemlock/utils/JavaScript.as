@@ -22,9 +22,10 @@ package com.mintdigital.hemlock.utils{
                 return;
             }
 
+            var escapedArg:String;
             args.forEach(function(arg:*, index:int, array:Array):void{
-                run('function(){ alert("' + arg + '"); }');
-                    // TODO: Add escaping of double quotes
+                escapedArg = arg.replace(new RegExp('"', 'gm'), '\\"');
+                run('function(){ alert("' + escapedArg + '"); }');
             });
         }
         
@@ -33,10 +34,20 @@ package com.mintdigital.hemlock.utils{
                 Logger.error('JavaScript::log() : ExternalInterface not available.');
                 return;
             }
-            
+
+            var escapedArg:String;
             args.forEach(function(arg:*, index:int, array:Array):void{
-                run('function(){ if(console && console.log){ console.log("' + arg + '"); }else{ alert("' + arg + '"); } }');
-                    // TODO: Add escaping of double quotes
+                escapedArg = arg.replace(new RegExp('"', 'gm'), '\\"');
+                run(
+                    (<![CDATA[ function(){
+                        if(window.console && window.console.log){
+                            window.console.log("{{arg}}");
+                        }else{
+                            alert("{{arg}}");
+                        }
+                    } ]]>).toString().
+                        replace(new RegExp('{{arg}}', 'gm'), escapedArg)
+                );
             });
         }
         

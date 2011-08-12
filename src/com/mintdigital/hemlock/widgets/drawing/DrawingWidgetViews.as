@@ -4,7 +4,7 @@ package com.mintdigital.hemlock.widgets.drawing{
     import com.mintdigital.hemlock.display.HemlockSprite;
     import com.mintdigital.hemlock.utils.GraphicsUtils;
     import com.mintdigital.hemlock.utils.HashUtils;
-    import com.mintdigital.hemlock.utils.setAttributes;
+    import com.mintdigital.hemlock.utils.setProperties;
     import com.mintdigital.hemlock.widgets.IDelegateViews;
     import com.mintdigital.hemlock.widgets.HemlockWidget;
     import com.mintdigital.hemlock.widgets.HemlockWidgetDelegate;
@@ -84,15 +84,6 @@ package com.mintdigital.hemlock.widgets.drawing{
             views.canvas.setSize(coords.canvas.width, coords.canvas.height);
 
             // Create "clear" button
-            /*
-            views.clearButton = new HemlockButton('clear', '', {
-                x:      coords.clearButton.x,
-                y:      coords.clearButton.y,
-                width:  coords.clearButton.width,
-                height: coords.clearButton.height,
-                label:  'clear'
-            });
-            */
             views.clearButton = new HemlockButton('clear', '', HashUtils.merge({
                 label:  'clear'
             }, coords.clearButton));
@@ -109,11 +100,6 @@ package com.mintdigital.hemlock.widgets.drawing{
                 brushColorBox.buttonMode = true;
                 with(brushColorBox.graphics){
                     // Prop open
-                    /*
-                    beginFill(0, 0);
-                    drawRect(0, 0, coords.brushColorBox.width, coords.brushColorBox.height);
-                    endFill();
-                    */
                     GraphicsUtils.fill(brushColorBox.graphics, coords.brushColorBox);
 
                     // Draw brush color
@@ -137,31 +123,8 @@ package com.mintdigital.hemlock.widgets.drawing{
             //       to make it more recognizable for users.
             [Embed(source="assets/eraser.png")] var ImageEraser:Class;
             var eraserControl:DisplayObject = new ImageEraser();
-            /*
-            with(eraserControl){
-                x       = coords.eraserControl.x;
-                y       = coords.eraserControl.y;
-                width   = coords.eraserControl.width;
-                height  = coords.eraserControl.height;
-            }
-            */
-            setAttributes(eraserControl, coords.eraserControl);
-            /*
-            views.eraser = new HemlockSprite({
-                x:      coords.eraser.x,
-                y:      coords.eraser.y,
-                width:  coords.eraser.width,
-                height: coords.eraser.height
-            });
-            */
+            setProperties(eraserControl, coords.eraserControl);
             views.eraser = new HemlockSprite(coords.eraser);
-            /*
-            with(views.eraser.graphics){
-                beginFill(0, 0); // Prop open;
-                drawRect(0, 0, coords.eraser.width, coords.eraser.height);
-                endFill();
-            }
-            */
             GraphicsUtils.fill(views.eraser.graphics, coords.eraser);
             views.eraser.addChild(eraserControl);
             views.eraser.updateSize();
@@ -178,11 +141,6 @@ package com.mintdigital.hemlock.widgets.drawing{
                 brushThicknessBox.buttonMode = true;
                 with(brushThicknessBox.graphics){
                     // Prop open
-                    /*
-                    beginFill(0, 0);
-                    drawRect(0, 0, coords.brushThicknessBox.width, coords.brushThicknessBox.height);
-                    endFill();
-                    */
                     GraphicsUtils.fill(brushThicknessBox.graphics, coords.brushThicknessBox);
 
                     // Draw brush thickness
@@ -205,14 +163,6 @@ package com.mintdigital.hemlock.widgets.drawing{
             views.brushThicknesses.setSize(coords.brushThicknesses.width, coords.brushThicknesses.height);
 
             // Wrap up
-            /*
-            addChild(views.canvas);
-            addChild(views.clearButton);
-            addChild(views.brushColors);
-            addChild(views.eraser);
-            addChild(views.brushThicknesses);
-            widget.updateSize();
-            */
             widget.addChildren(
                 views.canvas,
                 views.clearButton,

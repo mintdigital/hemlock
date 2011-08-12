@@ -71,7 +71,7 @@ package com.mintdigital.hemlock.controls{
             super(name, value, options);
 
             _backgrounds = backgrounds;
-            if(options.checked){ checked = true; }
+            checked = !!options.checked;
             
             registerListeners();
             startListeners();

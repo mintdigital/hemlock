@@ -10,19 +10,20 @@ package com.mintdigital.hemlock.events{
     
     final public class AppEvent extends HemlockEvent{
         
-        public static const ROOM_USER_JOIN:String           = 'room_userJoin'      // Another user joins the room
-        public static const ROOM_USER_LEAVE:String          = 'room_userLeave'     // Another user leaves the room
-        public static const ROOM_CONFIGURED:String          = 'room_configured'    // The final step of updating a room's configuration.
-        public static const ROOM_JOINED:String              = 'room_joined'        // User has joined a room
-        public static const ROOM_LEAVE:String               = 'room_leave'
+        public static const ROOM_JOINED:String              = 'room_joined';        // Current user has joined a room
+            // TODO: Rename to ROOM_JOIN
+        public static const ROOM_LEAVE:String               = 'room_leave';         // Current user has left a room
+        public static const ROOM_USER_JOIN:String           = 'room_userJoin';      // Another user has joined the room
+        public static const ROOM_USER_LEAVE:String          = 'room_userLeave';     // Another user has left the room
+        public static const ROOM_CONFIGURED:String          = 'room_configured';    // Final step of updating a room's configuration
 
-        // TODO: Phase these out; use PresenceEvent instead
         public static const PRESENCE_CREATE:String          = 'presence_create';
         public static const PRESENCE_UPDATE:String          = 'presence_update';
         
         // TODO: Move to separate ChatEvent class
         public static const CHAT_MESSAGE:String             = 'message_chatMessage';    // Chat message
-        public static const CHATROOM_STATUS:String          = 'chatroom_status';        // Chat message
+        public static const CHATROOM_STATUS:String          = 'chatroom_status';
+            // TODO: Rename to CHAT_STATUS
                 
         public static const CONFIGURATION_COMPLETE:String   = 'configuration_complete';
         public static const CONFIGURATION_START:String      = 'configuration_start';
@@ -32,6 +33,8 @@ package com.mintdigital.hemlock.events{
         public static const DISCOVERY_USERS_FOUND:String    = 'discovery_itemsFound';
         
         public static const CONNECTION_DESTROY:String       = 'connection_destroy';
+        public static const IO_ERROR:String                 = 'io_error';
+        public static const SECURITY_ERROR:String           = 'security_error';
         public static const STREAM_ERROR:String             = 'stream_error';
 
         public static const SESSION_CREATE_SUCCESS:String   = 'session_createSuccess';

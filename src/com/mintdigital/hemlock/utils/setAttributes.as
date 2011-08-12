@@ -1,14 +1,10 @@
 package com.mintdigital.hemlock.utils{
-    
-    // TODO: Rename to setProperties() for consistency
-    
+    import com.mintdigital.hemlock.Logger;
+
     public function setAttributes(object:Object, attributes:Object):void{
-        // `attributes` is an options hash. Takes every attribute in the hash
-        // and assigns its value to the `object`'s same attribute.
-        
-        for(var attributeName:String in attributes){
-            object[attributeName] = attributes[attributeName];
-        }
+        // Deprecated; use setProperties() instead for consistency in terminology.
+        Logger.debug('DEPRECATED: setAttributes(); use setProperties() instead.');
+        setProperties(object, attributes);
     }
     
 }

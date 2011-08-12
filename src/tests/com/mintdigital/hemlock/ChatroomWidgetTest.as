@@ -137,8 +137,8 @@ public function testMouseClickShouldSendAMessage():void {
 	assertNull(parent.errorMessage());
 }
 
-public function testShouldLeaveChatroomOnClickingLink():void {
-	parent.expects("leaveChatRoom").times(1);
+public function testShouldLeaveRoomOnClickingLink():void {
+	parent.expects("leaveRoom").times(1);
 
 	widget.views.room.dispatchEvent(new TextEvent(TextEvent.LINK));
 	

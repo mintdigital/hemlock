@@ -131,7 +131,7 @@ package com.mintdigital.hemlock.widgets{
         
         public function sendDataMessage(payloadType:String, payload:*=null):void{
             // Typical `payloadType` values should come from a HemlockEvent's
-            // constants, e.g., AppEvent.GAME_BEGIN. The value for `payload`
+            // constants, e.g., GameEvent.BEGIN. The value for `payload`
             // should be an object, such as { foo: "bar", baz: 1 }.
             container.sendDataMessage(bareJID, payloadType, payload || {});
         }

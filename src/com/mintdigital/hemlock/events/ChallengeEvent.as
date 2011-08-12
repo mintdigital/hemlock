@@ -1,14 +1,14 @@
 package com.mintdigital.hemlock.events {    
     import flash.events.*;
-    import com.mintdigital.hemlock.conn.XMPPConnection;
+    import com.mintdigital.hemlock.conn.IConnection;
     import flash.xml.XMLNode;
     
     public class ChallengeEvent extends HemlockEvent {
       
-        public static const CHALLENGE : String = "challenge";
+        public static const CHALLENGE:String = 'challenge';
         
-        protected var _connection:XMPPConnection;
-        protected var _node : XMLNode;
+        protected var _connection:IConnection;
+        protected var _node:XMLNode;
             
         public function ChallengeEvent (type:String, options:Object = null){
             super(type, options);
@@ -30,12 +30,10 @@ package com.mintdigital.hemlock.events {
         //  Properties
         //--------------------------------------
         
-        public function get connection() : XMPPConnection {
-            return _connection; 
-        }
+        public function get connection():IConnection{ return _connection; }
         
-        public function get data() : String { 
-            return _node.childNodes[0].nodeValue; 
+        public function get data():String{
+            return _node.childNodes[0].nodeValue;
         }
         
     }

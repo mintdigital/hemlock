@@ -31,19 +31,24 @@ package com.mintdigital.hemlock.conn {
     import flash.xml.XMLDocument;
     import flash.xml.XMLNode;
     
-    public class XMPPConnection extends EventDispatcher{
+    public class XMPPConnection extends EventDispatcher implements IConnection{
         
         protected var _socket : SocketConn;
         protected var _incompleteRawXML : String;
         protected var _server : String;
         protected var _port : Number;
+        protected var _ports : Array;
+        protected var _policyPort:Number;
         protected var _active : Boolean;
         protected var _loggedIn : Boolean;
         protected var _pendingIQs : Object;
+        protected var _currentPort : Number;
             
-        public function XMPPConnection(){
-            Security.loadPolicyFile('xmlsocket://'
-                + HemlockEnvironment.SERVER + ':' + HemlockEnvironment.POLICY_PORT);
+        public function XMPPConnection(args:Object){
+            _server     = args.server || HemlockEnvironment.SERVER;
+            _policyPort = args.policyPort || HemlockEnvironment.POLICY_PORT;
+            Security.loadPolicyFile(
+                'xmlsocket://' + _server + ':' + _policyPort);
 
             super();
             
@@ -53,22 +58,18 @@ package com.mintdigital.hemlock.conn {
             _socket.addEventListener(IOErrorEvent.IO_ERROR, onIOError);
             _socket.addEventListener(SecurityErrorEvent.SECURITY_ERROR, onSecurityError);
             _socket.addEventListener(SocketDataEvent.SOCKET_DATA_RECEIVED, onDataReceived);
-            port = 5222;
+            _currentPort = 0;
+            ports = HemlockEnvironment.SERVER_PORTS;
         }
         
         public function connect() : Boolean {
-            try{
-                _active = false;
-                _loggedIn = false;
-                _incompleteRawXML = '';
-                _pendingIQs = new Object();
-
-                _socket.connect(server, port);
-                Logger.debug('XMPPConnection::connect : socket = ' + _socket);
-            }catch(error:SecurityError){
-                Logger.error('XMPPConnection::connect : Could not connect. Error = ' + error);
-                return false;
-            }
+            _active = false;
+            _loggedIn = false;
+            _incompleteRawXML = '';
+            _pendingIQs = new Object();
+            
+            _socket.connect(server, ports[_currentPort]);
+            Logger.debug('XMPPConnection::connect : socket = ' + _socket);
             
             return true;
         }
@@ -82,7 +83,7 @@ package com.mintdigital.hemlock.conn {
         }
         
         public function send(data:*) : void {
-            Logger.debug("Sending..." + data);
+            Logger.debug('Sending to socket: ' + data);
             _socket.sendString(data);
         }
         
@@ -125,7 +126,7 @@ package com.mintdigital.hemlock.conn {
         //--------------------------------------
         
         private function handleStreamStart(node:XMLNode):void{
-            Logger.debug("XMPPConnection::handleStreamStart() " );
+            Logger.debug('XMPPConnection::handleStreamStart()');
             dispatchEvent(new StreamEvent(StreamEvent.START, {
                 bubbles:    true,
                 cancelable: true,
@@ -144,7 +145,7 @@ package com.mintdigital.hemlock.conn {
         }
         
         private function handleMessage(node:XMLNode) : void {
-            Logger.debug("XMPPConnection::handleMessage() " );
+            Logger.debug('XMPPConnection::handleMessage()');
             Logger.debug('- node.id = ' + node.attributes.id);
             
             var incomingPayloadType:String;
@@ -185,12 +186,12 @@ package com.mintdigital.hemlock.conn {
         }
 
         private function handleChallenge(node:XMLNode) : void {
-            Logger.debug("XMPPConnection::handleChallenge() " );
+            Logger.debug('XMPPConnection::handleChallenge()');
             dispatchEvent(new ChallengeEvent(ChallengeEvent.CHALLENGE, {
-                bubbles: true,
-                cancelable : true,
+                bubbles:    true,
+                cancelable: true,
                 connection: this,
-                node: node
+                node:       node
             }));
         }
         
@@ -262,6 +263,7 @@ package com.mintdigital.hemlock.conn {
         protected function onSocketConnected(ev:Event):void {
             Logger.debug("XMPPConnection::onSocketConnected()" );
             _active = true;
+            port = ports[_currentPort];
             send( openStreamTag() );
             dispatchEvent( new ConnectionSuccessEvent() );
         }
@@ -272,6 +274,7 @@ package com.mintdigital.hemlock.conn {
             // Logger.debug('RAW XML: ' + rawXML);
             
             if (containsClosedStreamTag(rawXML)){
+                Logger.debug('... closed stream tag');
                 // TODO: Check for <stream:error> if duplicate login
                 // - If dup login, pass error string to disconnect()
                 // - Error string should propagate to container, which should recognize it and change to a user-friendly explanation
@@ -287,17 +290,13 @@ package com.mintdigital.hemlock.conn {
             }
             
             if (containsOpenStreamTag(rawXML)){
-                rawXML = rawXML.concat("</stream:stream>");
+                rawXML = rawXML.concat(closeStreamTag());
             }
 
             var xmlData:XMLDocument = stringToXML(rawXML,ev);
+            if (xmlData == null){ return; }
             
-            if (xmlData == null){
-                return;
-            }
-            
-            for (var i:int = 0; i < xmlData.childNodes.length; i++)
-            {
+            for (var i:int = 0; i < xmlData.childNodes.length; i++){
                 var node:XMLNode = xmlData.childNodes[i];
                 Logger.debug("... handling " + node.nodeName);
                 switch (node.nodeName.toLowerCase()){
@@ -306,6 +305,9 @@ package com.mintdigital.hemlock.conn {
                         break;
                     case 'stream:error':
                         handleStreamError(node);
+                        break;
+                    case 'stream:features':
+                        handleFeatures(node);
                         break;
                     case "challenge":
                         handleChallenge(node);
@@ -316,45 +318,43 @@ package com.mintdigital.hemlock.conn {
                     case "failure":
                         handleFailure(node);
                         break;
-                    case "iq":
-                        handleIQ(node);
-                        break;
-                    case "stream:features":
-                        handleFeatures(node);
-                        break;
                     case "message":
                         handleMessage(node);
                         break;
                     case 'presence':
                         handlePresence(node);
                         break;
+                    case 'iq':
+                        handleIQ(node);
+                        break;
                     default:
                         break;
                         
                 }
             }
-            
-            
-            
         }
         
-        protected function onSocketClosed(e:Event):void {    
-            Logger.debug("XMPPConnection::onSocketClosed()" );
+        protected function onSocketClosed(ev:Event):void{
+            Logger.debug('XMPPConnection::onSocketClosed()');
             disconnect();
         }
         
-        protected function onIOError(event:IOErrorEvent):void
-        {
-            Logger.debug("XMPPConnection::onIOError() : " + event.text);
-            dispatchEvent(event);
+        protected function onIOError(ev:IOErrorEvent):void{
+            Logger.debug('XMPPConnection::onIOError() : ' + ev.text);
+            dispatchEvent(ev);
         }
         
-        protected function onSecurityError(event:SecurityErrorEvent):void
-        {
-            Logger.debug("There was a security error of type: " + event.type + "\nError: " + event.text);
+        protected function onSecurityError(ev:SecurityErrorEvent):void{
+            Logger.debug('XMPPConnectionLite::onSecurityError() : ' + ev.text);
+
             _active = false;
-            _loggedIn = false;            
-            dispatchEvent(event);
+            _loggedIn = false;
+            _currentPort++; // Try next supported port, if any
+            if(ports[_currentPort]){
+                connect();
+            }else{
+                dispatchEvent(ev);
+            } 
         }
         
         
@@ -376,7 +376,6 @@ package com.mintdigital.hemlock.conn {
             return xmlData;
         }
         
-        
         private function containsOpenStreamTag(xml:String) : Boolean {
             var openStreamRegex:RegExp = new RegExp("<stream:stream");
             var resultObj:Object = openStreamRegex.exec(xml);
@@ -389,8 +388,6 @@ package com.mintdigital.hemlock.conn {
             return (resultObj != null);
         }
 
-
-        
         protected function openStreamTag() : String {
             return "<?xml version=\"1.0\"?><stream:stream to=\"" + server + 
                 "\" xmlns=\"jabber:client\" xmlns:stream=\"http://etherx.jabber.org/streams\" version=\"1.0\">";
@@ -399,26 +396,24 @@ package com.mintdigital.hemlock.conn {
         protected function closeStreamTag() : String {
             return "</stream:stream>";
         }
-        
+
+
+
         //--------------------------------------
         //  Properties
         //--------------------------------------
         
-        public function get port() : Number { 
-            return _port; 
-        }
+        public function get port():Number               { return _port; }
+        public function set port(value:Number):void     { _port = value; }
         
-        public function set port( arg:Number ) : void { 
-            _port = arg; 
-        }
+        public function get ports():Array               { return _ports; }
+        public function set ports(value:Array):void     { _ports = value; }        
+
+        public function get policyPort():Number             { return _policyPort; }
+        public function set policyPort(value:Number):void   { _policyPort = value; }
         
-        public function get server() : String { 
-            return _server; 
-        }
-        
-        public function set server( arg:String ) : void { 
-            _server = arg; 
-        }
+        public function get server():String             { return _server; }
+        public function set server(value:String):void   { _server = value; }
         
     } 
 }

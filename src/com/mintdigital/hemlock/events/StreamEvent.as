@@ -1,5 +1,5 @@
 package com.mintdigital.hemlock.events{
-    import com.mintdigital.hemlock.conn.XMPPConnection;
+    import com.mintdigital.hemlock.conn.IConnection;
     
     import flash.events.Event;
     import flash.xml.XMLNode;
@@ -8,7 +8,7 @@ package com.mintdigital.hemlock.events{
         public static const START:String    = 'stream_start';
         public static const ERROR:String    = 'stream_error';
         
-        protected var _connection:XMPPConnection;
+        protected var _connection:IConnection;
         protected var _node:XMLNode;
         
         public function StreamEvent(type:String, options:Object = null){
@@ -24,7 +24,7 @@ package com.mintdigital.hemlock.events{
         }
         
         override public function toString():String{
-              return formatHemlockEventToString('StreamEvent');
+            return formatHemlockEventToString('StreamEvent');
         }
         
         
@@ -33,9 +33,9 @@ package com.mintdigital.hemlock.events{
         //  Properties
         //--------------------------------------
         
-        public function get connection():XMPPConnection { return _connection; }
+        public function get connection():IConnection{ return _connection; }
         
-        public function get node():XMLNode              { return _node; }
+        public function get node():XMLNode          { return _node; }
         
     }
 }

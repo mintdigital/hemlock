@@ -6,7 +6,7 @@ package com.mintdigital.hemlock.widgets.roomList{
     import com.mintdigital.hemlock.display.HemlockLabel;
     import com.mintdigital.hemlock.display.HemlockSprite;
     import com.mintdigital.hemlock.utils.HashUtils;
-    import com.mintdigital.hemlock.utils.setAttributes;
+    import com.mintdigital.hemlock.utils.setProperties;
     import com.mintdigital.hemlock.widgets.HemlockWidget;
     import com.mintdigital.hemlock.widgets.HemlockWidgetDelegate;
     import com.mintdigital.hemlock.widgets.IDelegateViews;
@@ -181,13 +181,13 @@ package com.mintdigital.hemlock.widgets.roomList{
             views.formFields = [];
         }
 
-        internal function addListItem(itemName:String, jidString:String):HemlockSprite{
+        internal function addListItem(jidString:String, itemName:String):HemlockSprite{
             Logger.debug('RoomListWidget::addListItem()');
 
             const HEIGHT:uint = 50;
-            var roomName:String = itemName.replace(/\s*\((\w+\,\s)?(\d+)\)$/, '');
-            var numPlayers:uint = parseInt(itemName.match(/\s*\((\w+\,\s)?(\d+)\)$/)[2]);
-            // Assumes itemName is in format "roomName (11)" or "roomName (private, 11)"
+            var roomTitle:String = itemName.replace(/\s*\((\w+\,\s)?(\d+)\)$/, '');
+            var numParticipants:uint = parseInt(itemName.match(/\s*\((\w+\,\s)?(\d+)\)$/)[2]);
+                // Assumes itemName is in format "roomTitle (11)" or "roomTitle (private, 11)"
 
             // views.list.show();
             // views.listScrollBar.show();
@@ -214,7 +214,7 @@ package com.mintdigital.hemlock.widgets.roomList{
                 width:  coords.listItem.width - coords.joinButton.width,
                 height: HEIGHT * 0.4
             };
-            coords.playersText = {
+            coords.participantsText = {
                 x:      0,
                 y:      coords.titleText.y + coords.titleText.height,
                 width:  coords.titleText.width,
@@ -226,18 +226,19 @@ package com.mintdigital.hemlock.widgets.roomList{
                 name:   jidString
             }, coords.listItem));
 
-            // Create "join game" button
-            var joinButton:HemlockButton = new HemlockButton('joinGame', jidString, HashUtils.merge({
+            // Create "join" button
+            var joinButton:HemlockButton = new HemlockButton('join', jidString, HashUtils.merge({
                 label:  options.strings.joinRoomButton
             }, coords.joinButton));
 
             // Create room title text
             var titleText:TextField = new TextField();
-            setAttributes(titleText, coords.titleText);
+            setProperties(titleText, coords.titleText);
             with(titleText){
+                name        = 'titleText';
                 embedFonts  = true;
                 selectable  = false;
-                text        = roomName;
+                text        = roomTitle;
             }
             var titleFormat:TextFormat = new TextFormat();
             with(titleFormat){
@@ -247,26 +248,27 @@ package com.mintdigital.hemlock.widgets.roomList{
             }
             titleText.setTextFormat(titleText.defaultTextFormat = titleFormat);
 
-            // Create "# players" text
-            var playersText:TextField = new TextField();
-            setAttributes(playersText, coords.playersText);
-            with(playersText){
+            // Create "# people" text
+            var participantsText:TextField = new TextField();
+            setProperties(participantsText, coords.participantsText);
+            with(participantsText){
+                name        = 'participantsText';
                 embedFonts  = true;
                 selectable  = false;
-                text        = numPlayers + ' '
-                                + (numPlayers == 1 ? options.strings.participant : options.strings.participants);
+                text        = numParticipants + ' '
+                                + options.strings[numParticipants == 1 ? 'participant' : 'participants'];
             }
-            var playersFormat:TextFormat = new TextFormat();
-            with(playersFormat){
+            var participantsFormat:TextFormat = new TextFormat();
+            with(participantsFormat){
                 color   = options.roomMetaColor;
                 font    = skin.FONT_PRIMARY;
                 size    = 14;
             }
-            playersText.setTextFormat(playersText.defaultTextFormat = playersFormat);
+            participantsText.setTextFormat(participantsText.defaultTextFormat = participantsFormat);
 
             listItem.addChildren(
                 titleText,
-                playersText,
+                participantsText,
                 joinButton
             );
 
@@ -281,8 +283,6 @@ package com.mintdigital.hemlock.widgets.roomList{
             Logger.debug('RoomListWidgetViews::removeListItem() : jidString = ' + jidString);
             
             var listItem:HemlockSprite = views.list.getChildByName(jidString) as HemlockSprite;
-            Logger.debug('===== listItem = ' + (listItem)); // FIXME: testing; remove
-            Logger.debug('===== views.list.numChildren = ' + (views.list.numChildren)); // FIXME: testing; remove
             if(!listItem){ return; }
             
             // Remove item
@@ -290,7 +290,6 @@ package com.mintdigital.hemlock.widgets.roomList{
             
             // Update positions of other items
             var numItems:uint = views.list.numChildren;
-            Logger.debug('===== numItems = ' + (numItems)); // FIXME: testing; remove
             if(numItems > 0){
                 const HEIGHT:Number = views.list.getChildAt(0).height;
                 for(var i:uint = 0; i < numItems; i++){
@@ -306,6 +305,45 @@ package com.mintdigital.hemlock.widgets.roomList{
                 }
             }else{
                 views.empty.visible = true;
+            }
+        }
+        
+        internal function updateListItem(jidString:String, itemName:String):void{
+            Logger.debug('RoomListWidgetViews::updateListItem() : jidString = ' + jidString);
+            
+            var listItem:HemlockSprite = views.list.getChildByName(jidString) as HemlockSprite;
+            if(!listItem){ return; }
+
+            var roomTitle:String = itemName.replace(/\s*\((\w+\,\s)?(\d+)\)$/, ''),
+                numParticipants:uint = parseInt(itemName.match(/\s*\((\w+\,\s)?(\d+)\)$/)[2]);
+                // Assumes itemName is in format "roomTitle (11)" or "roomTitle (private, 11)"
+            
+            // Update room title
+            var titleText:TextField = listItem.getChildByName('titleText') as TextField;
+            if(titleText){ titleText.text = roomTitle; }
+            
+            // Update # room participants
+            var participantsText:TextField = listItem.getChildByName('participantsText') as TextField;
+            if(participantsText){
+                participantsText.text = numParticipants + ' '
+                    + options.strings[numParticipants == 1 ? 'participant' : 'participants'];
+            }
+
+            // Disable/enable "join" button
+            if(widget.options.maxParticipants > 0){
+                var joinButton:HemlockButton = listItem.getChildByName('join') as HemlockButton;
+                if(numParticipants < widget.options.maxParticipants){
+                    joinButton.enable();
+                }else{
+                    joinButton.disable({ label: 'Full' });
+                        // TODO: Update button handler to also check # participants
+                        // - Backup against race condition where "Join" is clicked
+                        //   before button is disabled.
+                        // - Widget needs its own model storing room JIDs, titles,
+                        //   and number of participants.
+                        // TODO: Disable buttons by default, until they're
+                        //       specifically enabled in this function?
+                }
             }
         }
         

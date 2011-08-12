@@ -17,15 +17,13 @@ package com.mintdigital.hemlock.data{
         public static const SUBSCRIBED_TYPE:String      = 'subscribed';
         public static const UNSUBSCRIBED_TYPE:String    = 'unsubscribed';
         public static const ERROR_TYPE:String           = 'error';
+        public static const VISIBLE_TYPE:String         = 'visible';    // See XEP-0018
+        public static const INVISIBLE_TYPE:String       = 'invisible';  // See XEP-0018
 
         // Roles
         public static const MODERATOR_ROLE:String       = 'moderator';
         public static const PARTICIPANT_ROLE:String     = 'participant';
         public static const VISITOR_ROLE:String         = 'visitor';
-
-        // Types
-        public static const VISIBLE_TYPE:String         = 'visible';    // See XEP-0018
-        public static const INVISIBLE_TYPE:String       = 'invisible';  // See XEP-0018
 
         // "Show" status
         public static const SHOW_AWAY:String            = 'away';   // temporarily away

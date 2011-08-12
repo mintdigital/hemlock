@@ -1,5 +1,5 @@
 package com.mintdigital.hemlock.auth {
-    import com.mintdigital.hemlock.conn.XMPPConnection;
+    import com.mintdigital.hemlock.conn.IConnection;
     import com.mintdigital.hemlock.Logger;
     import com.mintdigital.hemlock.data.register.RegisterExtension;
     import com.mintdigital.hemlock.events.RegistrationEvent;
@@ -14,14 +14,14 @@ package com.mintdigital.hemlock.auth {
     
     public class Registration extends EventDispatcher {
         
-        public var _connection : XMPPConnection;
-        public var _username : String;
-        public var _password : String;
+        public var _connection:IConnection;
+        public var _username:String;
+        public var _password:String;
         private var _regResponse:RegisterExtension = new RegisterExtension();
-        private var _getRegisterIQ:IQ = new IQ(null, "get");
-        private var _setRegisterIQ:IQ = new IQ(null, "set");
+        private var _getRegisterIQ:IQ = new IQ(null, IQ.GET_TYPE);
+        private var _setRegisterIQ:IQ = new IQ(null, IQ.SET_TYPE);
         
-        function Registration(connection : XMPPConnection){
+        function Registration(connection:IConnection){
             Logger.debug("Registration()");
             super();
             _connection = connection;
@@ -83,7 +83,7 @@ package com.mintdigital.hemlock.auth {
         //  Properties
         //--------------------------------------
         
-        public function get connection() : XMPPConnection { 
+        public function get connection():IConnection{
             return _connection; 
         }
         

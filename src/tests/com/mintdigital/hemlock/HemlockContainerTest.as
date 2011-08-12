@@ -76,17 +76,17 @@ public function testLogoutShouldBeDelegatedToClient():void{
 	);
 }
 
-public function testDiscoChatRoomsShouldBeDelegatedToClient():void{
+public function testDiscoRoomsShouldBeDelegatedToClient():void{
 	assertNull(
-		TestDelegateHelper.shouldDelegateCall(hemlock_container, mock, "discoChatRooms")
+		TestDelegateHelper.shouldDelegateCall(hemlock_container, mock, "discoRooms")
 		.errorMessage()
 	);
 }
 
 
-public function testJoinChatroomShouldBeDelegatedToClient():void{
+public function testJoinRoomShouldBeDelegatedToClient():void{
 	assertNull(
-		TestDelegateHelper.shouldDelegateCall(hemlock_container, mock, "joinChatRoom", 
+		TestDelegateHelper.shouldDelegateCall(hemlock_container, mock, "joinRoom", 
 		new JID("test"), 
 		new JID('test/' + hemlock_container.client.username))
 		.errorMessage()
@@ -101,16 +101,16 @@ public function testUpdatePrivacyListShouldBeDelegatedToClient():void{
 	);
 }
 
-public function testCreateChatroomShouldBeDelegatedToClient():void{
+public function testCreateRoomShouldBeDelegatedToClient():void{
 	assertNull(
-		TestDelegateHelper.shouldDelegateCall(hemlock_container, mock, "createChatRoom", "test", new Array("test",hemlock_container.domain,null))
+		TestDelegateHelper.shouldDelegateCall(hemlock_container, mock, "createRoom", "test", new Array("test",hemlock_container.domain,null))
 		.errorMessage()
 		);
 }
 
-public function testLeaveChatroomShouldBeDelegatedToClient():void{
+public function testLeaveRoomShouldBeDelegatedToClient():void{
 	assertNull(
-		TestDelegateHelper.shouldDelegateCall(hemlock_container, mock, "leaveChatRoom", new JID("test"))
+		TestDelegateHelper.shouldDelegateCall(hemlock_container, mock, "leaveRoom", new JID("test"))
 		.errorMessage()
 		);
 }
@@ -122,9 +122,9 @@ public function testDiscoUsersShouldBeDelegatedToClient():void{
 	);
 }
 
-public function testConfigureChatRoomShouldBeDelegatedToClient():void{
+public function testConfigureRoomShouldBeDelegatedToClient():void{
 	assertNull(
-		TestDelegateHelper.shouldDelegateCall(hemlock_container, mock, "configureChatRoom", new Array(new JID("test"),{}))
+		TestDelegateHelper.shouldDelegateCall(hemlock_container, mock, "configureRoom", new Array(new JID("test"),{}))
 		.errorMessage()
 	);
 }
@@ -170,7 +170,7 @@ public function testShouldAddAllTheWidgetsAsChildren():void {
 public function testContainerShouldRespondToSessionCreateSuccessEvent():void {
 	containerShouldRespondToAppEvent(AppEvent.SESSION_CREATE_SUCCESS, "onSessionCreateSuccess",function(container:PartialHemlockContainerMock):void {
 		var client_mock:MockXMPPClient = container.client as MockXMPPClient;
-		client_mock.expects("joinChatRoom").times(1)
+		client_mock.expects("joinRoom").times(1)
 	});
 }
 

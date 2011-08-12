@@ -31,20 +31,20 @@ package tests.com.mintdigital.mocks {
 		    record("logout");
 		};
 		
-        public function leaveChatRoom(jid:JID): void {
-			record("leaveChatRoom", jid);
+        public function leaveRoom(jid:JID): void {
+			record("leaveRoom", jid);
 		};
 
-		public function joinChatRoom(jid:JID) : void {
-			record("joinChatRoom", jid);
+		public function joinRoom(jid:JID) : void {
+			record("joinRoom", jid);
 		};
 		
-		public function createChatRoom(roomType:String, domain:String, key:String=null):void {
-			record("createChatRoom", roomType, domain, key);
+		public function createRoom(roomType:String, domain:String, key:String=null):void {
+			record("createRoom", roomType, domain, key);
 		};
 		
-		public function configureChatRoom(toJID:JID, configOptions:Object=null):void {
-			record("configureChatRoom", toJID, configOptions);
+		public function configureRoom(toJID:JID, configOptions:Object=null):void {
+			record("configureRoom", toJID, configOptions);
 		};
 	
 		public function sendMessage(jid:JID, messageBody:String) : void {
@@ -63,8 +63,8 @@ package tests.com.mintdigital.mocks {
             record("sendPresence", roomJID, options);
 		};
 		
-		public function discoChatRooms():void {
-			record("discoChatRooms");
+		public function discoRooms():void {
+			record("discoRooms");
 		};
 		
 		public function discoUsers(roomJID:JID):void {
@@ -137,8 +137,7 @@ package tests.com.mintdigital.mocks {
 		public function get dispatcher():HemlockDispatcher {
 			return HemlockDispatcher.getInstance();
 		}
-		
-		public function handleConfigurationResponse(packet:IQ):void {};
+
 		public function handleRoomDisco(packet:IQ):void {};
 		public function handleUserDisco(packet:IQ):void {};
 	}

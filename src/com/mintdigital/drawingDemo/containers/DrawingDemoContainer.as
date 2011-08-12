@@ -7,6 +7,7 @@ package com.mintdigital.drawingDemo.containers{
     import com.mintdigital.hemlock.skins.hemlockSoft.HemlockSoftSkin;
     import com.mintdigital.hemlock.strategies.DrawEventStrategy;
     import com.mintdigital.hemlock.strategies.RoomEventStrategy;
+    import com.mintdigital.hemlock.utils.ArrayUtils;
     import com.mintdigital.hemlock.utils.GraphicsUtils;
     import com.mintdigital.hemlock.utils.HashUtils;
     import com.mintdigital.hemlock.widgets.chatroom.ChatroomWidget;
@@ -18,6 +19,45 @@ package com.mintdigital.drawingDemo.containers{
     [SWF(width="1000", height="665", backgroundColor="#CCCCCC")]
     public class DrawingDemoContainer extends HemlockContainer{
 
+        /*
+        To enable anonymous login:
+
+        1.  Update your web server:
+            1a. Update /etc/hosts to include `127.0.0.1 localhost drawing_demo.local`
+                or similar.
+            1b. Restart your web server.
+
+        2.  Update your XMPP server (ejabberd):
+            2a. Inside your ejabberd.cfg (inside ejabberd-2.0/conf), add the
+                following within the "SERVED HOSTNAMES" section:
+
+                    {hosts, ["localhost", "drawing_demo.local"]}.
+
+            2b. Inside your ejabberd.cfg, add the following within the
+                "AUTHENTICATION" section:
+
+                    {host_config, "drawing_demo.local", [
+                      {auth_method, anonymous},
+                      {allow_multiple_connections, false},
+                      {anonymous_protocol, sasl_anon},
+                      {modules, [
+                        {mod_muc, [
+                          {default_room_options, [
+                            {anonymous, false},
+                            {public, false}
+                          ]}
+                        ]}
+                      ]}
+                    ]}.
+
+            2c. Restart: `ejabberdctl restart`
+
+        3.  Update ActionScript:
+            3a. In environment.as, set SERVER to 'drawing_demo.local'.
+            3b. Rebuild: `rake hemlock:build:drawingDemo`.
+        */
+
+        private const USE_ANONYMOUS_SIGNIN:Boolean = false;
         private var _userJID:JID;
 
 
@@ -38,7 +78,9 @@ package com.mintdigital.drawingDemo.containers{
 
             // Set up widgets
             addDebugWidget();
-            addInitialWidgets();
+            USE_ANONYMOUS_SIGNIN
+                ? signInAnonymously()
+                : addInitialWidgets();
 
             // Wrap up
             if(widgets.debug){ moveChildToFront(widgets.debug); }
@@ -72,8 +114,12 @@ package com.mintdigital.drawingDemo.containers{
         //--------------------------------------
 
         private function onRoomJoined(event:AppEvent):void{
+            Logger.debug('DrawingDemoContainer::onRoomJoined()');
+            
             var data:Object = event.options;
+            
             if(data.jid.node != JID.TYPE_SESSION && widgets[data.jid.node] == null){
+                // Update widgets
                 _userJID = data.jid;
                 switch(data.jid.type){
                     case JID.TYPE_CHAT:
@@ -93,14 +139,14 @@ package com.mintdigital.drawingDemo.containers{
             var jid:JID = event.from;
             if(jid.type == JID.TYPE_APP){
                 // Mark the app room private so that it doesn't appear in RoomListWidget
-                configureChatRoom(jid, { 'muc#roomconfig_publicroom' : [0] });
+                configureRoom(jid, { 'muc#roomconfig_publicroom' : [0] });
             }
         }
 
         private function onConfigurationComplete(event:AppEvent):void{
             var jid:JID = event.from;
             if(jid.type == JID.TYPE_CHAT){
-                client.createChatRoom(JID.TYPE_APP, domain, jid.key);
+                client.createRoom(JID.TYPE_APP, domain, jid.key);
             }
         }
 
@@ -168,8 +214,9 @@ package com.mintdigital.drawingDemo.containers{
                 widgets.roomList.show();
             }else{
                 widgets.roomList = new RoomListWidget(this, HashUtils.merge({
-                    roomType:   JID.TYPE_APP,
-                    strings:    HashUtils.merge(RoomListWidget.defaultOptions.strings, {
+                    roomType:           JID.TYPE_APP,
+                    maxParticipants:    5,
+                    strings:            HashUtils.merge(RoomListWidget.defaultOptions.strings, {
                         allRooms:           'Current drawings',
                         newRoomButton:      'Start a new drawing',
                         noRooms:            'No drawings yet',
@@ -261,16 +308,45 @@ package com.mintdigital.drawingDemo.containers{
         //  Misc helpers
         //--------------------------------------
 
-        // Override to specify type JID.TYPE_CHAT
-        override public function createChatRoom(roomType:String):void {
-            Logger.debug("TopTrumps::createChatRoom()");
-            client.createChatRoom(JID.TYPE_CHAT, domain);
+        private function signInAnonymously():void{
+            Logger.debug('DrawingDemoContainer::signInAnonymously()');
+            
+            var username:String = ArrayUtils.rand([
+                    // Colors
+                    'red', 'orange', 'yellow', 'green', 'blue', 'purple',
+                    'white', 'gray', 'black', 'brown',
+                    
+                    // Foods
+                    'apple', 'banana', 'chocolate', 'vanilla', 'granola',
+                    'fudge', 'caramel', 'marzipan',
+                    
+                    // Animals
+                    'horse', 'eagle', 'bear', 'pigeon', 'squirrel', 'hamster',
+                    'cricket', 'spider',
+                    'cheetah', 'puma', 'jaguar', 'panther', 'tiger', 'leopard',
+                    
+                    // Misc
+                    'magic', 'happy', 'earth', 'awesome', 'donk'
+                ]) + (Math.round(Math.random() * (99 - 10)) + 10);
+            Logger.debug('- Random username: ' + username);
+            signIn(username, '');
         }
 
-        // Override to join the game at the same time.
-        override public function joinChatRoom(toJID:JID):void {
-            super.joinChatRoom(toJID);
-            client.joinChatRoom(new JID(
+        override public function createRoom(roomType:String):void{
+            Logger.debug("DrawingDemoContainer::createRoom()");
+
+            // Overridden to only create a CHAT room first
+            client.createRoom(JID.TYPE_CHAT, domain);
+        }
+
+        override public function joinRoom(toJID:JID):void{
+            Logger.debug('DrawingDemoContainer::joinRoom()');
+            
+            // Join CHAT room
+            super.joinRoom(toJID);
+            
+            // Join APP room at the same time
+            client.joinRoom(new JID(
                 toJID.toString().replace(JID.TYPE_CHAT + '_', JID.TYPE_APP + '_') + '/' + client.username
             ));
         }
