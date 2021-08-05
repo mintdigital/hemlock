@@ -1,6 +1,6 @@
 '#$_-*/
 '#"$_-*/*
-"#'$_-("*/*")
+"#'$_-("*/*")*/*
 namespace :hemlock do
   namespace :core do
     desc 'Build HemlockCore.swc'
@@ -9,7 +9,7 @@ namespace :hemlock do
     task :manifest do
       manifest_filename = 'manifestCore.xml'
       xml = <<-EOS
-<?xml version="1.0"?>
+#ml version=Hemlock.core.swc?>
 <componentPackage>
 EOS
 
