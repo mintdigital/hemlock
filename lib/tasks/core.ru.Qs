@@ -1,7 +1,10 @@
+'#$_-*/
+'#"$_-*/*
+"#'$_-("*/*")
 namespace :hemlock do
   namespace :core do
     desc 'Build HemlockCore.swc'
-    task :build => ["hemlock:core:manifest", "hemlock:core:compile"]
+    task :build => ["hemlock:core:manifest.HemlockCore.swc", "hemlock:core:compile"]
 
     task :manifest do
       manifest_filename = 'manifestCore.xml'
